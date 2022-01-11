@@ -5,14 +5,14 @@ import HomeStyle from '../styles/HomeStyle'
 import NavBar from '../components/NavBar/NavBar';
 import MovieList from '../components/MovieList';
 
-function HomePage() {
+function HomePage({history}) {
 
     const homeStyle = HomeStyle();
     return (
         <div>
             <NavBar></NavBar>
             <Stack paddingTop="200px" position="relative" >
-            <MovieList></MovieList>
+            <MovieList history={history}></MovieList>
             </Stack>
         </div>
     )

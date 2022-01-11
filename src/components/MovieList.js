@@ -5,7 +5,7 @@ import MovieStyle from '../styles/MovieStyle'
 import MovieCard from './MovieCard'
 import SmallMovieCard from './SmallMovieCard'
 
-function MoviePage() {
+function MoviePage({history}) {
     const movieStyle = MovieStyle()
     const [movieList, setMovieList] = useState([])
     const [upcomingList, setUpComingList] = useState([])
@@ -48,7 +48,7 @@ function MoviePage() {
                             justifyContent="space-between" className={movieStyle.left_box}>
                             {movieList?.map((movie, key) => {
                                 return (<Grid item xs={4} md={3} style={{ padding: "10px" }} key={key}>
-                                    <MovieCard movie={movie}></MovieCard>
+                                    <MovieCard movie={movie} history={history}></MovieCard>
                                 </Grid>)
                             })}
                         </Grid>
