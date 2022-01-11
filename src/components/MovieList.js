@@ -42,8 +42,8 @@ function MoviePage() {
             <div>
                 <Grid container direction="row"
                     justifyContent="space-between"
-                    style={{ margin: "10px 0" }}>
-                    <Grid style={{ maxWidth: "750px", }} item xs={12} md={9} >
+                    style={{ margin: "10px 0"}}>
+                    <Grid style={{ maxWidth: "750px", }}  item xs={12} md={8.5} >
                         <Grid container direction="row"
                             justifyContent="space-between" className={movieStyle.left_box}>
                             {movieList?.map((movie, key) => {
@@ -63,7 +63,7 @@ function MoviePage() {
                         </Stack>
 
                     </Grid>
-                    <Grid item xs={12} md={3}>
+                    <Grid  item xs={12} md={3.5}>
                         <div className={movieStyle.right_box}>
                             <div className={movieStyle.upcoming_box_title}>Up Coming</div>
                             <div className={movieStyle.upcoming_box}>

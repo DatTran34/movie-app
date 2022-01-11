@@ -4,14 +4,10 @@ import { getImageMovie } from '../axios/MovieResquest';
 import MovieCardStyle from '../styles/components/MovieCardStyle';
 function MovieCard({ movie }) {
     const movieCardStyle = MovieCardStyle()
-    // if(movie.title === undefined)
-    // {
-    //     console.log(movie)
-    //     console.log(movie.title)
-    // }
-    // else{
-    //     console.log(movie.name)
-    // }
+    
+    const handleDate = (date) => {
+            //movie.first_air_date
+    }
 
     return (
         <div className={movieCardStyle.box}>
@@ -26,10 +22,10 @@ function MovieCard({ movie }) {
                     <div>rating</div>
                     {movie.media_type === "movie" ?
                         (<><div className={movieCardStyle.title}>{movie.title}</div>
-                            <div className={movieCardStyle.year}>{movie.release_date}</div>
+                            <div className={movieCardStyle.year}>{movie.release_date.slice(0,4)}</div>
                         </>) :
                         (<><div className={movieCardStyle.title}>{movie.name}</div>
-                        <div className={movieCardStyle.year}>{movie.first_air_date}</div>
+                        <div className={movieCardStyle.year}>{movie.first_air_date.slice(0,4)}</div>
                         </>)}
                     
                 </Stack>

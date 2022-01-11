@@ -19,7 +19,7 @@ const MovieStyle = makeStyles((theme) => ({
         
     },
     left_box: {
-        background: "#2D375A",
+       
         borderRadius: "10px"
     },
     right_box: {
@@ -29,14 +29,13 @@ const MovieStyle = makeStyles((theme) => ({
         alignItems: "flex-start",
         justifyContent: "center",
         padding: "20px",
-        borderRadius: "10px"
+        borderRadius: "10px",
     },
     upcoming_box: {
         overflow: "auto",
         width: "100%",
-        maxWidth: "360px",
         display: "flex",
-        height: "400px"
+        height: "500px"
     },
     overlay_inner:{
         margin:"auto",
