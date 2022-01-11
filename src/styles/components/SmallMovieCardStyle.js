@@ -1,7 +1,7 @@
 import { makeStyles } from "@mui/styles";
 const MovieCardStyle = makeStyles((theme) => ({
     img:{
-        width: "40px"
+        width: "60px"
     },
     year:{
         color:"#F6C700",
