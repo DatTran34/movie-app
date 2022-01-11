@@ -128,7 +128,7 @@ function NavBar() {
                                         [navbarStyle.row]: true
                                     })}>
                                     {genres.map((genre, key) => {
-                                        return <Grid className={navbarStyle.navbar_panel_item} item xs={4}>{genre.name}</Grid>
+                                        return <Grid className={navbarStyle.navbar_panel_item} item xs={4} key={key}>{genre.name}</Grid>
                                     })}
 
                                 </Grid>

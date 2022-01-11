@@ -11,7 +11,9 @@ function HomePage() {
     return (
         <div>
             <NavBar></NavBar>
+            <Stack paddingTop="200px" position="relative" >
             <MovieList></MovieList>
+            </Stack>
         </div>
     )
 }
