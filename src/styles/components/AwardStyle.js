@@ -1,7 +1,17 @@
 import { makeStyles } from "@mui/styles";
 
 const AwardStyle = makeStyles((theme) => ({
+    root: {
+
+    },
+    title: {
+        color: "#ffffff"
+    },
     panel: {
+        backgroundColor: "#2D375A",
+        padding: "10px",
+    },
+    card: {
         position: "relative",
         display: "flex",
         flexDirection: "column",
@@ -46,7 +56,7 @@ const AwardStyle = makeStyles((theme) => ({
         height: "45px",
         background: "#05103A",
     },
-    title: {
+    content: {
         zIndex: "2",
     },
     award_name:{

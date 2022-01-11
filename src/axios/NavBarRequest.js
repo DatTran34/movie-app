@@ -3,7 +3,6 @@ import React from "react";
 
 export const getGenres = async () => {
   try {
-    console.log(process.env.API_KEY)
     const response = await axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`);
     return response.data;
   } catch (error) {

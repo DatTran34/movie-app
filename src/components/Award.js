@@ -1,27 +1,52 @@
-import { Stack } from '@mui/material'
-import React from 'react'
+import { Grid, Stack } from '@mui/material'
+import React, { useEffect, useState } from 'react'
 import awardImg from '../images/BAFTA.png'
 import circle from '../images/circle.png'
 import AwardStyle from "../styles/components/AwardStyle";
-
-function Award() {
+import {getMovieAwards} from "../axios/ImdbRequest"
+function Award({ImdbID}) {
     const awardStyle = AwardStyle();
+    const [awardList, setAwardList] = useState([])
+    useEffect(() => {
+      getMovieAwards(ImdbID)
+      .then((result) => {
+
+        setAwardList(result.results)
+      },
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      (error) => {
+        console.log(error)
+      })
+      .catch((e) => { console.log(e) })
+  }, [])
+
     return (
-      <Stack className={awardStyle.panel}>
-        <Stack className={awardStyle.title}>
-          <Stack className={awardStyle.award_name}>Oscars</Stack>
-          <Stack className={awardStyle.year}>2019</Stack>
-          <Stack className={awardStyle.event_name}>
-            Academy of Science Fiction, Fantasy & Horror Films, USA
-          </Stack>
-          <Stack className={awardStyle.award}>
-            Best Comic-to-Film Motion Picture
-          </Stack>
-        </Stack>
-        <Stack className={awardStyle.blur}></Stack>
-        <Stack className={awardStyle.hide}></Stack>
-        <img className={awardStyle.trophy} src={awardImg} />
-        <img className={awardStyle.circle} src={circle} />
+      <Stack direction="column">
+        <Stack className={awardStyle.title}>Awards and Nominations</Stack>
+        <Grid container spacing={2} className={awardStyle.panel}>
+          {awardList.filter(award => award.type === "Winner").map(award => (
+            <Grid item xs={2}>
+              <Stack className={awardStyle.card}>
+                <Stack className={awardStyle.content}>
+                  <Stack className={awardStyle.award_name}>{award.award_name}</Stack>
+                  <Stack className={awardStyle.year}>{award.year}</Stack>
+                  <Stack className={awardStyle.event_name}>
+                    {award.event_name}
+                  </Stack>
+                  <Stack className={awardStyle.award}>
+                    {award.award}
+                  </Stack>
+                </Stack>
+                <Stack className={awardStyle.blur}></Stack>
+                <Stack className={awardStyle.hide}></Stack>
+                <img className={awardStyle.trophy} src={awardImg} />
+                <img className={awardStyle.circle} src={circle} />
+              </Stack>
+            </Grid>
+          ))}
+        </Grid>
       </Stack>
     );
 }

@@ -68,7 +68,7 @@ function NavBar() {
     });
 
     return (
-        <div >
+        <Stack style={{position: "fixed", zIndex: "50", width: "100%"}}>
             <Grid container
                 className={navbarStyle.navbar_container}
                 direction="row"
@@ -223,8 +223,7 @@ function NavBar() {
                     </div>
                 </Grid>
             </Grid>
-
-        </div>
+        </Stack>
     )
 }
 
