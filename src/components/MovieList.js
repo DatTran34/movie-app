@@ -1,33 +1,37 @@
 import { Grid, Stack } from '@mui/material'
 import { React, useEffect, useState } from 'react'
-import { getTrendingMovies, getUpComingMovies } from '../axios/MovieResquest'
+import { getMovies, getTrendingMovies, getUpComingMovies } from '../axios/MovieResquest'
 import MovieStyle from '../styles/MovieStyle'
 import MovieCard from './MovieCard'
-import SmallMovieCard from './SmallMovieCard'
 
-function MoviePage() {
+function MovieList({ kindOfSearch }) {
     const movieStyle = MovieStyle()
     const [movieList, setMovieList] = useState([])
-    const [upcomingList, setUpComingList] = useState([])
-
+    const [isLoading, setIsLoading] = useState(true)
     const [page, setPage] = useState(1)
     useEffect(() => {
-        getTrendingMovies(page).then((data) => {
-            setMovieList(data.results)
+        getMovies(kindOfSearch,page).then((data) => {
+            if(data.results[0].media_type === undefined)
+            {
+                //console.log(kindOfSearch.title)
+                if(kindOfSearch.title === "genre" || kindOfSearch.title === "year"){
+                    console.log(kindOfSearch.title)
+                    setMovieList(data.results.map((movie) => { return { media_type: "movie", ...movie } }))
+                }
+                else{
+                    setMovieList(data.results.map((movie) => { return { media_type: kindOfSearch.title, ...movie } }))
+                }
+              
+            }
+            else{
+                setMovieList(data.results)
+            }
+            setIsLoading(false)
         }).catch((e) => {
             console.error(e)
         })
-    }, [page])
+    }, [kindOfSearch,page])
 
-    useEffect(() => {
-        getUpComingMovies().then((data) => {
-            setUpComingList(data.results)
-        }).catch((e) => {
-            console.error(e)
-        })
-    }, [])
-
-    console.log(upcomingList)
     const handlePrevPage = () => {
         setPage(page - 1)
     }
@@ -36,55 +40,30 @@ function MoviePage() {
         setPage(page + 1)
     }
     return (
-        <div className={movieStyle.container}>
-            <div className={movieStyle.header}>Popular TV Shows</div>
+        <> {isLoading === true ? (<>Loading</>) : (<>
+            <div className={movieStyle.header}>{kindOfSearch.title} {kindOfSearch.content}</div>
             <div className={movieStyle.description}>The top trending movies which have high ratings</div>
-            <div>
-                <Grid container direction="row"
-                    justifyContent="space-between"
-                    style={{ margin: "10px 0"}}>
-                    <Grid style={{ maxWidth: "750px", }}  item xs={12} md={8.5} >
-                        <Grid container direction="row"
-                            justifyContent="space-between" className={movieStyle.left_box}>
-                            {movieList?.map((movie, key) => {
-                                return (<Grid item xs={4} md={3} style={{ padding: "10px" }} key={key}>
-                                    <MovieCard movie={movie}></MovieCard>
-                                </Grid>)
-                            })}
-                        </Grid>
-                        <Stack direction="row"
-                            justifyContent="center"
-                            alignItems="center"
-                            spacing={1}
-                            className={movieStyle.pageButton}>
-                            <div onClick={handlePrevPage}>Previous</div>
-                            <div>Page {page}</div>
-                            <div onClick={handleNextPage}>Next</div>
-                        </Stack>
 
-                    </Grid>
-                    <Grid  item xs={12} md={3.5}>
-                        <div className={movieStyle.right_box}>
-                            <div className={movieStyle.upcoming_box_title}>Up Coming</div>
-                            <div className={movieStyle.upcoming_box}>
-                                <Stack direction="column"
-                                    justifyContent="center"
-                                    alignItems="flex-start"
-                                    spacing={1}
-                                    className={movieStyle.overlay_inner}
-                                >
-                                    {upcomingList?.map((movie, key) => {
-                                        return (<SmallMovieCard movie={movie} key={key}></SmallMovieCard>)
-                                    })}
-                                </Stack>
-                            </div>
-                        </div>
-                    </Grid>
-                </Grid>
-            </div>
+            <Grid container direction="row"
+                justifyContent="space-between" className={movieStyle.left_box}>
+                {movieList?.map((movie, key) => {
+                    return (<Grid item xs={4} md={3} style={{ padding: "10px" }} key={key}>
+                        <MovieCard movie={movie}></MovieCard>
+                    </Grid>)
+                })}
+            </Grid>
+            <Stack direction="row"
+                justifyContent="center"
+                alignItems="center"
+                spacing={1}
+                className={movieStyle.pageButton}>
+                <div onClick={handlePrevPage}>Previous</div>
+                <div>Page {page}</div>
+                <div onClick={handleNextPage}>Next</div>
+            </Stack>
 
-        </div>
+        </>)}</>
     )
 }
 
-export default MoviePage
+export default MovieList

@@ -7,7 +7,8 @@ import { getGenres, searchData } from '../../axios/NavBarRequest';
 import PersonIcon from '@mui/icons-material/Person';
 import TheatersIcon from '@mui/icons-material/Theaters';
 import TvIcon from '@mui/icons-material/Tv';
-function NavBar() {
+function NavBar({setKindOfSearch}) {
+
     const MAX_SEARCH_ELEMENTS = 8;
     const navbarStyle = NavBarStyle();
     const [isMoviesShown, setIsMoviesShown] = useState(false);
@@ -16,8 +17,6 @@ function NavBar() {
     const [isYearShown, setIsYearShown] = useState(false);
     const [isPopularPeopleShown, setIsPopularPeopleShown] = useState(false);
     const [isSearchShown, setIsSearchShown] = useState(false);
-    const inputRef = useRef();
-
 
     const navbarMoviesButtonStyle = classNames({
         [navbarStyle.navbar_button_hover]: isMoviesShown,
@@ -45,7 +44,7 @@ function NavBar() {
         getGenres().then((data) => {
             setGenres(data.genres)
         }).catch((e) => { console.log(e) })
-
+        handleYearInNavBar()
     }, [])
 
     // ================== SEARCH ==============
@@ -55,7 +54,6 @@ function NavBar() {
             setIsSearchShown(true)
             searchData(e.target.value).then((data) => {
                 setSearchList(data.results)
-                console.log(data.results)
             }).catch((e) => { console.log(e) })
         }
         else {
@@ -67,6 +65,26 @@ function NavBar() {
         [navbarStyle.navbar_input]: true
     });
 
+
+    //============== GENERATE THE YEAR ===============
+    const [yearArray,setYearArray] = useState([])
+    const handleYearInNavBar = () => {
+        var THE_NUMBER_OF_YEAR = 18
+        var current_year = new Date().getFullYear()
+        var year_array_ = new Array();
+        for(var i = 0; i < THE_NUMBER_OF_YEAR; i++)
+        {
+            year_array_.push(current_year - 1)
+            current_year = current_year - 1
+        }
+        setYearArray(year_array_)
+    }
+
+    // ============== HANDLE SEARCHING TYPE OF MOVIE =============
+    const handleSearchMovies = (a,b) => {
+        setKindOfSearch({title:a,content:b})
+    }
+    
     return (
         <Stack style={{position: "fixed", zIndex: "50", width: "100%"}}>
             <Grid container
@@ -91,17 +109,16 @@ function NavBar() {
                                         [navbarStyle.navbar_panel]: true,
                                         [navbarStyle.column]: true
                                     })}>
-                                    <div className={navbarStyle.navbar_panel_item}>Popular</div>
-                                    <div className={navbarStyle.navbar_panel_item}>Now Playing</div>
-                                    <div className={navbarStyle.navbar_panel_item}>Up Coming</div>
-                                    <div className={navbarStyle.navbar_panel_item}>Top Rated</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("movie","popular")}}>Popular</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("movie","now_playing")}}>Now Playing</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("movie","upcoming")}}>Up Coming</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("movie","top_rated")}}>Top Rated</div>
                                 </Stack>
                             )}</div>
                         <div onMouseEnter={() => setTVShowsShown(true)}
                             onMouseLeave={() => setTVShowsShown(false)}>
                             <div className={navbarTVShowsButtonStyle}>Tv Shows</div>
                             {isTVShowsShown && (
-
                                 <Stack direction="column"
                                     justifyContent="center"
                                     alignItems="center"
@@ -109,10 +126,10 @@ function NavBar() {
                                         [navbarStyle.navbar_panel]: true,
                                         [navbarStyle.column]: true
                                     })}>
-                                    <div className={navbarStyle.navbar_panel_item}>Popular</div>
-                                    <div className={navbarStyle.navbar_panel_item}>Airing Today</div>
-                                    <div className={navbarStyle.navbar_panel_item}>On TV</div>
-                                    <div className={navbarStyle.navbar_panel_item}>Top Rated</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("tv","popular")}}>Popular</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("tv","airing_today")}}>Airing Today</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("tv","on_the_air")}}>On The Air</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("tv","top_rated")}}>Top Rated</div>
                                 </Stack>
                             )}</div>
                         <div onMouseEnter={() => setIsGenresShown(true)}
@@ -128,7 +145,7 @@ function NavBar() {
                                         [navbarStyle.row]: true
                                     })}>
                                     {genres.map((genre, key) => {
-                                        return <Grid className={navbarStyle.navbar_panel_item} item xs={4} key={key}>{genre.name}</Grid>
+                                        return <Grid className={navbarStyle.navbar_panel_item} item xs={4} key={key} onClick={()=>{handleSearchMovies("genre",`${genre.id + "_" + genre.name}`)}}>{genre.name}</Grid>
                                     })}
 
                                 </Grid>
@@ -145,15 +162,9 @@ function NavBar() {
                                         [navbarStyle.navbar_panel]: true,
                                         [navbarStyle.row]: true
                                     })}>
-                                    <Grid className={navbarStyle.navbar_panel_item} item xs={4}>2021</Grid>
-                                    <Grid className={navbarStyle.navbar_panel_item} item xs={4}>2021</Grid>
-                                    <Grid className={navbarStyle.navbar_panel_item} item xs={4}>2021</Grid>
-                                    <Grid className={navbarStyle.navbar_panel_item} item xs={4}>2021</Grid>
-                                    <Grid className={navbarStyle.navbar_panel_item} item xs={4}>2021</Grid>
-                                    <Grid className={navbarStyle.navbar_panel_item} item xs={4}>2021</Grid>
-                                    <Grid className={navbarStyle.navbar_panel_item} item xs={4}>2021</Grid>
-                                    <Grid className={navbarStyle.navbar_panel_item} item xs={4}>2021</Grid>
-                                    <Grid className={navbarStyle.navbar_panel_item} item xs={4}>2021</Grid>
+                                    {yearArray.map((year,key)=>{
+                                        return ( <Grid className={navbarStyle.navbar_panel_item} item xs={4} key={key} onClick={()=>{handleSearchMovies("year",year)}}>{year}</Grid>)
+                                    })}
                                 </Grid>
                             )}</div>
                         <div onMouseEnter={() => setIsPopularPeopleShown(true)}
@@ -167,7 +178,7 @@ function NavBar() {
                                         [navbarStyle.navbar_panel]: true,
                                         [navbarStyle.column]: true
                                     })}>
-                                    <div className={navbarStyle.navbar_panel_item}>Popular People</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("people","popular_people")}}>Popular People</div>
                                 </Stack>
                             )}</div>
                     </Stack>

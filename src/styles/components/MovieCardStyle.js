@@ -22,12 +22,13 @@ const MovieCardStyle = makeStyles((theme) => ({
         height:"245px",
         borderRadius:"10px"
     },
-    rating:{
-        position: "absolute",
-        bottom:"0",
+    content:{
+        paddingTop:"1rem",
+        fontSize:"14px",
+        fontWeight:"600"
     },
     title:{
-        fontSize:"14px",
+        
         color: "#ffffff"
     },
     time:{
