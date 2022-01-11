@@ -1,5 +1,4 @@
 import { makeStyles } from "@mui/styles";
-import logo from "../../images/poster.jpg";
 const MovieCardStyle = makeStyles((theme) => ({
     box : {
         height:"225px",
@@ -25,7 +24,8 @@ const MovieCardStyle = makeStyles((theme) => ({
     content:{
         position: "absolute",
         bottom:"0",
-        height: "40%",
+        minWidth:"150px",
+        minHeight:"110px",
         background: "linear-gradient(to bottom, transparent 0%,  rgba(5, 16, 60) 60%, rgba(5, 16, 58) 100%)",
         fontSize:"12px",
         fontWeight:"700",

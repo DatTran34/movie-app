@@ -1,26 +1,37 @@
 import { Stack } from '@mui/material';
-import React from 'react'
-import poster from "../images/poster.jpg";
+import { React, useEffect, useState } from 'react'
+import { getImageMovie } from '../axios/MovieResquest';
 import MovieCardStyle from '../styles/components/MovieCardStyle';
-function MovieCard() {
+function MovieCard({ movie }) {
     const movieCardStyle = MovieCardStyle()
+    // if(movie.title === undefined)
+    // {
+    //     console.log(movie)
+    //     console.log(movie.title)
+    // }
+    // else{
+    //     console.log(movie.name)
+    // }
+
     return (
         <div className={movieCardStyle.box}>
             <div className={movieCardStyle.imdb_rating_box}>IMBD 8.9</div>
-            <img  className={movieCardStyle.img} src={poster} />
+            <img className={movieCardStyle.img} src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`} />
             <div className={movieCardStyle.content}>
                 <Stack direction="column"
-                    justifyContent="center"
+                    justifyContent="flex-end"
                     alignItems="center"
+                    style={{minHeight:"110px",}}
                     spacing={1}>
                     <div>rating</div>
-                    <div className={movieCardStyle.title}>Spider-Man: No Way Home</div>
-                    <Stack direction="row"
-                        justifyContent="space-between"
-                        >
-                            <div  className={movieCardStyle.year}>2021</div>
-                            <div  className={movieCardStyle.time}>2h28m</div>
-                    </Stack>
+                    {movie.media_type === "movie" ?
+                        (<><div className={movieCardStyle.title}>{movie.title}</div>
+                            <div className={movieCardStyle.year}>{movie.release_date}</div>
+                        </>) :
+                        (<><div className={movieCardStyle.title}>{movie.name}</div>
+                        <div className={movieCardStyle.year}>{movie.first_air_date}</div>
+                        </>)}
+                    
                 </Stack>
             </div>
         </div>
