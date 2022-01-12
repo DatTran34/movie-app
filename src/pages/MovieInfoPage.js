@@ -38,6 +38,7 @@ function CircularProgressWithLabel(props) {
   }
 
 function MovieInfoPage({ match, history }) {
+    const [kindOfSearch, setKindOfSearch] = useState({ title: "movie", content: "popular" })
     const movieInfoStyle = MovieInfoStyle()
     const [tmdbMovieInfo, setTmdbMovieInfo] = useState([]);
     const [rapidMovieInfo, setRapidMovieInfo] = useState([]);
@@ -53,6 +54,7 @@ function MovieInfoPage({ match, history }) {
         return `${rhours}h ${rminutes}m`
     }
     useEffect(() => {
+        console.log(match)
         getMovieInfo(match.params.id).then((data) => {
             setTmdbMovieInfo(data)
             console.log(data)
@@ -76,7 +78,7 @@ function MovieInfoPage({ match, history }) {
 
     return (
         <>
-            <NavBar ></NavBar>
+           <NavBar setKindOfSearch={setKindOfSearch} history={history}></NavBar>
             <Stack paddingTop="200px" position="relative" >
                 {!loading ? (
                     <Stack>Loading..</Stack>

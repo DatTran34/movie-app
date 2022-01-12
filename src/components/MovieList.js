@@ -16,7 +16,6 @@ function MovieList({ kindOfSearch,history}) {
             {
                 //console.log(kindOfSearch.title)
                 if(kindOfSearch.title === "genre" || kindOfSearch.title === "year"){
-                    console.log(kindOfSearch.title)
                     setMovieList(data.results.map((movie) => { return { media_type: "movie", ...movie } }))
                 }
                 else{

@@ -7,17 +7,20 @@ import SmallMovieCard from '../components/SmallMovieCard';
 import { getTrendingMovies, getUpComingMovies } from '../axios/MovieResquest'
 import MovieStyle from '../styles/MovieStyle';
 
-function HomePage({history}) {
+function SearchPage({ match, history }) {
     const movieStyle = MovieStyle()
     const [upcomingList, setUpComingList] = useState([])
-    const [kindOfSearch, setKindOfSearch] = useState({title:"movie",content:"popular"})
+    const [kindOfSearch, setKindOfSearch] = useState({ title: "movie", content: "popular" })
+
     useEffect(() => {
         getUpComingMovies().then((data) => {
             setUpComingList(data.results)
         }).catch((e) => {
             console.error(e)
         })
+        setKindOfSearch({ title: match.params.title, content: match.params.content })
     }, [])
+
     const homeStyle = HomeStyle();
     return (
         <div>
@@ -56,4 +59,4 @@ function HomePage({history}) {
     )
 }
 
-export default HomePage
+export default SearchPage

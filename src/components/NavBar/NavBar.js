@@ -7,7 +7,7 @@ import { getGenres, searchData } from '../../axios/NavBarRequest';
 import PersonIcon from '@mui/icons-material/Person';
 import TheatersIcon from '@mui/icons-material/Theaters';
 import TvIcon from '@mui/icons-material/Tv';
-function NavBar({setKindOfSearch}) {
+function NavBar({setKindOfSearch,history}) {
 
     const MAX_SEARCH_ELEMENTS = 8;
     const navbarStyle = NavBarStyle();
@@ -83,6 +83,7 @@ function NavBar({setKindOfSearch}) {
     // ============== HANDLE SEARCHING TYPE OF MOVIE =============
     const handleSearchMovies = (a,b) => {
         setKindOfSearch({title:a,content:b})
+        history.push(`/${a}/${b}`)
     }
     
     return (
@@ -178,7 +179,7 @@ function NavBar({setKindOfSearch}) {
                                         [navbarStyle.navbar_panel]: true,
                                         [navbarStyle.column]: true
                                     })}>
-                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("people","popular_people")}}>Popular People</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("person","popular_people")}}>Popular People</div>
                                 </Stack>
                             )}</div>
                     </Stack>
