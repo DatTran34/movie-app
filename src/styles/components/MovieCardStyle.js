@@ -3,7 +3,8 @@ const MovieCardStyle = makeStyles((theme) => ({
     box : {
         height:"245px",
         width:"165px",
-        position: "relative"
+        position: "relative",
+        cursor:"pointer"
     },
     imdb_rating_box:{
         position: "absolute",

@@ -41,7 +41,7 @@ function HomePage({history}) {
                                         className={movieStyle.overlay_inner}
                                     >
                                         {upcomingList?.map((movie, key) => {
-                                            return (<SmallMovieCard movie={movie} key={key}></SmallMovieCard>)
+                                            return (<SmallMovieCard movie={movie} history={history} key={key}></SmallMovieCard>)
                                         })}
                                     </Stack>
                                 </div>

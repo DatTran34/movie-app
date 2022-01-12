@@ -7,7 +7,28 @@ import { getGenres, searchData } from '../../axios/NavBarRequest';
 import PersonIcon from '@mui/icons-material/Person';
 import TheatersIcon from '@mui/icons-material/Theaters';
 import TvIcon from '@mui/icons-material/Tv';
-function NavBar({setKindOfSearch,history}) {
+
+function SearchCard({ history, item, className_ }) {
+    const navbarStyle = NavBarStyle()
+    return <div className={className_} onClick={() => history.push(`/movie-info/${item.id}`)}>
+        {item.media_type === "movie" ? (
+            <>
+                <TheatersIcon className={navbarStyle.item} />
+                <div className={navbarStyle.item}>{item.title}</div>
+                <div className={navbarStyle.item_span}>Movies</div></>) :
+            (<>{item.media_type === "tv" ? (
+                <><TvIcon className={navbarStyle.item} />
+                    <div className={navbarStyle.item}>{item.name}</div>
+                    <div className={navbarStyle.item_span}>TV Shows</div></>) : (
+                <><PersonIcon className={navbarStyle.item} />
+                    <div className={navbarStyle.item}>{item.name}</div>
+                    <div className={navbarStyle.item_span}>Person</div></>
+            )}</>)}
+    </div>
+}
+
+
+function NavBar({ setKindOfSearch, history }) {
 
     const MAX_SEARCH_ELEMENTS = 8;
     const navbarStyle = NavBarStyle();
@@ -67,13 +88,12 @@ function NavBar({setKindOfSearch,history}) {
 
 
     //============== GENERATE THE YEAR ===============
-    const [yearArray,setYearArray] = useState([])
+    const [yearArray, setYearArray] = useState([])
     const handleYearInNavBar = () => {
         var THE_NUMBER_OF_YEAR = 18
         var current_year = new Date().getFullYear()
         var year_array_ = new Array();
-        for(var i = 0; i < THE_NUMBER_OF_YEAR; i++)
-        {
+        for (var i = 0; i < THE_NUMBER_OF_YEAR; i++) {
             year_array_.push(current_year - 1)
             current_year = current_year - 1
         }
@@ -81,13 +101,13 @@ function NavBar({setKindOfSearch,history}) {
     }
 
     // ============== HANDLE SEARCHING TYPE OF MOVIE =============
-    const handleSearchMovies = (a,b) => {
-        setKindOfSearch({title:a,content:b})
+    const handleSearchMovies = (a, b) => {
+        setKindOfSearch({ title: a, content: b })
         history.push(`/${a}/${b}`)
     }
-    
+
     return (
-        <Stack style={{position: "fixed", zIndex: "50", width: "100%"}}>
+        <Stack style={{ position: "fixed", zIndex: "50", width: "100%" }}>
             <Grid container
                 className={navbarStyle.navbar_container}
                 direction="row"
@@ -110,10 +130,10 @@ function NavBar({setKindOfSearch,history}) {
                                         [navbarStyle.navbar_panel]: true,
                                         [navbarStyle.column]: true
                                     })}>
-                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("movie","popular")}}>Popular</div>
-                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("movie","now_playing")}}>Now Playing</div>
-                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("movie","upcoming")}}>Up Coming</div>
-                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("movie","top_rated")}}>Top Rated</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={() => { handleSearchMovies("movie", "popular") }}>Popular</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={() => { handleSearchMovies("movie", "now_playing") }}>Now Playing</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={() => { handleSearchMovies("movie", "upcoming") }}>Up Coming</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={() => { handleSearchMovies("movie", "top_rated") }}>Top Rated</div>
                                 </Stack>
                             )}</div>
                         <div onMouseEnter={() => setTVShowsShown(true)}
@@ -127,10 +147,10 @@ function NavBar({setKindOfSearch,history}) {
                                         [navbarStyle.navbar_panel]: true,
                                         [navbarStyle.column]: true
                                     })}>
-                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("tv","popular")}}>Popular</div>
-                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("tv","airing_today")}}>Airing Today</div>
-                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("tv","on_the_air")}}>On The Air</div>
-                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("tv","top_rated")}}>Top Rated</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={() => { handleSearchMovies("tv", "popular") }}>Popular</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={() => { handleSearchMovies("tv", "airing_today") }}>Airing Today</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={() => { handleSearchMovies("tv", "on_the_air") }}>On The Air</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={() => { handleSearchMovies("tv", "top_rated") }}>Top Rated</div>
                                 </Stack>
                             )}</div>
                         <div onMouseEnter={() => setIsGenresShown(true)}
@@ -146,7 +166,7 @@ function NavBar({setKindOfSearch,history}) {
                                         [navbarStyle.row]: true
                                     })}>
                                     {genres.map((genre, key) => {
-                                        return <Grid className={navbarStyle.navbar_panel_item} item xs={4} key={key} onClick={()=>{handleSearchMovies("genre",`${genre.id + "_" + genre.name}`)}}>{genre.name}</Grid>
+                                        return <Grid className={navbarStyle.navbar_panel_item} item xs={4} key={key} onClick={() => { handleSearchMovies("genre", `${genre.id + "_" + genre.name}`) }}>{genre.name}</Grid>
                                     })}
 
                                 </Grid>
@@ -163,8 +183,8 @@ function NavBar({setKindOfSearch,history}) {
                                         [navbarStyle.navbar_panel]: true,
                                         [navbarStyle.row]: true
                                     })}>
-                                    {yearArray.map((year,key)=>{
-                                        return ( <Grid className={navbarStyle.navbar_panel_item} item xs={4} key={key} onClick={()=>{handleSearchMovies("year",year)}}>{year}</Grid>)
+                                    {yearArray.map((year, key) => {
+                                        return (<Grid className={navbarStyle.navbar_panel_item} item xs={4} key={key} onClick={() => { handleSearchMovies("year", year) }}>{year}</Grid>)
                                     })}
                                 </Grid>
                             )}</div>
@@ -179,7 +199,7 @@ function NavBar({setKindOfSearch,history}) {
                                         [navbarStyle.navbar_panel]: true,
                                         [navbarStyle.column]: true
                                     })}>
-                                    <div className={navbarStyle.navbar_panel_item} onClick={()=>{handleSearchMovies("person","popular_people")}}>Popular People</div>
+                                    <div className={navbarStyle.navbar_panel_item} onClick={() => { handleSearchMovies("person", "popular_people") }}>Popular People</div>
                                 </Stack>
                             )}</div>
                     </Stack>
@@ -193,43 +213,13 @@ function NavBar({setKindOfSearch,history}) {
                                 {searchList.length === 0 ?
                                     (<div className={navbarStyle.navbar_search_panel_last_item}>No Result</div>) :
                                     (<>{searchList.slice(0, MAX_SEARCH_ELEMENTS).map((item, key) => {
-                                        if(key + 1 === MAX_SEARCH_ELEMENTS){
-                                            return <div className={navbarStyle.navbar_search_panel_last_item} key={key}>
-                                            {item.media_type === "movie" ? (
-                                                <>
-                                                    <TheatersIcon className={navbarStyle.item} />
-                                                    <div className={navbarStyle.item}>{item.title}</div>
-                                                    <div className={navbarStyle.item_span}>Movies</div></>) :
-                                                (<>{item.media_type === "tv" ? (
-                                                    <><TvIcon className={navbarStyle.item} />
-                                                        <div className={navbarStyle.item}>{item.name}</div>
-                                                        <div className={navbarStyle.item_span}>TV Shows</div></>) : (
-                                                    <><PersonIcon className={navbarStyle.item} />
-                                                        <div className={navbarStyle.item}>{item.name}</div>
-                                                        <div className={navbarStyle.item_span}>Person</div></>
-                                                )}</>)}
-                                        </div>
+                                        if (key + 1 === MAX_SEARCH_ELEMENTS) {
+                                            return <SearchCard history={history} item={item} key={key} className_={navbarStyle.navbar_search_panel_last_item} />
                                         }
-                                        else{
-                                            return <div className={navbarStyle.navbar_search_panel_item} key={key}>
-                                            {item.media_type === "movie" ? (
-                                                <>
-                                                    <TheatersIcon className={navbarStyle.item} />
-                                                    <div className={navbarStyle.item}>{item.title}</div>
-                                                    <div className={navbarStyle.item_span}>Movies</div></>) :
-                                                (<>{item.media_type === "tv" ? (
-                                                    <><TvIcon className={navbarStyle.item} />
-                                                        <div className={navbarStyle.item}>{item.name}</div>
-                                                        <div className={navbarStyle.item_span}>TV Shows</div></>) : (
-                                                    <><PersonIcon className={navbarStyle.item} />
-                                                        <div className={navbarStyle.item}>{item.name}</div>
-                                                        <div className={navbarStyle.item_span}>Person</div></>
-                                                )}</>)}
-                                        </div>
+                                        else {
+                                            return <SearchCard history={history} item={item} key={key} className_={navbarStyle.navbar_search_panel_item} />
                                         }
-                                       
                                     })}</>)}
-
                             </div>
                         )}
                     </div>
