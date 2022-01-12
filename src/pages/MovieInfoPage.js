@@ -157,9 +157,10 @@ function MovieInfoPage({ match, history }) {
                                             <Stack className={movieInfoStyle.content}>$430,238,384</Stack>
                                         </Stack>
                                         <Stack spacing={0.5} direction="row" p={0.5} px={1} backgroundColor="#FFFFFF" justifyContent="center" alignItems="center" borderRadius="10px">
-                                            {tmdbMovieInfo.production_companies.map((company, key) => (
-                                                    <img key={key} style={{height: "50px"}} src={`http://image.tmdb.org/t/p/original/${company.logo_path}`}/>
-                                                ))}
+                                            {tmdbMovieInfo.production_companies.map((company, key) => {
+                                                    if(company.logo_path === null) return
+                                                    return <img key={key} style={{height: "50px"}} src={`http://image.tmdb.org/t/p/original/${company.logo_path}`}/>
+                                            })}
                                             
                                         </Stack>
                                     </Stack>

@@ -7,7 +7,7 @@ import SmallMovieCard from '../components/SmallMovieCard';
 import { getTrendingMovies, getUpComingMovies } from '../axios/MovieResquest'
 import MovieStyle from '../styles/MovieStyle';
 
-function HomePage() {
+function HomePage({history}) {
     const movieStyle = MovieStyle()
     const [upcomingList, setUpComingList] = useState([])
     const [kindOfSearch, setKindOfSearch] = useState({title:"movie",content:"popular"})
@@ -24,12 +24,11 @@ function HomePage() {
             <NavBar setKindOfSearch={setKindOfSearch}></NavBar>
             <Stack paddingTop="200px" position="relative" >
                 <div className={movieStyle.container}>
-
                     <Grid container direction="row"
                         justifyContent="space-between"
                         style={{ margin: "10px 0" }}>
                         <Grid style={{ maxWidth: "750px", }} item xs={12} md={8.5} >
-                            <MovieList kindOfSearch={kindOfSearch}></MovieList>
+                            <MovieList history={history} kindOfSearch={kindOfSearch}></MovieList>
                         </Grid>
                         <Grid item xs={12} md={3.5}>
                             <div className={movieStyle.right_box}>

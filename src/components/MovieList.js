@@ -4,7 +4,8 @@ import { getMovies, getTrendingMovies, getUpComingMovies } from '../axios/MovieR
 import MovieStyle from '../styles/MovieStyle'
 import MovieCard from './MovieCard'
 
-function MovieList({ kindOfSearch }) {
+function MovieList({ kindOfSearch,history}) {
+
     const movieStyle = MovieStyle()
     const [movieList, setMovieList] = useState([])
     const [isLoading, setIsLoading] = useState(true)
@@ -48,7 +49,7 @@ function MovieList({ kindOfSearch }) {
                 justifyContent="space-between" className={movieStyle.left_box}>
                 {movieList?.map((movie, key) => {
                     return (<Grid item xs={4} md={3} style={{ padding: "10px" }} key={key}>
-                        <MovieCard movie={movie}></MovieCard>
+                        <MovieCard movie={movie} history={history}></MovieCard>
                     </Grid>)
                 })}
             </Grid>

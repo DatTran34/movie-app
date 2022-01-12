@@ -29,12 +29,12 @@ function CircularProgressWithLabel(props) {
     );
   }
 
-function MovieCard({ movie }) {
+function MovieCard({ movie,history}) {
+  
     const movieCardStyle = MovieCardStyle()
 
-
     return (
-      <div>
+      <div onClick={() => history.push(`/movie/${movie.id}`)}>
         <div className={movieCardStyle.box}>
           <div className={movieCardStyle.imdb_rating_box}>IMBD 8.9</div>
           <img
