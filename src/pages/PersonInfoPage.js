@@ -2,8 +2,8 @@ import React from 'react'
 
 function PersonInfoPage() {
     return (
-        <div>
-            
+        <div>a
+            ghjghj
         </div>
     )
 }

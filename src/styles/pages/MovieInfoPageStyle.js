@@ -73,7 +73,7 @@ const MovieInfoStyle = makeStyles((theme) => ({
         fontSize: "3rem",
     },
     year:{
-        color: "#BDBDBD",
+        color: "#CCD2E3",
         paddingTop: "20px",
         fontSize: "1.5rem",
     },
@@ -87,8 +87,8 @@ const MovieInfoStyle = makeStyles((theme) => ({
         justifyContent: "center",
         alignItems: "center",
         textAlign: "center",
-        color: "#BDBDBD",
-        border: "2px solid #BDBDBD",
+        color: "#CCD2E3",
+        border: "2px solid #CCD2E3",
         borderRadius: "50px",
         padding: "0px 20px",
     },
@@ -103,7 +103,8 @@ const MovieInfoStyle = makeStyles((theme) => ({
         height: "50px",
         boxSizing: "border-box",
         border: "2px solid #4CCDEB",
-        borderRadius: "100px"
+        borderRadius: "100px",
+        objectFit: "cover",
     },
 }))
 
