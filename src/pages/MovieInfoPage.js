@@ -134,32 +134,32 @@ function MovieInfoPage({ match, history }) {
                                             <CircularProgressWithLabel value={tmdbMovieInfo.vote_average} />
                                             <Stack>{`${tmdbMovieInfo.vote_count} Ratings`}</Stack>
                                         </Stack>
-                                        <Stack spacing={0.5} direction="row" py={0.5} px={1} backgroundColor="#F6C700" justifyContent="center" alignItems="center" borderRadius="10px">
-                                            <img style={{width: "60px", height: "30px"}} src={imdb}/>
-                                            <Stack pb={0.25} color="#000000" fontWeight="800" fontSize="1.75rem">{rapidMovieInfo?.imdbRating}</Stack>
-                                        </Stack>
-                                        <Stack spacing={0.5} direction="row" p={0.5} px={1} backgroundColor="#FFFFFF" justifyContent="center" alignItems="center" borderRadius="10px">
+                                        {rapidMovieInfo?.Ratings[0] && <Stack spacing={0.5} direction="row" py={0.5} px={1} backgroundColor="#F6C700" justifyContent="center" alignItems="center" borderRadius="10px">
+                                            <img style={{width: "60px", height: "25px"}} src={imdb}/>
+                                            <Stack pb={0.25} color="#000000" fontWeight="800" fontSize="1.5rem">{rapidMovieInfo?.Ratings[0].Value.slice(0,-3)}</Stack>
+                                        </Stack>}
+                                        {rapidMovieInfo?.Ratings[1] && <Stack spacing={0.5} direction="row" p={0.5} px={1} backgroundColor="#FFFFFF" justifyContent="center" alignItems="center" borderRadius="10px">
                                             <img style={{width: "30px", height: "30px"}} src={Rotten_Tomatoes2}/>
-                                            <Stack pb={0.25} color="#000000" fontWeight="800" fontSize="1.75rem">{rapidMovieInfo?.Ratings[1].Value}</Stack>
-                                        </Stack>
-                                        <Stack spacing={1.5} direction="row" p={0.5} px={1} backgroundColor="#66CC33" justifyContent="center" alignItems="center" borderRadius="10px">
+                                            <Stack pb={0.25} color="#000000" fontWeight="800" fontSize="1.5rem">{rapidMovieInfo?.Ratings[1].Value}</Stack>
+                                        </Stack>}
+                                        {rapidMovieInfo?.Ratings[2] && <Stack spacing={1.5} direction="row" p={0.5} px={1} backgroundColor="#66CC33" justifyContent="center" alignItems="center" borderRadius="10px">
                                             <img style={{width: "30px", height: "30px"}} src={metacritic}/>
-                                            <Stack pb={0.25} color="#ffffff" fontWeight="800" fontSize="1.75rem">{rapidMovieInfo?.Metascore}</Stack>
-                                        </Stack>
+                                            <Stack pb={0.25} color="#ffffff" fontWeight="800" fontSize="1.5rem">{rapidMovieInfo?.Ratings[2].Value.slice(0,-4)}</Stack>
+                                        </Stack>}
                                     </Stack>
                                     <Stack direction="row" spacing={2} justifyContent="flex-start" alignItems="center">
                                         <Stack>
                                             <Stack className={movieInfoStyle.title}>BUDGET</Stack>
-                                            <Stack className={movieInfoStyle.content}>$150,000,000</Stack>
+                                            <Stack className={movieInfoStyle.content}>{`$${tmdbMovieInfo.budget.toLocaleString('en-US')}`}</Stack>
                                         </Stack>
                                         <Stack>
                                             <Stack className={movieInfoStyle.title}>REVENUE</Stack>
-                                            <Stack className={movieInfoStyle.content}>$430,238,384</Stack>
+                                            <Stack className={movieInfoStyle.content}>{`$${tmdbMovieInfo.revenue.toLocaleString('en-US')}`}</Stack>
                                         </Stack>
-                                        <Stack spacing={0.5} direction="row" p={0.5} px={1} backgroundColor="#FFFFFF" justifyContent="center" alignItems="center" borderRadius="10px">
+                                        <Stack spacing={0.5} direction="row" p={0.5}  backgroundColor="#FFFFFF" justifyContent="center" alignItems="center" borderRadius="10px">
                                             {tmdbMovieInfo.production_companies.map((company, key) => {
                                                     if(company.logo_path === null) return
-                                                    return <img key={key} style={{height: "50px"}} src={`http://image.tmdb.org/t/p/original/${company.logo_path}`}/>
+                                                    return <img key={key} style={{height: "35px", padding: "0 0.5rem"}} src={`http://image.tmdb.org/t/p/original/${company.logo_path}`}/>
                                             })}
                                             
                                         </Stack>

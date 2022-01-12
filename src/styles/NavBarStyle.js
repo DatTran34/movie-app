@@ -5,16 +5,15 @@ const NavBarStyle = makeStyles((theme) => ({
     {
         background: "#374269",
         height:"3.5rem",
-        color:"white"
+        color:"#CCD2E3"
     },
     navbar_panel:{
         position: "absolute",
         top: "48px",
-        background: "#393650",
+        background: "#ececf8",
         transform: "translateX(-45)",
         border : "none",
-        color: "white",
-        borderRadius:"10px"
+        borderRadius: "0 10px 10px 10px"
     },
     column:{
         width:"200px",
@@ -23,9 +22,12 @@ const NavBarStyle = makeStyles((theme) => ({
         width:"400px",
     },
     navbar_panel_item:{
+        color: "#05103a",
         cursor:"pointer",
         padding:"0.5rem",
-        "&:hover":{textDecoration:"underline"},
+        "&:hover":{
+            background: "#4CCDEB",
+        },
     },
     navbar_button:{
         padding:"10px 20px",
@@ -33,36 +35,72 @@ const NavBarStyle = makeStyles((theme) => ({
         borderRadius:"10px"
     },
     navbar_button_hover:{
-        background: "#393650",
+        borderRadius: "10px 10px 0 0",
+        backgroundColor: "#4CCDEB",
+        color: "#ffffff"
     },
     navbar_search:{
+        position: "relative",
+        flex: "0",
         display:"flex",
         flexDirection:"row",
         justifyContent:"flex-end",
-        padding:"0 10px"
+        padding:"0 1rem",
+        color: "#CCD2E3"
+    },
+    navbar_searchBox:{
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: "#1C1656",
+        boxShadow: "inset 0px 4px 4px rgba(0, 0, 0, 0.25)",
+        borderRadius: "20px",
+        width: '30%',
+        fontSize: "0.75rem",
+        transition: "width 0.5s",
+        padding: "0.5rem",
+        
+    },
+    navbar_searchBox_searching: {
+        backgroundColor: "#16214A",
+        width: '70%',
     },
     navbar_input:{
-        background:"#393650",
-        borderRadius:"10px",
-        padding:"7px 50px",
-        color:"white",
+        background:"transparent",
+        // '&:placeholder-shown ': {
+        //     backgroundColor: "transparent",   
+        // },
+        // '$navbar_input:hover ~$navbar_searchButton': {
+        //     display: "flex",
+        // },
+        color:"#CCD2E3",
         border:"none",
         outline:"none",
-        // "&:focus":{outline:"none", width:"500px"},
-        "&::placeholder": { color: "white" }
     },
-    navbar_input_searching:{
-        width:"500px"
+    
+    navbar_searchButton:{
+        display: "none",
+        cursor: "pointer",
+        padding: "0.25rem 1rem",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: "20px",
+        backgroundColor: "#374269",
+        transition: "all 1s ease-out"
+    },
+    navbar_searchButton_searching: {
+        display: "flex",
     },
     navbar_search_panel:{
         position: "absolute",
-        top: "58px",
-        width:"600px",
-        background: "#393650",
+        top: "60px",
+        width:"70%",
+        background: "#374269",
         transform: "translateX(-45)",
         border : "none",
-        borderRadius:"10px",
-        color: "white",
+        borderRadius:"5px",
+        color: "#ffffff",
         display: "flex",
         flexDirection:"column",
     },
@@ -84,7 +122,7 @@ const NavBarStyle = makeStyles((theme) => ({
     },
     item_span:{
         padding:"5px",
-        color:"#979797"
+        color:"#BDBDBD"
     }
 }))
 
