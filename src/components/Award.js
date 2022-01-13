@@ -23,7 +23,9 @@ function Award({ImdbID}) {
   }, [])
 
     return (
-      <Stack direction="column">
+      <Stack direction="column" justifyContent="center"
+      alignItems="center"
+      spacing={1}>
         <Stack className={awardStyle.title}>Awards and Nominations</Stack>
         <Grid container spacing={2} className={awardStyle.panel}>
           {awardList.filter(award => award.type === "Winner").map(award => (

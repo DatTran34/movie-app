@@ -5,7 +5,8 @@ const AwardStyle = makeStyles((theme) => ({
 
     },
     title: {
-        color: "#ffffff"
+        color: "#ffffff",
+        margin: "20px"
     },
     panel: {
         backgroundColor: "#2D375A",
