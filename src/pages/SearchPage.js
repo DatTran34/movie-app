@@ -82,6 +82,7 @@ function SearchPage() {
                   value={checked}
                   onChange={handleChange}
                 />
+                <Stack className={movieStyle.input_role_switch_movie}>Movie</Stack>
               </Stack>
               <MovieList searchParams={searchParams}></MovieList>
             </Grid>

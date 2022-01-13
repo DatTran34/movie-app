@@ -124,6 +124,7 @@ function NavBar() {
       checkMediaType(searchParams)
      // returns the existing query string: '?genre=fiction&year=2019'
       searchParams.set(key, value);
+      searchParams.delete("category");
       history.push({
                pathname: "filter",
                search: searchParams.toString()
@@ -133,13 +134,10 @@ function NavBar() {
      const addQuery_2 = (key, value) => {
       console.log(location)
       let searchParams = new URLSearchParams(location.search);
-
-      for (var pair of searchParams.entries()) {
-        console.log(pair[0])
-        searchParams.delete(pair[0]);
-      }
-      searchParams.set("media_type", key);
+      searchParams.delete("genre");
+      searchParams.delete("year");
       searchParams.set("category", value);
+      console.log(searchParams.toString())
       history.push({
                pathname: "filter",
                search: searchParams.toString()
@@ -147,7 +145,7 @@ function NavBar() {
      };
 
      const checkMediaType = (searchParams) => {
-      if(searchParams.get("media_type") === null){
+      if(!searchParams.has("media_type")){
         console.log("1")
         searchParams.set("media_type", "movie");
       }

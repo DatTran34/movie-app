@@ -82,9 +82,29 @@ const MovieStyle = makeStyles((theme) => ({
       boxShadow:
         "0 1px 1px #fff inset, 0 .2em .5em rgba(255,255,255,0.7) inset, 0 -.2em .3em rgba(0,0,0,0.2) inset, 0 .05em .25em rgba(0,0,0,0.7)",
       borderRadius: "1em",
-      transform: "translate(20%, 20%)",
+      transform: "translate(0%, 0%)",
       transition: "transform 250ms ease",
       color: "rgba(0,0,0,0.3)",
+      lineHeight: "1",
+    },
+    "&:after": { 
+      zIndex: "2",
+      content: 'Movie',
+      display: "flex",
+      alignContent: "center",
+      justifyContent: "center",
+      position: "absolute",
+      width: "4em",
+      height: "2em",
+      left: "0",
+      top: "0",
+      background: "rgba(240,240,240,0.9)",
+      boxShadow:
+        "0 1px 1px #fff inset, 0 .2em .5em rgba(255,255,255,0.7) inset, 0 -.2em .3em rgba(0,0,0,0.2) inset, 0 .05em .25em rgba(0,0,0,0.7)",
+      borderRadius: "1em",
+      transform: "translate(100%, 100%)",
+      transition: "transform 250ms ease",
+      color: "red",
       lineHeight: "1",
     },
     "&:focus::before": {
@@ -98,7 +118,7 @@ const MovieStyle = makeStyles((theme) => ({
         "0 .15em .25em rgba(0,0,0,0.5) inset, 0 -.5px 0 rgba(255,255,255,0.2) inset, 0 0 0 2px rgba(255,255,255,0.8), 0 0 0 4px var(--bg-checked, var(--bg, rgb(60,130,250)))",
     },
     "&:checked::before": {
-      transform: "translate(120%, 20%)",
+      transform: "translate(80%, 0%)",
     },
     "&:indeterminate::before": {
       transform: "translate(70%, 20%)",
