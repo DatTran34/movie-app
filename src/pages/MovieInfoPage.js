@@ -54,10 +54,8 @@ function MovieInfoPage({ match, history }) {
         return `${rhours}h ${rminutes}m`
     }
     useEffect(() => {
-        console.log(match)
         getMovieInfo(match.params.media_type, match.params.id).then((data) => {
             setTmdbMovieInfo(data)
-            console.log(data)
             setRuntime(calRuntime(data.runtime))
             setImdb_id(data.imdb_id)
             getCast(match.params.id).then((data) => {
@@ -67,10 +65,8 @@ function MovieInfoPage({ match, history }) {
         }).catch((e) => { console.log(e) })
     }, [])
     useEffect(() => {
-        console.log(imdb_id)
         if(imdb_id === null) return
         getRapidMovieInfo(imdb_id).then((data) => {
-            console.log(data)
             setRapidMovieInfo(data)
             setLoading(true)
         }).catch((e) => { console.log(e) })

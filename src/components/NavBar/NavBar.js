@@ -4,7 +4,7 @@ import { styled, alpha } from '@mui/material/styles';
 import NavBarStyle from '../../styles/NavBarStyle'
 import classNames from "classname";
 import SearchIcon from '@mui/icons-material/Search';
-import { getGenres, searchData } from '../../axios/NavBarRequest';
+import { getCountries, getGenres, searchData } from '../../axios/NavBarRequest';
 import PersonIcon from '@mui/icons-material/Person';
 import TheatersIcon from '@mui/icons-material/Theaters';
 import TvIcon from '@mui/icons-material/Tv';
@@ -12,7 +12,7 @@ import InputBase from '@mui/material/InputBase';
 import { useHistory, useLocation } from 'react-router';
 function SearchCard({ history, item, className_ }) {
     const navbarStyle = NavBarStyle()
-    return <div className={className_} onClick={() => history.push(`/movie-info/${item.id}`)}>
+    return <div className={className_} onClick={() => history.push(`/movie-info/${item.id}/${item.media_type}`)}>
         {item.media_type === "movie" ? (
             <>
                 <TheatersIcon className={navbarStyle.item} />
@@ -38,6 +38,7 @@ function NavBar() {
     const [isTVShowsShown, setTVShowsShown] = useState(false);
     const [isGenresShown, setIsGenresShown] = useState(false);
     const [isYearShown, setIsYearShown] = useState(false);
+    const [isCountryShown, setIsCountryShown] = useState(false);
     const [isPopularPeopleShown, setIsPopularPeopleShown] = useState(false);
     const [isSearchShown, setIsSearchShown] = useState(false);
 
@@ -61,8 +62,13 @@ function NavBar() {
         [navbarStyle.navbar_button_hover]: isPopularPeopleShown,
         [navbarStyle.navbar_button]: true
     });
+    const navbarCountryButtonStyle = classNames({
+      [navbarStyle.navbar_button_hover]: isCountryShown,
+      [navbarStyle.navbar_button]: true
+  });
     //=====================GET Genre List=================//
     const [genres, setGenres] = useState([]);
+    const [countries, setCountries] = useState([]);
     useEffect(() => {
         let searchParams = new URLSearchParams(location.search);
         let mediaType = " "
@@ -74,9 +80,11 @@ function NavBar() {
         getGenres(mediaType).then((data) => {
             setGenres(data.genres)
         }).catch((e) => { console.log(e) })
+        getCountries().then((data) => {
+          setCountries(data)
+      }).catch((e) => { console.log(e) })
         handleYearInNavBar()
     }, [location])
-
     // ================== SEARCH ==============
     const [searchList, setSearchList] = useState([]);
     const handleSearch = (e) => {
@@ -126,21 +134,20 @@ function NavBar() {
       searchParams.set(key, value);
       searchParams.delete("category");
       history.push({
-               pathname: "filter",
+               pathname: "/filter",
                search: searchParams.toString()
          });
      };
 
      const addQuery_2 = (media_type, value) => {
-      console.log(location)
       let searchParams = new URLSearchParams(location.search);
       searchParams.delete("genre");
       searchParams.delete("year");
+      searchParams.delete("country");
       searchParams.set("category", value);
       searchParams.set("media_type", media_type);
-      console.log(searchParams.toString())
       history.push({
-               pathname: "filter",
+               pathname: "/filter",
                search: searchParams.toString()
          });
      };
@@ -158,7 +165,7 @@ function NavBar() {
      // returns the existing query string: '?type=fiction&author=fahid'
       searchParams.delete(key);
       history.push({
-               pathname: "filter",
+               pathname: "/filter",
                search: searchParams.toString()
          });
      };
@@ -352,6 +359,43 @@ function NavBar() {
                           }}
                         >
                           {year}
+                        </Grid>
+                      );
+                    })}
+                  </Grid>
+                )}
+              </div>
+              <div
+                onMouseEnter={() => setIsCountryShown(true)}
+                onMouseLeave={() => setIsCountryShown(false)}
+              >
+                <div className={navbarCountryButtonStyle}>Countries</div>
+                {isCountryShown && (
+                  <Grid
+                    container
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    className={classNames({
+                      [navbarStyle.navbar_panel]: true,
+                      [navbarStyle.row]: true,
+                    })}
+                  >
+                    {countries.slice(0,29).map((country, key) => {
+                      return (
+                        <Grid
+                          className={navbarStyle.navbar_panel_item}
+                          item
+                          xs={4}
+                          key={key}
+                          onClick={() => {
+                            addQuery(
+                              "country",
+                              `${country.iso_639_1}`
+                            );
+                          }}
+                        >
+                          {country.english_name}
                         </Grid>
                       );
                     })}

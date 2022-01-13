@@ -18,6 +18,7 @@ function SearchPage() {
     content: "popular",
   });
   const [checked, setChecked] = useState(false);
+
   const handleChange = () => {
     setChecked(!checked)
     let searchParams = new URLSearchParams(location.search);
@@ -36,19 +37,17 @@ function SearchPage() {
 
   
 
-//   useEffect(() => {
-//     getUpComingMovies()
-//       .then((data) => {
-//         setUpComingList(data.results);
-//       })
-//       .catch((e) => {
-//         console.error(e);
-//       });
-//     setKindOfSearch({
-//       title: match.params.title,
-//       content: match.params.content,
-//     });
-//   }, []);
+  useEffect(() => {
+    getUpComingMovies()
+      .then((data) => {
+        setUpComingList(data.results.map((movie) => {
+          return { media_type: "movie", ...movie };
+        }));
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  }, []);
 
   const homeStyle = HomeStyle();
   return (
@@ -63,6 +62,7 @@ function SearchPage() {
             style={{ margin: "10px 0" }}
           >
             <Grid style={{ maxWidth: "750px" }} item xs={12} md={8.5}>
+              <div className={movieStyle.header}>Filtered Movies</div>
               <Stack direction="row" alignItems="center" spacing={2}>
                 <Stack position="relative">
                   <Stack>hsd</Stack>
@@ -78,7 +78,7 @@ function SearchPage() {
                 </Stack>
                 <CategoryTags/>
               </Stack>
-              <MovieList ></MovieList>
+              <MovieList searchParams={new URLSearchParams(location.search)} ></MovieList>
             </Grid>
             <Grid item xs={12} md={3.5}>
               <div className={movieStyle.right_box}>
