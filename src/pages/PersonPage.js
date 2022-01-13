@@ -6,6 +6,7 @@ import MovieList from '../components/MovieList';
 import SmallMovieCard from '../components/SmallMovieCard';
 import { getTrendingMovies, getUpComingMovies } from '../axios/MovieResquest'
 import MovieStyle from '../styles/MovieStyle';
+import {useLocation} from "react-router-dom";
 
 function PersonPage({match,history}) {
     const movieStyle = MovieStyle()
@@ -21,6 +22,9 @@ function PersonPage({match,history}) {
         setKindOfSearch({ title: match.params.title, content: match.params.content })
     }, [])
 
+    const search = useLocation().search; 
+    const name = new URLSearchParams(search).get('name');
+    console.log(name)
     const homeStyle = HomeStyle();
     return (
         <div>

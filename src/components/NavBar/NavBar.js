@@ -179,7 +179,7 @@ function NavBar({setKindOfSearch,history}) {
     // ============== HANDLE SEARCHING TYPE OF MOVIE =============
     const handleSearchMovies = (a, b) => {
         setKindOfSearch({ title: a, content: b })
-        history.push(`/${a}/${b}`)
+        history.push(`/${a}/${b}?name=pen&id=12`)
     }
 
     return (
