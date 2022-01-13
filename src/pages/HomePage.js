@@ -10,7 +10,7 @@ import MovieStyle from '../styles/MovieStyle';
 function HomePage({history}) {
     const movieStyle = MovieStyle()
     const [upcomingList, setUpComingList] = useState([])
-    const [kindOfSearch, setKindOfSearch] = useState({title:"movie",content:"popular"})
+    const [filter, setFilter] = useState({media_type:"movie", content:"popular"})
     useEffect(() => {
         getUpComingMovies().then((data) => {
             setUpComingList(data.results)
@@ -21,14 +21,14 @@ function HomePage({history}) {
     const homeStyle = HomeStyle();
     return (
         <div>
-            <NavBar setKindOfSearch={setKindOfSearch} history={history}></NavBar>
+            <NavBar></NavBar>
             <Stack paddingTop="200px" position="relative" >
                 <div className={movieStyle.container}>
                     <Grid container direction="row"
                         justifyContent="space-between"
                         style={{ margin: "10px 0" }}>
                         <Grid style={{ maxWidth: "750px", }} item xs={12} md={8.5} >
-                            <MovieList history={history} kindOfSearch={kindOfSearch}></MovieList>
+                            <MovieList></MovieList>
                         </Grid>
                         <Grid item xs={12} md={3.5}>
                             <div className={movieStyle.right_box}>

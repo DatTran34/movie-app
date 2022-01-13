@@ -9,7 +9,25 @@ export const getTrendingMovies = async (page) => {
     console.error(error);
   }
 }
-
+export const getFilteredMovies = async (searchParams, page) => {
+  try {
+    let params = ""
+    for(var pair of searchParams.entries()) {
+      if(pair[0] === "genre"){
+        params = params.concat('&with_genres=',pair[1] )
+      } else if(pair[0] === "year"){
+        params = params.concat('&year=',pair[1] )
+      } else if(pair[0] === "country"){
+        params = params.concat('&country=',pair[1] )
+      }
+   }
+   console.log(params)
+    const response = await axios.get(`https://api.themoviedb.org/3/discover/${searchParams.get("media_type")}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1${params}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
 export const getMovies = async (kindOfSearch,page) => {
   if (kindOfSearch.title == "movie" || kindOfSearch.title == "tv") {
     try {
