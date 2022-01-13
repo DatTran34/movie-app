@@ -7,6 +7,7 @@ import SmallMovieCard from "../components/SmallMovieCard";
 import { getTrendingMovies, getUpComingMovies } from "../axios/MovieResquest";
 import MovieStyle from "../styles/MovieStyle";
 import { useHistory, useLocation } from "react-router";
+import CategoryTags from "../components/CategoryTags";
 function SearchPage() {
   const history = useHistory();
   const location = useLocation();
@@ -32,19 +33,8 @@ function SearchPage() {
       search: searchParams.toString(),
     });
   };
-  //*****************function to handle Query Params*********************/
-  const removeQuery = (key) => {
-    let pathname = location.pathname;
-    // returns path: '/app/books'
-    let searchParams = new URLSearchParams(location.search);
-    // returns the existing query string: '?type=fiction&author=fahid'
-    searchParams.delete(key);
-    history.push({
-      pathname: "filter",
-      search: searchParams.toString(),
-    });
-  };
-  let searchParams = new URLSearchParams(location.search);
+
+  
 
 //   useEffect(() => {
 //     getUpComingMovies()
@@ -73,18 +63,22 @@ function SearchPage() {
             style={{ margin: "10px 0" }}
           >
             <Grid style={{ maxWidth: "750px" }} item xs={12} md={8.5}>
-              <Stack>
-                <Stack>hsd</Stack>
-                <input
-                  className={movieStyle.input_role_switch}
-                  type="checkbox"
-                  role="switch"
-                  value={checked}
-                  onChange={handleChange}
-                />
-                <Stack className={movieStyle.input_role_switch_movie}>Movie</Stack>
+              <Stack direction="row" alignItems="center" spacing={2}>
+                <Stack position="relative">
+                  <Stack>hsd</Stack>
+                  <input
+                    className={movieStyle.input_role_switch}
+                    type="checkbox"
+                    role="switch"
+                    value={checked}
+                    onChange={handleChange}
+                  />
+                  <Stack className={movieStyle.input_role_switch_movie}>Movie</Stack>
+                  <Stack className={movieStyle.input_role_switch_tv}>TV</Stack>
+                </Stack>
+                <CategoryTags/>
               </Stack>
-              <MovieList searchParams={searchParams}></MovieList>
+              <MovieList ></MovieList>
             </Grid>
             <Grid item xs={12} md={3.5}>
               <div className={movieStyle.right_box}>

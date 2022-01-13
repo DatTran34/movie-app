@@ -21,13 +21,28 @@ export const getFilteredMovies = async (searchParams, page) => {
         } else if (pair[0] === "country") {
           params = params.concat('&country=', pair[1])
         }
+        
       }
       console.log(params)
       const response = await axios.get(`https://api.themoviedb.org/3/discover/${searchParams.get("media_type")}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1${params}`);
       return response.data;
     }
     else{
-      const response = await axios.get(`https://api.themoviedb.org/3/${searchParams.get("media_type")}/${searchParams.get("category")}?api_key=${process.env.REACT_APP_API_KEY}&page=1`);
+      let param = ""
+      if (searchParams.get("category") === "Now Playing") {
+        param = "now_playing"
+      } else if (searchParams.get("category") === "Up Coming") {
+        param = "upcoming"
+      } else if (searchParams.get("category") === "Popular") {
+        param = "popular"
+      } else if (searchParams.get("category") === "Top Rated") {
+        param = "top_rated"
+      } else if (searchParams.get("category") === "Airing Today") {
+        param = "airing_today"
+      } else if (searchParams.get("category") === "On The Air") {
+        param = "on_the_air"
+      }
+      const response = await axios.get(`https://api.themoviedb.org/3/${searchParams.get("media_type")}/${param}?api_key=${process.env.REACT_APP_API_KEY}&page=1`);
       return response.data;
     }
 

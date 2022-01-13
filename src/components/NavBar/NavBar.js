@@ -61,7 +61,7 @@ function NavBar() {
         [navbarStyle.navbar_button_hover]: isPopularPeopleShown,
         [navbarStyle.navbar_button]: true
     });
-
+    //=====================GET Genre List=================//
     const [genres, setGenres] = useState([]);
     useEffect(() => {
         let searchParams = new URLSearchParams(location.search);
@@ -75,7 +75,7 @@ function NavBar() {
             setGenres(data.genres)
         }).catch((e) => { console.log(e) })
         handleYearInNavBar()
-    }, [])
+    }, [location])
 
     // ================== SEARCH ==============
     const [searchList, setSearchList] = useState([]);
@@ -131,12 +131,13 @@ function NavBar() {
          });
      };
 
-     const addQuery_2 = (key, value) => {
+     const addQuery_2 = (media_type, value) => {
       console.log(location)
       let searchParams = new URLSearchParams(location.search);
       searchParams.delete("genre");
       searchParams.delete("year");
       searchParams.set("category", value);
+      searchParams.set("media_type", media_type);
       console.log(searchParams.toString())
       history.push({
                pathname: "filter",
@@ -146,7 +147,6 @@ function NavBar() {
 
      const checkMediaType = (searchParams) => {
       if(!searchParams.has("media_type")){
-        console.log("1")
         searchParams.set("media_type", "movie");
       }
      }
@@ -205,7 +205,7 @@ function NavBar() {
                     <div
                       className={navbarStyle.navbar_panel_item}
                       onClick={() => {
-                        addQuery_2("movie", "popular");
+                        addQuery_2("movie", "Popular");
                       }}
                     >
                       Popular
@@ -213,7 +213,7 @@ function NavBar() {
                     <div
                       className={navbarStyle.navbar_panel_item}
                       onClick={() => {
-                        addQuery_2("movie", "now_playing");
+                        addQuery_2("movie", "Now Playing");
                       }}
                     >
                       Now Playing
@@ -221,7 +221,7 @@ function NavBar() {
                     <div
                       className={navbarStyle.navbar_panel_item}
                       onClick={() => {
-                        addQuery_2("movie", "upcoming");
+                        addQuery_2("movie", "Up Coming");
                       }}
                     >
                       Up Coming
@@ -229,7 +229,7 @@ function NavBar() {
                     <div
                       className={navbarStyle.navbar_panel_item}
                       onClick={() => {
-                        addQuery_2("movie", "top_rated");
+                        addQuery_2("movie", "Top Rated");
                       }}
                     >
                       Top Rated
@@ -252,7 +252,7 @@ function NavBar() {
                     <div
                       className={navbarStyle.navbar_panel_item}
                       onClick={() => {
-                        addQuery_2("tv", "popular");
+                        addQuery_2("tv", "Popular");
                       }}
                     >
                       Popular
@@ -260,7 +260,7 @@ function NavBar() {
                     <div
                       className={navbarStyle.navbar_panel_item}
                       onClick={() => {
-                        addQuery_2("tv", "airing_today");
+                        addQuery_2("tv", "Airing Today");
                       }}
                     >
                       Airing Today
@@ -268,7 +268,7 @@ function NavBar() {
                     <div
                       className={navbarStyle.navbar_panel_item}
                       onClick={() => {
-                        addQuery_2("tv", "on_the_air");
+                        addQuery_2("tv", "On The Air");
                       }}
                     >
                       On The Air
@@ -276,7 +276,7 @@ function NavBar() {
                     <div
                       className={navbarStyle.navbar_panel_item}
                       onClick={() => {
-                        addQuery_2("tv", "top_rated");
+                        addQuery_2("tv", "Top Rated");
                       }}
                     >
                       Top Rated

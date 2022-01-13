@@ -52,7 +52,7 @@ const MovieStyle = makeStyles((theme) => ({
     WebkitAppearance: "none",
     position: "relative",
     display: "inline-block",
-    width: "7em",
+    width: "9em",
     height: "2em",
     margin: "-.2em 0",
     boxSizing: "content-box",
@@ -74,7 +74,7 @@ const MovieStyle = makeStyles((theme) => ({
       alignContent: "center",
       justifyContent: "center",
       position: "absolute",
-      width: "4em",
+      width: "4.5em",
       height: "2em",
       left: "0",
       top: "0",
@@ -118,7 +118,7 @@ const MovieStyle = makeStyles((theme) => ({
         "0 .15em .25em rgba(0,0,0,0.5) inset, 0 -.5px 0 rgba(255,255,255,0.2) inset, 0 0 0 2px rgba(255,255,255,0.8), 0 0 0 4px var(--bg-checked, var(--bg, rgb(60,130,250)))",
     },
     "&:checked::before": {
-      transform: "translate(80%, 0%)",
+      transform: "translate(100%, 0%)",
     },
     "&:indeterminate::before": {
       transform: "translate(70%, 20%)",
@@ -127,6 +127,20 @@ const MovieStyle = makeStyles((theme) => ({
     "&:disabled::before": {
       opacity: "0.4",
     },
+  },
+  input_role_switch_movie: {
+    position: "absolute",
+    left: "0",
+    top: "0",
+    transform: "translate(30%, 100%)",
+    color: "#ffffff"
+  },
+  input_role_switch_tv: {
+    position: "absolute",
+    left: "0",
+    top: "0",
+    transform: "translate(100%, 100%)",
+    color: "#ffffff"
   },
 }));
 

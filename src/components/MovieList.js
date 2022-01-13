@@ -8,12 +8,17 @@ import {
 } from "../axios/MovieResquest";
 import MovieStyle from "../styles/MovieStyle";
 import MovieCard from "./MovieCard";
-function MovieList({ searchParams }) {
+import { useHistory, useLocation } from "react-router";
+function MovieList() {
+  const history = useHistory();
+  const location = useLocation();
+  
   const movieStyle = MovieStyle();
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
   useEffect(() => {
+    let searchParams = new URLSearchParams(location.search);
     getFilteredMovies(searchParams)
       .then((data) => {
         console.log(data);
@@ -27,7 +32,7 @@ function MovieList({ searchParams }) {
       .catch((e) => {
         console.error(e);
       });
-  }, [searchParams]);
+  }, [location]);
   const handlePrevPage = () => {
     setPage(page - 1);
   };
