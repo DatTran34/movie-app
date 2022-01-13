@@ -25,6 +25,8 @@ function PersonPage({match,history}) {
     const search = useLocation().search; 
     const name = new URLSearchParams(search).get('name');
     console.log(name)
+
+    
     const homeStyle = HomeStyle();
     return (
         <div>

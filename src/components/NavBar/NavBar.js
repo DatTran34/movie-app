@@ -9,7 +9,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import TheatersIcon from '@mui/icons-material/Theaters';
 import TvIcon from '@mui/icons-material/Tv';
 import InputBase from '@mui/material/InputBase';
-
+import { useHistory, useLocation } from 'react-router';
 function SearchCard({ history, item, className_ }) {
     const navbarStyle = NavBarStyle()
     return <div className={className_} onClick={() => history.push(`/movie-info/${item.id}`)}>
@@ -29,75 +29,9 @@ function SearchCard({ history, item, className_ }) {
     </div>
 }
 
-
-// const SearchButton = styled('div')(({ theme }) => ({
-//   position: 'relative',
-//   display: "none",
-//   alignItems: 'center',
-//   justifyContent: 'center',
-//   borderRadius: theme.shape.borderRadius,
-//   backgroundColor: "#374269",
-//   '&:hover': {
-//     backgroundColor: "#16214A",
-//   },
-//   borderRadius: "20px",
-//   margin: theme.spacing(0.5, 0.5, 0.5,0 ),
-//   width: '100%',
-  
-// }));
-// const Search = styled('div')(({ theme }) => ({
-//     position: 'relative',
-//     display: "flex",
-//     flexDirection: "row",
-//     borderRadius: theme.shape.borderRadius,
-//     backgroundColor: "#1C1656",
-//     '&:hover, focus-within': {
-//       backgroundColor: "#16214A",
-//       width: '50%',
-//       ${SearchButton} {
-//       display: "flex",
-//       },
-//     },
-//     transition: theme.transitions.create('width'),
-//     boxShadow: "inset 0px 4px 4px rgba(0, 0, 0, 0.25)",
-//     borderRadius: "20px",
-//     marginLeft: 0,
-//     width: '30%',
-//     fontSize: "0.75rem"
-//   }));
-
-//   const SearchIconWrapper = styled('div')(({ theme }) => ({
-//     padding: theme.spacing(0, 2),
-//     height: '100%',
-//     position: 'absolute',
-//     pointerEvents: 'none',
-//     display: 'flex',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   }));
-  
-//   const StyledInputBase = styled(InputBase)(({ theme }) => ({
-//     color: 'inherit',
-//     '& .MuiInputBase-input': {
-//       padding: theme.spacing(1, 1, 1, 0),
-//       // vertical padding + font size from searchIcon
-//       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-//       transition: theme.transitions.create('width'),
-//       width: '100%',
-//       '&:focus': {
-//         width: '120%',
-//       },
-//       // [theme.breakpoints.up('sm')]: {
-//       //   width: '12ch',
-//       //   '&:focus': {
-//       //     width: '20ch',
-//       //   },
-//       // },
-//     },
-//   }));
-
-function NavBar({setKindOfSearch,history}) {
-
+function NavBar() {
+    const history = useHistory();
+    const location = useLocation();
     const MAX_SEARCH_ELEMENTS = 8;
     const navbarStyle = NavBarStyle();
     const [isMoviesShown, setIsMoviesShown] = useState(false);
@@ -130,7 +64,14 @@ function NavBar({setKindOfSearch,history}) {
 
     const [genres, setGenres] = useState([]);
     useEffect(() => {
-        getGenres().then((data) => {
+        let searchParams = new URLSearchParams(location.search);
+        let mediaType = " "
+        if(searchParams.get("media_type") === null) {
+          mediaType = "movie"
+        }else {
+          mediaType = searchParams.get("media_type")
+        }
+        getGenres(mediaType).then((data) => {
             setGenres(data.genres)
         }).catch((e) => { console.log(e) })
         handleYearInNavBar()
@@ -175,11 +116,61 @@ function NavBar({setKindOfSearch,history}) {
         }
         setYearArray(year_array_)
     }
+    //*****************function to handle Query Params*********************/
+    const addQuery = (key, value) => {
+      let pathname = location.pathname; 
+     // returns path: '/app/books'
+      let searchParams = new URLSearchParams(location.search);
+      checkMediaType(searchParams)
+     // returns the existing query string: '?genre=fiction&year=2019'
+      searchParams.set(key, value);
+      history.push({
+               pathname: "filter",
+               search: searchParams.toString()
+         });
+     };
 
+     const addQuery_2 = (key, value) => {
+      console.log(location)
+      let searchParams = new URLSearchParams(location.search);
+
+      for (var pair of searchParams.entries()) {
+        console.log(pair[0])
+        searchParams.delete(pair[0]);
+      }
+      searchParams.set("media_type", key);
+      searchParams.set("category", value);
+      history.push({
+               pathname: "filter",
+               search: searchParams.toString()
+         });
+     };
+
+     const checkMediaType = (searchParams) => {
+      if(searchParams.get("media_type") === null){
+        console.log("1")
+        searchParams.set("media_type", "movie");
+      }
+     }
+
+     const removeQuery = (key) => {
+      let pathname = location.pathname; 
+     // returns path: '/app/books'
+      let searchParams = new URLSearchParams(location.search); 
+     // returns the existing query string: '?type=fiction&author=fahid'
+      searchParams.delete(key);
+      history.push({
+               pathname: "filter",
+               search: searchParams.toString()
+         });
+     };
     // ============== HANDLE SEARCHING TYPE OF MOVIE =============
     const handleSearchMovies = (a, b) => {
-        setKindOfSearch({ title: a, content: b })
-        history.push(`/${a}/${b}?name=pen&id=12`)
+        //setFilter({ a: b , ...filter})
+        history.push({
+          pathname: '/movie',
+          search: `?${a}=${b}`
+        })
     }
 
     return (
@@ -216,7 +207,7 @@ function NavBar({setKindOfSearch,history}) {
                     <div
                       className={navbarStyle.navbar_panel_item}
                       onClick={() => {
-                        handleSearchMovies("movie", "popular");
+                        addQuery_2("movie", "popular");
                       }}
                     >
                       Popular
@@ -224,7 +215,7 @@ function NavBar({setKindOfSearch,history}) {
                     <div
                       className={navbarStyle.navbar_panel_item}
                       onClick={() => {
-                        handleSearchMovies("movie", "now_playing");
+                        addQuery_2("movie", "now_playing");
                       }}
                     >
                       Now Playing
@@ -232,7 +223,7 @@ function NavBar({setKindOfSearch,history}) {
                     <div
                       className={navbarStyle.navbar_panel_item}
                       onClick={() => {
-                        handleSearchMovies("movie", "upcoming");
+                        addQuery_2("movie", "upcoming");
                       }}
                     >
                       Up Coming
@@ -240,7 +231,7 @@ function NavBar({setKindOfSearch,history}) {
                     <div
                       className={navbarStyle.navbar_panel_item}
                       onClick={() => {
-                        handleSearchMovies("movie", "top_rated");
+                        addQuery_2("movie", "top_rated");
                       }}
                     >
                       Top Rated
@@ -263,7 +254,7 @@ function NavBar({setKindOfSearch,history}) {
                     <div
                       className={navbarStyle.navbar_panel_item}
                       onClick={() => {
-                        handleSearchMovies("tv", "popular");
+                        addQuery_2("tv", "popular");
                       }}
                     >
                       Popular
@@ -271,7 +262,7 @@ function NavBar({setKindOfSearch,history}) {
                     <div
                       className={navbarStyle.navbar_panel_item}
                       onClick={() => {
-                        handleSearchMovies("tv", "airing_today");
+                        addQuery_2("tv", "airing_today");
                       }}
                     >
                       Airing Today
@@ -279,7 +270,7 @@ function NavBar({setKindOfSearch,history}) {
                     <div
                       className={navbarStyle.navbar_panel_item}
                       onClick={() => {
-                        handleSearchMovies("tv", "on_the_air");
+                        addQuery_2("tv", "on_the_air");
                       }}
                     >
                       On The Air
@@ -287,7 +278,7 @@ function NavBar({setKindOfSearch,history}) {
                     <div
                       className={navbarStyle.navbar_panel_item}
                       onClick={() => {
-                        handleSearchMovies("tv", "top_rated");
+                        addQuery_2("tv", "top_rated");
                       }}
                     >
                       Top Rated
@@ -319,9 +310,9 @@ function NavBar({setKindOfSearch,history}) {
                           xs={4}
                           key={key}
                           onClick={() => {
-                            handleSearchMovies(
+                            addQuery(
                               "genre",
-                              `${genre.id + "_" + genre.name}`
+                              `${genre.id}`
                             );
                           }}
                         >
@@ -356,7 +347,10 @@ function NavBar({setKindOfSearch,history}) {
                           xs={4}
                           key={key}
                           onClick={() => {
-                            handleSearchMovies("year", year);
+                            addQuery(
+                              "year",
+                              `${year}`
+                            );
                           }}
                         >
                           {year}

@@ -1,5 +1,5 @@
 import { CircularProgress, Grid, Stack, Typography } from '@mui/material'
-import { getMovieInfo, getCast } from '../axios/MovieRequest';
+import { getMovieInfo, getCast } from '../axios/TmdbRequest';
 import { getRapidMovieInfo} from '../axios/RapidImdbRequest';
 import React, { useEffect, useState } from 'react'
 import MovieInfoStyle from '../styles/pages/MovieInfoPageStyle'
@@ -38,7 +38,7 @@ function CircularProgressWithLabel(props) {
   }
 
 function MovieInfoPage({ match, history }) {
-    const [kindOfSearch, setKindOfSearch] = useState({ title: "movie", content: "popular" })
+    const [filter, setFilter] = useState({ title: "movie", content: "popular" })
     const movieInfoStyle = MovieInfoStyle()
     const [tmdbMovieInfo, setTmdbMovieInfo] = useState([]);
     const [rapidMovieInfo, setRapidMovieInfo] = useState([]);
@@ -55,7 +55,7 @@ function MovieInfoPage({ match, history }) {
     }
     useEffect(() => {
         console.log(match)
-        getMovieInfo(match.params.id).then((data) => {
+        getMovieInfo(match.params.media_type, match.params.id).then((data) => {
             setTmdbMovieInfo(data)
             console.log(data)
             setRuntime(calRuntime(data.runtime))
@@ -78,7 +78,7 @@ function MovieInfoPage({ match, history }) {
 
     return (
         <>
-           <NavBar setKindOfSearch={setKindOfSearch} history={history}></NavBar>
+           <NavBar setFilter={setFilter} history={history}></NavBar>
             <Stack paddingTop="200px" position="relative" >
                 {!loading ? (
                     <Stack>Loading..</Stack>
