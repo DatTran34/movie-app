@@ -28,7 +28,6 @@ function HomePage({ history }) {
         setIsLoading(false)
     }, [])
 
-    console.log(searchParams)
 
     const homeStyle = HomeStyle();
     return (

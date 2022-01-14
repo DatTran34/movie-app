@@ -1,29 +1,50 @@
 import React, { useState, useEffect } from "react";
-import { CircularProgress, Grid, Stack, Typography } from "@mui/material";
-import { getPersonInfo } from "../axios/TmdbRequest";
+import { CircularProgress, Grid, Stack, Typography } from '@mui/material'
+import { getPersonInfo, getPersonMovieCredits,getPersonCombinedCredits } from "../axios/TmdbRequest";
 import { getPersonDetails, getPersonBio } from "../axios/ImdbRequest";
 import Style from "../styles/Style";
 import NavBar from "../components/NavBar/NavBar";
 import { useParams } from "react-router";
+import PersonInfoPageStyle from "../styles/pages/PersonInfoPageStyle";
+import MovieCard from "../components/MovieCard";
 function PersonInfoPage() {
   const params = useParams();
-
   const [age, setAge] = useState(null);
   const [imdbPersonInfo, setImdbPersonInfo] = useState([]);
   const [tmdbPersonInfo, setTmdbPersonInfo] = useState([]);
+  const [movieCredits, setMovieCredits] = useState([]);
+  const [combinedCredits, setCombinedCredits] = useState([])
   const [imdb_id, setImdb_id] = useState(null);
   const [loading, setLoading] = useState(false);
-  const style = Style();
+  const style = Style()
+  const personInfoPageStyle = PersonInfoPageStyle()
   useEffect(() => {
-    getPersonInfo(params.id)
-      .then((data) => {
-        setTmdbPersonInfo(data);
-        setImdb_id(data.imdb_id);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    Promise.all([getPersonInfo(params.id), getPersonMovieCredits(params.id),getPersonCombinedCredits(params.id) ])
+    .then(([urlOneData, urlTwoData, urlThreeData]) => {
+        setTmdbPersonInfo(urlOneData);
+        setImdb_id(urlOneData.imdb_id);
+
+        setMovieCredits(urlTwoData.cast.map((movie) => {
+            return { media_type: "movie", ...movie };
+          }));
+
+          setCombinedCredits(urlThreeData.cast.map((movie) => {
+            if(movie.media_type === "movie")
+            {
+              return movie.release_date
+            }
+            else{
+              return movie.first_air_date
+            }
+          }));
+    })
+    .catch((e) => {
+      console.log(e);
+    });
   }, []);
+
+  console.log(combinedCredits)
+
   useEffect(() => {
     if (imdb_id === null) return;
     Promise.all([getPersonDetails(imdb_id), getPersonBio(imdb_id)])
@@ -142,6 +163,36 @@ function PersonInfoPage() {
                     ))} */}
                   </Stack>
                 </Stack>
+              </Grid>
+            </Grid>
+            <Grid container style={{ zIndex: "1", marginTop: "20px" }}>
+              <Grid item xs={3}>
+                ds
+              </Grid>
+              <Grid item xs={9} >
+                <div className={personInfoPageStyle.right_box}>
+                  <div className={personInfoPageStyle.container}>
+                    <div className={personInfoPageStyle.known_for_title}>Known For</div>
+                    <div className={personInfoPageStyle.known_for_box}>
+                      <div className={personInfoPageStyle.known_for_box_overlay_outter}>
+                        <Stack direction="row"
+                          justifyContent="center"
+                          alignItems="flex-start"
+                          spacing={1}
+                          className={personInfoPageStyle.known_for_box_overlay_inner}
+                        >
+                          {movieCredits.slice(0, 8).map((movie, key) => {
+                            return (<MovieCard movie={movie} key={key}></MovieCard>)
+                          })}
+                        </Stack>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={personInfoPageStyle.container}>
+                    <div className={personInfoPageStyle.known_for_title}>Known For</div>
+                    <div className={personInfoPageStyle.credits_box}>Known For</div>
+                  </div>
+                </div>
               </Grid>
             </Grid>
           </>

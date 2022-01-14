@@ -15,6 +15,13 @@ function MovieList({ searchParams }) {
   const [page, setPage] = useState(1);
   useEffect(() => {
     if (searchParams !== null) {
+      if (searchParams.get("page") === null) {
+        searchParams.set("page", 1)
+        setPage(1)
+      }
+      else {
+        setPage(searchParams.get("page"))
+      }
       getFilteredMovies(searchParams, page)
         .then((data) => {
           setMovieList(
@@ -29,12 +36,28 @@ function MovieList({ searchParams }) {
         });
     }
   }, [searchParams, page]);
-  const handlePrevPage = () => {
-    setPage(page - 1);
-  };
+
+  
   const handleNextPage = () => {
-    setPage(page + 1);
+    const page = searchParams.get("page");
+    searchParams.set("page", parseInt(page) + 1)
+    history.push({
+      pathname: "/filter",
+      search: searchParams.toString()
+    });
   };
+
+  const handlePrevPage = () => {
+    const page = searchParams.get("page");
+    if (searchParams.get("page") !== "1") {
+      searchParams.set("page", parseInt(page) - 1)
+      history.push({
+        pathname: "/filter",
+        search: searchParams.toString()
+      });
+    }
+  };
+
 
   return (
     <>
