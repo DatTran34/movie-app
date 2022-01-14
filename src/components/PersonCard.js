@@ -1,11 +1,12 @@
 import { Grid, Stack } from '@mui/material';
 import React from 'react'
 import PersonCardStyle from '../styles/components/PersonCardStyle';
+import { useHistory, useLocation } from "react-router";
 function PersonCard({ person }) {
     const personCardStyle = PersonCardStyle()
-    console.log(person)
+    const history = useHistory();
     return (
-        <Grid container className={personCardStyle.box}>
+        <Grid container className={personCardStyle.box}  onClick={() => history.push(`/person/${person.id}`)}>
             <Grid item xs={5}>
                 <div className={personCardStyle.yellowColumn}>w</div>
                 <img
@@ -17,17 +18,17 @@ function PersonCard({ person }) {
                 spacing={0.5}>
                 <div className={personCardStyle.header}>{person.name}</div>
                 {person.known_for.map((movie, key) => {
-                    return (<>
+                    return (<div key={key}>
                         {movie.media_type === "movie" ? (
                             <>
-                                <div className={personCardStyle.content}>{movie.title}</div>
+                                <div className={personCardStyle.content} >{movie.title}</div>
                             </>
                         ) : (
                             <>
                                 <div className={personCardStyle.content}>{movie.name}</div>
                             </>
                         )}
-                    </>)
+                    </div>)
                 })}
             </div></Grid>
 

@@ -12,11 +12,25 @@ export const getMovieAwards = async (ImdbID) => {
         console.error(error);
       }
 };
-export const getCast = async (movieId) => {
-    try {
-      const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`);
+export const getPersonDetails = async (ImdbID) => {
+  try {
+      const response = await axios.get(`https://data-imdb1.p.rapidapi.com/actor/id/${ImdbID}/`, {headers: {
+          "x-rapidapi-host": "data-imdb1.p.rapidapi.com",
+          "x-rapidapi-key": `${process.env.REACT_APP_API_DATA_IMDB_KEY}`,
+      }});
       return response.data;
     } catch (error) {
       console.error(error);
     }
-  }
+};
+export const getPersonBio = async (ImdbID) => {
+  try {
+      const response = await axios.get(`https://data-imdb1.p.rapidapi.com/actor/id/${ImdbID}/bio/`, {headers: {
+          "x-rapidapi-host": "data-imdb1.p.rapidapi.com",
+          "x-rapidapi-key": `${process.env.REACT_APP_API_DATA_IMDB_KEY}`,
+      }});
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+};

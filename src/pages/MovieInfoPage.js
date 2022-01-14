@@ -2,9 +2,8 @@ import { CircularProgress, Grid, Stack, Typography } from '@mui/material'
 import { getMovieInfo, getCast } from '../axios/TmdbRequest';
 import { getRapidMovieInfo} from '../axios/RapidImdbRequest';
 import React, { useEffect, useState } from 'react'
-import MovieInfoStyle from '../styles/pages/MovieInfoPageStyle'
-import poster from '../images/poster.jpg'
-import cast_image from '../images/cast_img.jpg'
+import Style from '../styles/Style'
+import avatar from '../images/avatar.png'
 import imdb from '../images/imdb.png'
 import metacritic from '../images/metacritic.png'
 import Rotten_Tomatoes1 from '../images/Rotten_Tomatoes1.png'
@@ -13,6 +12,8 @@ import Rotten_Tomatoes3 from '../images/Rotten_Tomatoes3.png'
 import { Box } from '@mui/system'
 import Award from "../components/Award"
 import NavBar from "../components/NavBar/NavBar"
+import { useParams } from "react-router";
+import { useHistory } from "react-router";
 function CircularProgressWithLabel(props) {
     return (
       <Box sx={{ position: 'relative', display: 'inline-flex', backgroundColor: "#363761", borderRadius: "100%", padding: "5px" }}>
@@ -37,9 +38,10 @@ function CircularProgressWithLabel(props) {
     );
   }
 
-function MovieInfoPage({ match, history }) {
-    const [filter, setFilter] = useState({ title: "movie", content: "popular" })
-    const movieInfoStyle = MovieInfoStyle()
+function MovieInfoPage() {
+    const history = useHistory();
+    const params = useParams()
+    const style = Style()
     const [tmdbMovieInfo, setTmdbMovieInfo] = useState([]);
     const [rapidMovieInfo, setRapidMovieInfo] = useState([]);
     const [cast, setCast] = useState([]);
@@ -54,16 +56,28 @@ function MovieInfoPage({ match, history }) {
         return `${rhours}h ${rminutes}m`
     }
     useEffect(() => {
-        getMovieInfo(match.params.media_type, match.params.id).then((data) => {
-            setTmdbMovieInfo(data)
-            setRuntime(calRuntime(data.runtime))
-            setImdb_id(data.imdb_id)
-            getCast(match.params.id).then((data) => {
-                setCast(data.cast)
-                
-            }).catch((e) => { console.log(e) })
+        Promise.all([
+            getMovieInfo("movie", params.id),
+            getCast(params.id)
+        ]).then(([urlOneData, urlTwoData]) => {
+            setTmdbMovieInfo(urlOneData)
+            setRuntime(calRuntime(urlOneData.runtime))
+            setImdb_id(urlOneData.imdb_id)
+            setCast(urlTwoData.cast)
         }).catch((e) => { console.log(e) })
     }, [])
+
+    // useEffect(() => {
+    //     getMovieInfo("movie", params.id).then((data) => {
+    //         setTmdbMovieInfo(data)
+    //         setRuntime(calRuntime(data.runtime))
+    //         setImdb_id(data.imdb_id)
+    //         getCast(params.id).then((data) => {
+    //             setCast(data.cast)
+                
+    //         }).catch((e) => { console.log(e) })
+    //     }).catch((e) => { console.log(e) })
+    // }, [])
     useEffect(() => {
         if(imdb_id === null) return
         getRapidMovieInfo(imdb_id).then((data) => {
@@ -74,58 +88,58 @@ function MovieInfoPage({ match, history }) {
 
     return (
         <>
-           <NavBar setFilter={setFilter} history={history}></NavBar>
+           <NavBar></NavBar>
             <Stack paddingTop="200px" position="relative" >
                 {!loading ? (
                     <Stack>Loading..</Stack>
                 ) : (
                     <>
-                        <Stack className={movieInfoStyle.backdrop_container} >
-                            <Stack className={movieInfoStyle.backdrop_blur1}></Stack>
-                            <Stack className={movieInfoStyle.backdrop_blur2}></Stack>
-                            <Stack className={movieInfoStyle.backdrop_blur3}></Stack>
-                            <Stack className={movieInfoStyle.backdrop_blur4}></Stack>
-                            <img className={movieInfoStyle.backdrop} src={`http://image.tmdb.org/t/p/original/${tmdbMovieInfo.backdrop_path}`}/>
+                        <Stack className={style.backdrop_container} >
+                            <Stack className={style.backdrop_blur1}></Stack>
+                            <Stack className={style.backdrop_blur2}></Stack>
+                            <Stack className={style.backdrop_blur3}></Stack>
+                            <Stack className={style.backdrop_blur4}></Stack>
+                            <img className={style.backdrop} src={`http://image.tmdb.org/t/p/original/${tmdbMovieInfo.backdrop_path}`}/>
                         </Stack>
                         <Grid container style={{zIndex: "1"}}>
                             <Grid item xs={3}>
-                                <img className={movieInfoStyle.poster} src={`http://image.tmdb.org/t/p/original/${tmdbMovieInfo.poster_path}`}/>
+                                <img className={style.poster} src={`http://image.tmdb.org/t/p/original/${tmdbMovieInfo.poster_path}`}/>
                             </Grid>
-                            <Grid item xs={6} className={movieInfoStyle.root} >
+                            <Grid item xs={6} className={style.root} >
                                 <Stack spacing={2}>
                                     <Stack direction="row" alignItems="center" spacing={3}>
-                                        <Stack className={movieInfoStyle.movie_name}>{tmdbMovieInfo.original_title}</Stack>
-                                        <Stack className={movieInfoStyle.year}>{rapidMovieInfo.Year}</Stack>
+                                        <Stack className={style.name}>{tmdbMovieInfo.original_title}</Stack>
+                                        <Stack className={style.year}>{rapidMovieInfo.Year}</Stack>
                                     </Stack>
                                     <Stack direction="row" spacing={2}>
-                                        <Stack className={movieInfoStyle.trailer_button}>Watch Trailer</Stack>
+                                        <Stack className={style.trailer_button}>Watch Trailer</Stack>
                                         <Stack direction="row"  spacing={2} py={1}>
                                             {tmdbMovieInfo.genres.map((genre, key) => (
-                                                <Stack key={key} className={movieInfoStyle.category_button}>{genre.name}</Stack>
+                                                <Stack key={key} className={style.category_button}>{genre.name}</Stack>
                                             ))}
                                         </Stack>
                                     </Stack>
                                     <Stack direction="row" spacing={2}>
                                         <Stack>
-                                            <Stack className={movieInfoStyle.title}>STATUS</Stack>
-                                            <Stack className={movieInfoStyle.content}>{tmdbMovieInfo.status}</Stack>
+                                            <Stack className={style.title}>STATUS</Stack>
+                                            <Stack className={style.content}>{tmdbMovieInfo.status}</Stack>
                                         </Stack>
                                         <Stack>
-                                            <Stack className={movieInfoStyle.title}>COUNTRY</Stack>
-                                            <Stack className={movieInfoStyle.content}>America</Stack>
+                                            <Stack className={style.title}>COUNTRY</Stack>
+                                            <Stack className={style.content}>{tmdbMovieInfo.production_countries[0]?.name}</Stack>
                                         </Stack>
                                         <Stack>
-                                            <Stack className={movieInfoStyle.title}>RUNTIME</Stack>
-                                            <Stack className={movieInfoStyle.content}>{runtime}</Stack>
+                                            <Stack className={style.title}>RUNTIME</Stack>
+                                            <Stack className={style.content}>{runtime}</Stack>
                                         </Stack>
                                         <Stack>
-                                            <Stack className={movieInfoStyle.title}>DIRECTOR</Stack>
-                                            <Stack className={movieInfoStyle.content}>{rapidMovieInfo.Director}</Stack>
+                                            <Stack className={style.title}>DIRECTOR</Stack>
+                                            <Stack className={style.content}>{rapidMovieInfo.Director}</Stack>
                                         </Stack>
                                     </Stack>
                                     <Stack textAlign="left">
-                                        <Stack className={movieInfoStyle.title}>STORYLINE</Stack>
-                                        <Stack className={movieInfoStyle.content}>{tmdbMovieInfo.overview}</Stack>
+                                        <Stack className={style.title}>STORYLINE</Stack>
+                                        <Stack className={style.content}>{tmdbMovieInfo.overview}</Stack>
                                     </Stack>
                                     <Stack direction="row" spacing={2} justifyContent="flex-start" alignItems="center" >
                                         <Stack direction="row" justifyContent="flex-start" alignItems="center"  spacing={2}>
@@ -147,12 +161,12 @@ function MovieInfoPage({ match, history }) {
                                     </Stack>
                                     <Stack direction="row" spacing={2} justifyContent="flex-start" alignItems="center">
                                         <Stack>
-                                            <Stack className={movieInfoStyle.title}>BUDGET</Stack>
-                                            <Stack className={movieInfoStyle.content}>{`$${tmdbMovieInfo.budget.toLocaleString('en-US')}`}</Stack>
+                                            <Stack className={style.title}>BUDGET</Stack>
+                                            <Stack className={style.content}>{`$${tmdbMovieInfo.budget.toLocaleString('en-US')}`}</Stack>
                                         </Stack>
                                         <Stack>
-                                            <Stack className={movieInfoStyle.title}>REVENUE</Stack>
-                                            <Stack className={movieInfoStyle.content}>{`$${tmdbMovieInfo.revenue.toLocaleString('en-US')}`}</Stack>
+                                            <Stack className={style.title}>REVENUE</Stack>
+                                            <Stack className={style.content}>{`$${tmdbMovieInfo.revenue.toLocaleString('en-US')}`}</Stack>
                                         </Stack>
                                         <Stack spacing={0.5} direction="row" p={0.5}  backgroundColor="#FFFFFF" justifyContent="center" alignItems="center" borderRadius="10px">
                                             {tmdbMovieInfo.production_companies.map((company, key) => {
@@ -170,10 +184,14 @@ function MovieInfoPage({ match, history }) {
                                     <Stack spacing={2}>
                                         {cast.slice(0, 4).map((person, key) => (
                                                 <Stack direction="row" key={key}>
-                                                    <img className={movieInfoStyle.cast_image} src={`http://image.tmdb.org/t/p/w500/${person.profile_path}`}/>
+                                                    {!person.profile_path ? (
+                                                       <img className={style.cast_image} src={avatar} />
+                                                    ) : (
+                                                        <img className={style.cast_image}  style={{cursor: "pointer"}} src={`http://image.tmdb.org/t/p/w500/${person.profile_path}`}  onClick={() => history.push(`/person/${person.id}`)}/>
+                                                    )}
                                                     <Stack pl={2} textAlign="start">
-                                                        <Stack className={movieInfoStyle.title}>{person.original_name}</Stack>
-                                                        <Stack className={movieInfoStyle.content}>{person.character}</Stack>
+                                                        <Stack className={style.title}>{person.original_name}</Stack>
+                                                        <Stack className={style.content}>{person.character}</Stack>
                                                     </Stack>
                                                 </Stack>
                                         ))}
@@ -183,7 +201,6 @@ function MovieInfoPage({ match, history }) {
                         </Grid>
                         <Award ImdbID={imdb_id}/>
                     </>
-
                 )}
             </Stack>
         </>

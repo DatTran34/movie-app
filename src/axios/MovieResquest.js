@@ -23,8 +23,8 @@ export const getFilteredMovies = async (searchParams, page) => {
         }
         
       }
-      console.log(params)
-      const response = await axios.get(`https://api.themoviedb.org/3/discover/${searchParams.get("media_type")}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${page}${params}`);
+      console.log(searchParams.get("page"))
+      const response = await axios.get(`https://api.themoviedb.org/3/discover/${searchParams.get("media_type")}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=${searchParams.get("page")}${params}`);
       return response.data;
     }
     else{
@@ -42,10 +42,10 @@ export const getFilteredMovies = async (searchParams, page) => {
       } else if (searchParams.get("category") === "On The Air") {
         param = "on_the_air"
       } else if (searchParams.get("category") === "person") {
-        const response = await axios.get(`https://api.themoviedb.org/3/person/popular?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`);
+        const response = await axios.get(`https://api.themoviedb.org/3/person/popular?api_key=${process.env.REACT_APP_API_KEY}&page=${searchParams.get("page")}`);
         return response.data;
       }
-      const response = await axios.get(`https://api.themoviedb.org/3/${searchParams.get("media_type")}/${param}?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`);
+      const response = await axios.get(`https://api.themoviedb.org/3/${searchParams.get("media_type")}/${param}?api_key=${process.env.REACT_APP_API_KEY}&page=${searchParams.get("page")}`);
       return response.data;
     }
 

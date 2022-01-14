@@ -10,7 +10,7 @@ function SmallMovieCard({movie,history}) {
             alignItems="center"
             spacing={1}
             style={{cursor:"pointer"}}
-            onClick={() => history.push(`/movie-info/${movie.id}/${movie.media_type}`)}>
+            onClick={() => history.push(`/movie/${movie.id}`)}>
             <img className={smallMovieCardStyle.img} src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}/>
             <Stack direction="column"
                 justifyContent="flex-start"

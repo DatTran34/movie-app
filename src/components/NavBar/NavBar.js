@@ -12,7 +12,7 @@ import InputBase from '@mui/material/InputBase';
 import { useHistory, useLocation } from 'react-router';
 function SearchCard({ history, item, className_ }) {
     const navbarStyle = NavBarStyle()
-    return <div className={className_} onClick={() => history.push(`/movie-info/${item.id}/${item.media_type}`)}>
+    return <div className={className_} onClick={() => history.push(`/movie/${item.id}`)}>
         {item.media_type === "movie" ? (
             <>
                 <TheatersIcon className={navbarStyle.item} />
@@ -133,6 +133,7 @@ function NavBar() {
      // returns the existing query string: '?genre=fiction&year=2019'
       searchParams.set(key, value);
       searchParams.delete("category");
+      searchParams.delete("page");
       history.push({
                pathname: "/filter",
                search: searchParams.toString()
@@ -144,6 +145,7 @@ function NavBar() {
       searchParams.delete("genre");
       searchParams.delete("year");
       searchParams.delete("country");
+      searchParams.delete("page");
       searchParams.set("media_type", media_type);
       searchParams.set("category", value);
       history.push({
@@ -169,14 +171,6 @@ function NavBar() {
                search: searchParams.toString()
          });
      };
-    // ============== HANDLE SEARCHING TYPE OF MOVIE =============
-    const handleSearchMovies = (a, b) => {
-        //setFilter({ a: b , ...filter})
-        history.push({
-          pathname: '/movie',
-          search: `?${a}=${b}`
-        })
-    }
 
     return (
       <Stack style={{ position: "fixed", zIndex: "50", width: "100%" }}>
@@ -381,7 +375,7 @@ function NavBar() {
                       [navbarStyle.row]: true,
                     })}
                   >
-                    {countries.slice(0,29).map((country, key) => {
+                    {countries.slice(0,27).map((country, key) => {
                       return (
                         <Grid
                           className={navbarStyle.navbar_panel_item}
@@ -400,6 +394,7 @@ function NavBar() {
                       );
                     })}
                   </Grid>
+                  
                 )}
               </div>
               <div
@@ -443,7 +438,6 @@ function NavBar() {
                     placeholder="Search..."
                   ></input>
                 </Stack>
-                
                 <div className={navbarSearchButtonStyle}>Search</div>
               </Stack>
               {isSearchShown && (
