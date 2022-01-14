@@ -63,18 +63,17 @@ function SearchPage() {
           >
             <Grid style={{ maxWidth: "750px" }} item xs={12} md={8.5}>
               <div className={movieStyle.header}>Filtered Movies</div>
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Stack position="relative">
-                  <Stack>hsd</Stack>
+              <Stack direction="row" alignItems="center" spacing={2} p={1}>
+                <Stack position="relative" onClick={handleChange}>
                   <input
                     className={movieStyle.input_role_switch}
                     type="checkbox"
                     role="switch"
-                    value={checked}
-                    onChange={handleChange}
+                    checked={checked}
+                    
                   />
-                  <Stack className={movieStyle.input_role_switch_movie}>Movie</Stack>
-                  <Stack className={movieStyle.input_role_switch_tv}>TV</Stack>
+                  <Stack className={movieStyle.input_role_switch_movie} >Movie</Stack>
+                  <Stack className={movieStyle.input_role_switch_tv} >TV</Stack>
                 </Stack>
                 <CategoryTags/>
               </Stack>

@@ -2,7 +2,7 @@ import { Stack ,Box, CircularProgress} from '@mui/material';
 import { React, useEffect, useState } from 'react'
 import { getImageMovie } from '../axios/MovieResquest';
 import MovieCardStyle from '../styles/components/MovieCardStyle';
-import { useHistory, useLocation } from "react-router";
+import { useHistory } from "react-router";
 
 function CircularProgressWithLabel(props) {
     return (

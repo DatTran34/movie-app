@@ -38,7 +38,7 @@ function CategoryTags() {
             <Stack
               direction="row"
               borderRadius="20px"
-              border="1px solid #4CCDEB"
+              border="2px solid #4CCDEB"
               color="#4CCDEB"
               px={1}
               py={0.5}
@@ -61,7 +61,7 @@ function CategoryTags() {
             <Stack
               direction="row"
               borderRadius="20px"
-              border="1px solid #4CCDEB"
+              border="2px solid #4CCDEB"
               color="#4CCDEB"
               px={1}
               py={0.5}

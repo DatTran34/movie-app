@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { CircularProgress, Grid, Stack, Typography } from '@mui/material'
+import { CircularProgress, Grid, Stack, Typography } from "@mui/material";
 import { getPersonInfo } from "../axios/TmdbRequest";
 import { getPersonDetails, getPersonBio } from "../axios/ImdbRequest";
-import Style from '../styles/Style'
-import NavBar from "../components/NavBar/NavBar"
+import Style from "../styles/Style";
+import NavBar from "../components/NavBar/NavBar";
 import { useParams } from "react-router";
 function PersonInfoPage() {
-    const params = useParams()
+  const params = useParams();
+
+  const [age, setAge] = useState(null);
   const [imdbPersonInfo, setImdbPersonInfo] = useState([]);
   const [tmdbPersonInfo, setTmdbPersonInfo] = useState([]);
   const [imdb_id, setImdb_id] = useState(null);
   const [loading, setLoading] = useState(false);
-  const style = Style()
+  const style = Style();
   useEffect(() => {
     getPersonInfo(params.id)
       .then((data) => {
@@ -23,15 +25,28 @@ function PersonInfoPage() {
       });
   }, []);
   useEffect(() => {
-    if(imdb_id === null) return
-    Promise.all([
-        getPersonDetails(imdb_id),
-        getPersonBio(imdb_id)
-    ]).then(([urlOneData, urlTwoData]) => {
-        setImdbPersonInfo({...urlOneData.results,...urlTwoData.results.biography})
-        setLoading(true)
-    }).catch((e) => { console.log(e) })
-}, [imdb_id])
+    if (imdb_id === null) return;
+    Promise.all([getPersonDetails(imdb_id), getPersonBio(imdb_id)])
+      .then(([urlOneData, urlTwoData]) => {
+        setImdbPersonInfo({
+          ...urlOneData.results,
+          ...urlTwoData.results.biography,
+        });
+        let dob = tmdbPersonInfo.birthday.replace(/-/g, "")
+        setAge(calculate_age(new Date(dob.slice(0,4), dob.slice(4,6), dob.slice(6,8))));
+        setLoading(true);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, [imdb_id]);
+  function calculate_age(dob) { 
+    console.log(dob);
+    var diff_ms = Date.now() - dob.getTime();
+    var age_dt = new Date(diff_ms); 
+  
+    return Math.abs(age_dt.getUTCFullYear() - 1970);
+}
   return (
     <>
       <NavBar></NavBar>
@@ -50,10 +65,7 @@ function PersonInfoPage() {
               <Grid item xs={6} className={style.root}>
                 <Stack spacing={2}>
                   <Stack direction="row" alignItems="center" spacing={3}>
-                    <Stack className={style.name}>
-                      {tmdbPersonInfo.name}
-                    </Stack>
-                    
+                    <Stack className={style.name}>{tmdbPersonInfo.name}</Stack>
                   </Stack>
                   <Stack direction="row" spacing={2}>
                     <Stack>
@@ -65,7 +77,7 @@ function PersonInfoPage() {
                     <Stack>
                       <Stack className={style.title}>BIRTHDAY</Stack>
                       <Stack className={style.content}>
-                        {tmdbPersonInfo.birthday}
+                        {`${tmdbPersonInfo.birthday} (${age} years old)`}
                       </Stack>
                     </Stack>
                     <Stack>
