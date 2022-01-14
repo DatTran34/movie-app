@@ -3,8 +3,7 @@ import { getMovieInfo, getCast } from '../axios/TmdbRequest';
 import { getRapidMovieInfo} from '../axios/RapidImdbRequest';
 import React, { useEffect, useState } from 'react'
 import Style from '../styles/Style'
-import poster from '../images/poster.jpg'
-import cast_image from '../images/cast_img.jpg'
+import avatar from '../images/avatar.png'
 import imdb from '../images/imdb.png'
 import metacritic from '../images/metacritic.png'
 import Rotten_Tomatoes1 from '../images/Rotten_Tomatoes1.png'
@@ -184,8 +183,12 @@ function MovieInfoPage() {
                                     <Stack color="#ffffff" fontWeight="800" fontSize="1.5rem" textAlign="start">Cast</Stack>
                                     <Stack spacing={2}>
                                         {cast.slice(0, 4).map((person, key) => (
-                                                <Stack direction="row" key={key} style={{cursor: "pointer"}} onClick={() => history.push(`/person/${person.id}`)}>
-                                                    <img className={style.cast_image} src={`http://image.tmdb.org/t/p/w500/${person.profile_path}`}/>
+                                                <Stack direction="row" key={key}>
+                                                    {!person.profile_path ? (
+                                                       <img className={style.cast_image} src={avatar} />
+                                                    ) : (
+                                                        <img className={style.cast_image}  style={{cursor: "pointer"}} src={`http://image.tmdb.org/t/p/w500/${person.profile_path}`}  onClick={() => history.push(`/person/${person.id}`)}/>
+                                                    )}
                                                     <Stack pl={2} textAlign="start">
                                                         <Stack className={style.title}>{person.original_name}</Stack>
                                                         <Stack className={style.content}>{person.character}</Stack>
