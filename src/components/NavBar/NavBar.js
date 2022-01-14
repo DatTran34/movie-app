@@ -144,8 +144,8 @@ function NavBar() {
       searchParams.delete("genre");
       searchParams.delete("year");
       searchParams.delete("country");
-      searchParams.set("category", value);
       searchParams.set("media_type", media_type);
+      searchParams.set("category", value);
       history.push({
                pathname: "/filter",
                search: searchParams.toString()
@@ -417,7 +417,10 @@ function NavBar() {
                     <div
                       className={navbarStyle.navbar_panel_item}
                       onClick={() => {
-                        handleSearchMovies("person", "popular_people");
+                        addQuery_2(
+                          "movie",
+                          "person"
+                        );
                       }}
                     >
                       Popular People

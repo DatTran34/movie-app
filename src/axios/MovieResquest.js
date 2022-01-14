@@ -41,6 +41,9 @@ export const getFilteredMovies = async (searchParams, page) => {
         param = "airing_today"
       } else if (searchParams.get("category") === "On The Air") {
         param = "on_the_air"
+      } else if (searchParams.get("category") === "person") {
+        const response = await axios.get(`https://api.themoviedb.org/3/person/popular?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`);
+        return response.data;
       }
       const response = await axios.get(`https://api.themoviedb.org/3/${searchParams.get("media_type")}/${param}?api_key=${process.env.REACT_APP_API_KEY}&page=${page}`);
       return response.data;

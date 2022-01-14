@@ -3,6 +3,7 @@ import { React, useEffect, useState } from "react";
 import HomeStyle from "../styles/HomeStyle";
 import NavBar from "../components/NavBar/NavBar";
 import MovieList from "../components/MovieList";
+import PeopleList from "../components/PeopleList";
 import SmallMovieCard from "../components/SmallMovieCard";
 import { getTrendingMovies, getUpComingMovies } from "../axios/MovieResquest";
 import MovieStyle from "../styles/MovieStyle";
@@ -18,6 +19,7 @@ function SearchPage() {
     content: "popular",
   });
   const [checked, setChecked] = useState(false);
+  const searchParams =  new URLSearchParams(location.search);
 
   const handleChange = () => {
     setChecked(!checked)
@@ -78,7 +80,8 @@ function SearchPage() {
                 </Stack>
                 <CategoryTags/>
               </Stack>
-              <MovieList searchParams={new URLSearchParams(location.search)} ></MovieList>
+              {searchParams.get("category") === "person" ? (<PeopleList searchParams={searchParams}></PeopleList>) : ( <MovieList searchParams={searchParams} ></MovieList>) }
+             
             </Grid>
             <Grid item xs={12} md={3.5}>
               <div className={movieStyle.right_box}>
