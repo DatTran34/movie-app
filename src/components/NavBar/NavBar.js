@@ -381,7 +381,7 @@ function NavBar() {
                       [navbarStyle.row]: true,
                     })}
                   >
-                    {countries.slice(0,29).map((country, key) => {
+                    {countries.slice(0,27).map((country, key) => {
                       return (
                         <Grid
                           className={navbarStyle.navbar_panel_item}
@@ -400,6 +400,7 @@ function NavBar() {
                       );
                     })}
                   </Grid>
+                  
                 )}
               </div>
               <div
@@ -440,7 +441,6 @@ function NavBar() {
                     placeholder="Search..."
                   ></input>
                 </Stack>
-                
                 <div className={navbarSearchButtonStyle}>Search</div>
               </Stack>
               {isSearchShown && (

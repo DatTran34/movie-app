@@ -1,6 +1,6 @@
 import { makeStyles } from "@mui/styles";
 
-const MovieInfoStyle = makeStyles((theme) => ({
+const Style = makeStyles((theme) => ({
     root: {
         fontWeight: "600",
         color: "#ffffff",
@@ -67,7 +67,7 @@ const MovieInfoStyle = makeStyles((theme) => ({
         width: "320px",
         borderRadius: "20px",
     },
-    movie_name: {
+    name: {
         fontWeight: "800",
         fontSize: "3rem",
     },
@@ -107,4 +107,4 @@ const MovieInfoStyle = makeStyles((theme) => ({
     },
 }))
 
-export default MovieInfoStyle
+export default Style

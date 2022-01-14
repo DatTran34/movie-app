@@ -87,31 +87,11 @@ const MovieStyle = makeStyles((theme) => ({
       color: "rgba(0,0,0,0.3)",
       lineHeight: "1",
     },
-    "&:after": { 
-      zIndex: "2",
-      content: 'Movie',
-      display: "flex",
-      alignContent: "center",
-      justifyContent: "center",
-      position: "absolute",
-      width: "4em",
-      height: "2em",
-      left: "0",
-      top: "0",
-      background: "rgba(240,240,240,0.9)",
-      boxShadow:
-        "0 1px 1px #fff inset, 0 .2em .5em rgba(255,255,255,0.7) inset, 0 -.2em .3em rgba(0,0,0,0.2) inset, 0 .05em .25em rgba(0,0,0,0.7)",
-      borderRadius: "1em",
-      transform: "translate(100%, 100%)",
-      transition: "transform 250ms ease",
-      color: "red",
-      lineHeight: "1",
-    },
     "&:focus::before": {
       background: "rgba(255,255,255,0.9)",
     },
     "&:checked": {
-      backgroundColor: "var(--bg-checked, var(--bg, rgb(60,130,250)))",
+      backgroundColor: "var(--bg-checked, var(--bg, #4CCDEB))",
     },
     "&:focus::visible": {
       boxShadow:
