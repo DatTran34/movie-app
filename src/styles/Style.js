@@ -91,10 +91,16 @@ const Style = makeStyles((theme) => ({
         borderRadius: "50px",
         padding: "0px 20px",
     },
+    box: {
+        width: "6.5rem"
+    },
     title:{
         color: "#4CCDEB"
     },
     content:{
+        color: "#ffffff",
+    },
+    content_overview:{
         color: "#ffffff",
     },
     cast_image: {

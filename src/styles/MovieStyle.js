@@ -116,7 +116,7 @@ const MovieStyle = makeStyles((theme) => ({
     fontWeight: "600",
     transform: "translate(30%, 0%)",
     color: "#4CCDEB",
-    cursor: "pointer",
+    cursor: "pointer"
   },
   input_role_switch_tv: {
     position: "absolute",
@@ -125,7 +125,7 @@ const MovieStyle = makeStyles((theme) => ({
     fontWeight: "600",
     transform: "translate(-130%, 0%)",
     color: "#4CCDEB",
-    cursor: "pointer",
+    cursor: "pointer"
   },
 }));
 

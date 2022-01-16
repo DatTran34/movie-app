@@ -14,10 +14,7 @@ function SearchPage() {
   const location = useLocation();
   const movieStyle = MovieStyle();
   const [upcomingList, setUpComingList] = useState([]);
-  const [kindOfSearch, setKindOfSearch] = useState({
-    title: "movie",
-    content: "popular",
-  });
+
   const [checked, setChecked] = useState(false);
   const searchParams =  new URLSearchParams(location.search);
 
@@ -37,9 +34,13 @@ function SearchPage() {
     });
   };
 
-  
-
   useEffect(() => {
+    let searchParams = new URLSearchParams(location.search);
+    if(searchParams.get("media_type") === "movie") {
+      setChecked(false)
+    } else {
+      setChecked(true)
+    }
     getUpComingMovies()
       .then((data) => {
         setUpComingList(data.results.map((movie) => {
@@ -49,7 +50,7 @@ function SearchPage() {
       .catch((e) => {
         console.error(e);
       });
-  }, []);
+  }, [location]);
 
   const homeStyle = HomeStyle();
   return (

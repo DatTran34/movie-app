@@ -18,8 +18,8 @@ export const getFilteredMovies = async (searchParams, page) => {
           params = params.concat('&with_genres=', pair[1])
         } else if (pair[0] === "year") {
           params = params.concat('&year=', pair[1])
-        } else if (pair[0] === "country") {
-          params = params.concat('&with_original_language=', pair[1])
+        } else if (pair[0] === "language") {
+          params = params.concat('&with_original_language=', pair[1].slice(0,2))
         }
         
       }

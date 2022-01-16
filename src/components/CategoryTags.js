@@ -56,6 +56,31 @@ function CategoryTags() {
               />
             </Stack>
           );
+        } else if (category.key === "language") {
+          let catgry = category.value.slice(3, category.value.length);
+          console.log(catgry)
+          return (
+            <Stack
+              direction="row"
+              borderRadius="20px"
+              border="2px solid #4CCDEB"
+              color="#4CCDEB"
+              px={1}
+              py={0.5}
+              spacing={0.5}
+              fontWeight="600"
+              key={index}
+              backgroundColor="rgba(76, 205, 235, 0.1)"
+            >
+              <Stack>{catgry}</Stack>
+              <CancelRoundedIcon
+                cursor="pointer"
+                onClick={() => {
+                    removeQuery(category.key);
+                  }}
+              />
+            </Stack>
+          );
         } else {
           return (
             <Stack

@@ -37,6 +37,7 @@ function PersonInfoPage() {
               return movie.first_air_date
             }
           }));
+          setLoading(true);
     })
     .catch((e) => {
       console.log(e);
@@ -55,7 +56,7 @@ function PersonInfoPage() {
         });
         let dob = tmdbPersonInfo.birthday.replace(/-/g, "")
         setAge(calculate_age(new Date(dob.slice(0,4), dob.slice(4,6), dob.slice(6,8))));
-        setLoading(true);
+        
       })
       .catch((e) => {
         console.log(e);
@@ -65,7 +66,6 @@ function PersonInfoPage() {
     console.log(dob);
     var diff_ms = Date.now() - dob.getTime();
     var age_dt = new Date(diff_ms); 
-  
     return Math.abs(age_dt.getUTCFullYear() - 1970);
 }
   return (
@@ -89,41 +89,41 @@ function PersonInfoPage() {
                     <Stack className={style.name}>{tmdbPersonInfo.name}</Stack>
                   </Stack>
                   <Stack direction="row" spacing={2}>
-                    <Stack>
+                    <Stack className={style.box}>
                       <Stack className={style.title}>POPULARITY</Stack>
                       <Stack className={style.content}>
-                        {tmdbPersonInfo.popularity}
+                        {tmdbPersonInfo.popularity ? (`${tmdbPersonInfo.popularity}`) : ("Unknown")}
                       </Stack>
                     </Stack>
-                    <Stack>
+                    <Stack className={style.box}>
                       <Stack className={style.title}>BIRTHDAY</Stack>
                       <Stack className={style.content}>
-                        {`${tmdbPersonInfo.birthday} (${age} years old)`}
+                        {tmdbPersonInfo.birthday ? (`${tmdbPersonInfo.birthday} (${age} years old)`) : ("Unknown")}
                       </Stack>
                     </Stack>
-                    <Stack>
+                    <Stack className={style.box}>
                       <Stack className={style.title}>HEIGHT</Stack>
                       <Stack className={style.content}>
-                        {imdbPersonInfo.height}
+                        {tmdbPersonInfo.height ? (`${tmdbPersonInfo.height}`) : ("Unknown")}
                       </Stack>
                     </Stack>
-                    <Stack>
+                    <Stack className={style.box}>
                       <Stack className={style.title}>PLACE OF BIRTH</Stack>
                       <Stack className={style.content}>
-                        {tmdbPersonInfo.place_of_birth}
+                        {tmdbPersonInfo.place_of_birth ? (`${tmdbPersonInfo.place_of_birth}`) : ("Unknown")}
                       </Stack>
                     </Stack>
-                    <Stack>
+                    <Stack className={style.box}>
                       <Stack className={style.title}>STAR SIGN</Stack>
                       <Stack className={style.content}>
-                        {imdbPersonInfo.star_sign}
+                        {imdbPersonInfo.star_sign ? (`${imdbPersonInfo.star_sign}`) : ("Unknown")}
                       </Stack>
                     </Stack>
                   </Stack>
                   <Stack textAlign="left">
                     <Stack className={style.title}>BIOGRAPHY</Stack>
-                    <Stack className={style.content}>
-                      {tmdbPersonInfo.biography}
+                    <Stack className={style.content_overview}>
+                      {tmdbPersonInfo.biography ? (`${tmdbPersonInfo.biography}`) : ("Unknown")}
                     </Stack>
                   </Stack>
                 </Stack>
