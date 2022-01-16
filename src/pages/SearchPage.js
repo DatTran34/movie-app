@@ -9,6 +9,7 @@ import { getTrendingMovies, getUpComingMovies } from "../axios/MovieResquest";
 import MovieStyle from "../styles/MovieStyle";
 import { useHistory, useLocation } from "react-router";
 import CategoryTags from "../components/CategoryTags";
+import VerticalScrollBox from "../components/VerticalScrollBox";
 function SearchPage() {
   const history = useHistory();
   const location = useLocation();
@@ -16,15 +17,15 @@ function SearchPage() {
   const [upcomingList, setUpComingList] = useState([]);
 
   const [checked, setChecked] = useState(false);
-  const searchParams =  new URLSearchParams(location.search);
+  const searchParams = new URLSearchParams(location.search);
 
   const handleChange = () => {
     setChecked(!checked)
     let searchParams = new URLSearchParams(location.search);
-    if(!checked){
+    if (!checked) {
       searchParams.set("media_type", "tv")
     }
-    else{
+    else {
       searchParams.set("media_type", "movie")
     }
     searchParams.delete("genre");
@@ -73,39 +74,18 @@ function SearchPage() {
                     type="checkbox"
                     role="switch"
                     checked={checked}
-                    
+
                   />
                   <Stack className={movieStyle.input_role_switch_movie} >Movie</Stack>
                   <Stack className={movieStyle.input_role_switch_tv} >TV</Stack>
                 </Stack>
-                <CategoryTags/>
+                <CategoryTags />
               </Stack>
-              {searchParams.get("category") === "person" ? (<PeopleList searchParams={searchParams}></PeopleList>) : ( <MovieList searchParams={searchParams} ></MovieList>) }
-             
+              {searchParams.get("category") === "person" ? (<PeopleList searchParams={searchParams}></PeopleList>) : (<MovieList searchParams={searchParams} ></MovieList>)}
+
             </Grid>
             <Grid item xs={12} md={3.5}>
-              <div className={movieStyle.right_box}>
-                <div className={movieStyle.upcoming_box_title}>Up Coming</div>
-                <div className={movieStyle.upcoming_box}>
-                  <Stack
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="flex-start"
-                    spacing={1}
-                    className={movieStyle.overlay_inner}
-                  >
-                    {upcomingList?.map((movie, key) => {
-                      return (
-                        <SmallMovieCard
-                          movie={movie}
-                          history={history}
-                          key={key}
-                        ></SmallMovieCard>
-                      );
-                    })}
-                  </Stack>
-                </div>
-              </div>
+            <VerticalScrollBox title={"Up Coming"} data={upcomingList}></VerticalScrollBox>
             </Grid>
           </Grid>
         </div>

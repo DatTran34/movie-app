@@ -6,7 +6,7 @@ import MovieList from '../components/MovieList';
 import SmallMovieCard from '../components/SmallMovieCard';
 import { getTrendingMovies, getUpComingMovies } from '../axios/MovieResquest'
 import MovieStyle from '../styles/MovieStyle';
-
+import VerticalScrollBox from "../components/VerticalScrollBox";
 function HomePage({ history }) {
     const movieStyle = MovieStyle()
     const [upcomingList, setUpComingList] = useState([])
@@ -46,19 +46,7 @@ function HomePage({ history }) {
                         </Grid>
                         <Grid item xs={12} md={3.5}>
                             <div className={movieStyle.right_box}>
-                                <div className={movieStyle.upcoming_box_title}>Up Coming</div>
-                                <div className={movieStyle.upcoming_box}>
-                                    <Stack direction="column"
-                                        justifyContent="center"
-                                        alignItems="flex-start"
-                                        spacing={1}
-                                        className={movieStyle.overlay_inner}
-                                    >
-                                        {upcomingList?.map((movie, key) => {
-                                            return (<SmallMovieCard movie={movie} history={history} key={key}></SmallMovieCard>)
-                                        })}
-                                    </Stack>
-                                </div>
+                                <VerticalScrollBox title={"Up Coming"} data={upcomingList}></VerticalScrollBox>
                             </div>
                         </Grid>
                     </Grid>
