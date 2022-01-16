@@ -13,12 +13,14 @@ const bounce = keyframes`
 
 const MovieCardStyle = makeStyles((theme) => ({
     box : {
-        height:"245px",
-        width:"165px",
         position: "relative",
         cursor:"pointer",
         position: "relative",
-        backgroundColor: "yellow"
+        backgroundColor: "yellow",
+        "& img": {
+            width: "100%",
+            height: "100%"
+          },
     },
     imdb_rating_box:{
         position: "absolute",
@@ -33,8 +35,6 @@ const MovieCardStyle = makeStyles((theme) => ({
         zIndex:"2"
     },
     img:{
-        width: "165px",
-        height:"245px",
         borderRadius:"10px",
         transition: "all 0.4s ease-out",
         "&:hover": {

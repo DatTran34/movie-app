@@ -35,7 +35,7 @@ function MovieCard({ movie}) {
 
     return (
       <div  onClick={() => history.push(`/${movie.media_type}/${movie.id}`)}>
-        <div className={movieCardStyle.box}>
+        <div>
           <div className={movieCardStyle.imdb_rating_box}>IMBD 8.9</div>
           <img
             className={movieCardStyle.img}

@@ -10,6 +10,7 @@ import MovieStyle from "../styles/MovieStyle";
 import { useHistory, useLocation } from "react-router";
 import CategoryTags from "../components/CategoryTags";
 import VerticalScrollBox from "../components/VerticalScrollBox";
+import MovieList2 from "../components/MovieList2";
 function SearchPage() {
   const history = useHistory();
   const location = useLocation();
@@ -81,7 +82,7 @@ function SearchPage() {
                 </Stack>
                 <CategoryTags />
               </Stack>
-              {searchParams.get("category") === "person" ? (<PeopleList searchParams={searchParams}></PeopleList>) : (<MovieList searchParams={searchParams} ></MovieList>)}
+              {searchParams.get("category") === "person" ? (<PeopleList searchParams={searchParams}></PeopleList>) : (<MovieList2 searchParams={searchParams} ></MovieList2>)}
 
             </Grid>
             <Grid item xs={12} md={3.5}>
