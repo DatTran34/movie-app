@@ -19,10 +19,11 @@ const VerticalScrollBoxStyle = makeStyles((theme) => ({
     vertical_scroll_box_overlay_outter:{
         overflow: "auto",
         display: "flex",
+        alignItems: "flex-start",
         height: "500px",
     },
     vertical_scroll_box_overlay_inner: {
-      margin: "auto",
+
     },
     vertical_scroll_box_title: {
       color: "#F6C700",

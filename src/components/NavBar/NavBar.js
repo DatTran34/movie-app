@@ -214,7 +214,10 @@ function NavBar() {
             justifyContent="space-between"
             alignItems="center"
           >
-            <Grid item md={1}>
+            <Grid item md={1}
+              className={navbarStyle.navbar_logo}
+              onClick={() => history.push(`/`)}
+            >
               Logo
             </Grid>
             <Grid item xs={8}>
