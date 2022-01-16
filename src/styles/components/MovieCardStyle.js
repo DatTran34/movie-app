@@ -12,55 +12,84 @@ const bounce = keyframes`
 `;
 
 const MovieCardStyle = makeStyles((theme) => ({
-    box : {
-        height:"245px",
-        width:"165px",
-        position: "relative",
-        cursor:"pointer",
-        position: "relative",
-        backgroundColor: "yellow"
-    },
-    imdb_rating_box:{
-        position: "absolute",
-        top: "10px",
-        right:"10px",
-        padding:"4px 6px",
-        borderRadius:"10px",
-        background: "#F6C700",
-        fontSize:"12px",
-        fontWeight:"700",
-        color: "#05103A",
-        zIndex:"2"
-    },
-    img:{
-        width: "165px",
-        height:"245px",
-        borderRadius:"10px",
-        transition: "all 0.4s ease-out",
-        "&:hover": {
-            position: "absolute",
-            top: "-10px",
-            left: "0px",
-            transform: "scale(1.2)",
-            //animation: `${bounce} 0.4s ease`,
-        }
-    },
-    
-    content:{
-        paddingTop:"1rem",
-        fontSize:"14px",
-        fontWeight:"600"
-    },
-    title:{
-        
-        color: "#ffffff"
-    },
-    time:{
-        color:"#BDBDBD"
-    },
-    year:{
-        color:"#4CCDEB"
-    }
-}))
+  card: {
+    display: "flex",
+    height: "20rem",
+    flexDirection: "column",
+    justifyContent: "flex-end",
+    position: "relative",
+    // "&:hover $img": {
+    //   position: "absolute",
+    //   top: "-10px",
+    //   left: "0px",
+    //   transform: "scale(1.2)",
+    //   border: "3px solid #4CCDEB"
+    //   //animation: `${bounce} 0.4s ease`,
+    // },
+    // "&:hover $imdb_rating_box": {
+    //   top: "-20px",
+    //   right: "-5px",
+    // },
+    // "&:hover $circular": {
+    //     bottom: "0px",
+    //     left: "0px",
+    // },
+    // "&:hover $content": {
+    //   paddingTop: "1.25rem",
+    // },
+  },
+  box: {
+    height: "15rem",
+    width: "10rem",
+    cursor: "pointer",
+    position: "relative",
+  },
+  imdb_rating_box: {
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    padding: " 0.25rem 0.5rem",
+    borderRadius: "10px",
+    background: "#F6C700",
+    fontSize: "0.75rem",
+    fontWeight: "700",
+    color: "#05103A",
+    zIndex: "2",
+    transition: "all 0.3s ease-out",
+  },
+  circular: {
+    position: "absolute",
+    bottom: "10px",
+    left: "10px",
+    display: "inline-flex",
+    backgroundColor: "#363761",
+    borderRadius: "100%",
+    padding: "5px",
+    transition: "all 0.3s ease-out",
+  },
+  img: {
+    width: "10rem",
+    height: "15rem",
+    borderRadius: "10px",
+    transition: "all 0.2s ease-out",
+  },
+  content: {
+    paddingTop: "0.75rem",
+    fontWeight: "600",
+  },
+  title: {
+    width: "10rem",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
+    color: "#ffffff",
+  },
+  time: {
+    color: "#BDBDBD",
+  },
+  year: {
+    color: "#4CCDEB",
+  },
+}));
 
-export default MovieCardStyle
+export default MovieCardStyle;

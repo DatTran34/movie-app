@@ -6,7 +6,7 @@ import { useHistory } from "react-router";
 
 function CircularProgressWithLabel(props) {
     return (
-      <Box sx={{ position: 'absolute', bottom:"10px", left:"10px", display: 'inline-flex', backgroundColor: "#363761", borderRadius: "100%", padding: "5px" }}>
+      <Box className={props.movieCardStyle.circular} >
         <CircularProgress style={{'color': '#4CCDEB'}} size={30} variant="determinate" color="primary" value={props.value * 10} />
         <Box
           sx={{
@@ -17,13 +17,14 @@ function CircularProgressWithLabel(props) {
             position: 'absolute',
             display: 'flex',
             alignItems: 'center',
+            fontWeight: "600",
+            fontSize: "0.75rem",
             justifyContent: 'center',
             color: "#ffffff"
           }}
         >
-          <div color="#ffffff" style={{fontSize:"14px"}}>
             {`${props.value}`}
-          </div>
+
         </Box>
       </Box>
     );
@@ -34,14 +35,15 @@ function MovieCard({ movie}) {
     const movieCardStyle = MovieCardStyle()
 
     return (
-      <div  onClick={() => history.push(`/${movie.media_type}/${movie.id}`)}>
+      <div  className={movieCardStyle.card}>
         <div className={movieCardStyle.box}>
           <div className={movieCardStyle.imdb_rating_box}>IMBD 8.9</div>
           <img
+           onClick={() => history.push(`/${movie.media_type}/${movie.id}`)}
             className={movieCardStyle.img}
             src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}
           />
-          <CircularProgressWithLabel value={movie.vote_average} />
+          <CircularProgressWithLabel movieCardStyle={movieCardStyle} value={movie.vote_average} />
         </div>
         <Stack
           direction="column"

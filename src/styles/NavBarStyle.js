@@ -7,8 +7,8 @@ const NavBarStyle = makeStyles((theme) => ({
     navbar_container:
     {
         padding: "0.5rem 1.5rem",
-        borderRadius: "30px",
-        background: "#27244f",
+        borderRadius: "10px",
+        background: "#1f2845",
         color:"#CCD2E3",
         boxShadow: "5px 4px 4px rgba(0, 0, 0, 0.25)"
     },
@@ -81,18 +81,23 @@ const NavBarStyle = makeStyles((theme) => ({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        backgroundColor: "#1C1656",
-        boxShadow: "inset 0px 4px 4px rgba(0, 0, 0, 0.25)",
-        borderRadius: "20px",
-        width: '60%',
+        backgroundColor: "transparent",
+        // boxShadow: "inset 0px 4px 4px rgba(0, 0, 0, 0.25)",
+        border: "1px solid #CCD2E3",
+        borderRadius: "10px",
+        width: '40%',
         fontSize: "0.75rem",
         transition: "width 0.5s",
         padding: "0.5rem",
+        '$:hover': {
+            backgroundColor: "#CCD2E3",
+        },
         
     },
 
     navbar_searchBox_searching: {
-        backgroundColor: "#16214A",
+        backgroundColor: "#CCD2E3",
+        color: "#1f2845",
         width: '100%',
     },
     navbar_input:{
@@ -103,7 +108,6 @@ const NavBarStyle = makeStyles((theme) => ({
         // '$navbar_input:hover ~$navbar_searchButton': {
         //     display: "flex",
         // },
-        color:"#CCD2E3",
         border:"none",
         outline:"none",
     },
