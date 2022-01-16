@@ -6,7 +6,6 @@ import Style from "../styles/Style";
 import NavBar from "../components/NavBar/NavBar";
 import { useParams } from "react-router";
 import PersonInfoPageStyle from "../styles/pages/PersonInfoPageStyle";
-
 import CreditMovieList from "../components/CreditMovieList";
 import MovieStyle from "../styles/MovieStyle";
 import VerticalScrollBox from "../components/VerticalScrollBox";
