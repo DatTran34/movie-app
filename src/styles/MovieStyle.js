@@ -20,30 +20,6 @@ const MovieStyle = makeStyles((theme) => ({
   left_box: {
     borderRadius: "10px",
   },
-  right_box: {
-    background: "#2D375A",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "center",
-    padding: "20px",
-    borderRadius: "10px",
-  },
-  upcoming_box: {
-    overflow: "auto",
-    width: "100%",
-    display: "flex",
-    height: "500px",
-  },
-  overlay_inner: {
-    margin: "auto",
-  },
-  upcoming_box_title: {
-    color: "#F6C700",
-    fontWeight: "700",
-    fontSize: "24px",
-    paddingBottom: "20px",
-  },
   pageButton: {
     color: "white",
   },
