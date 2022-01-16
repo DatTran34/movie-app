@@ -219,7 +219,9 @@ function NavBar() {
               <Stack pl={10}
                 direction="row"
                 justifyContent="center"
-                alignItems="center">
+                alignItems="center"
+                onClick ={() => {history.push("/")}}
+                >
                 <img style={{width: "10rem"}} src={logo}/>
               </Stack>
             </Grid>

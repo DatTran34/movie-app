@@ -69,12 +69,12 @@ function MovieList({ searchParams }) {
           <Grid
             container
             direction="row"
-            justifyContent="space-between"
+            justifyContent="center"
             className={movieStyle.left_box}
           >
             {movieList?.map((movie, key) => {
               return (
-                <Grid item xs={4} md={3} style={{ padding: "10px" }} key={key}>
+                <Grid item xs={4} md={3} style={{ padding: "10px", alignItems:"center" }} key={key}>
                   <MovieCard movie={movie}></MovieCard>
                 </Grid>
               );

@@ -17,7 +17,8 @@ const MovieCardStyle = makeStyles((theme) => ({
         width:"165px",
         position: "relative",
         cursor:"pointer",
-        position: "relative"
+        position: "relative",
+        backgroundColor: "yellow"
     },
     imdb_rating_box:{
         position: "absolute",
@@ -35,7 +36,7 @@ const MovieCardStyle = makeStyles((theme) => ({
         width: "165px",
         height:"245px",
         borderRadius:"10px",
-        transition: "all 0.5s ease-out",
+        transition: "all 0.4s ease-out",
         "&:hover": {
             position: "absolute",
             top: "-10px",

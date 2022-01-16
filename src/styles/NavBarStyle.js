@@ -1,9 +1,12 @@
 import { makeStyles } from "@mui/styles";
 
 const NavBarStyle = makeStyles((theme) => ({
+    navbar_logo:{
+        cursor:"pointer",
+    },
     navbar_container:
     {
-        padding: "0.5rem",
+        padding: "0.5rem 1.5rem",
         borderRadius: "30px",
         background: "#27244f",
         color:"#CCD2E3",
@@ -71,7 +74,6 @@ const NavBarStyle = makeStyles((theme) => ({
         display:"flex",
         flexDirection:"row",
         justifyContent:"flex-end",
-        padding:"0 1rem",
         color: "#CCD2E3"
     },
     navbar_searchBox:{

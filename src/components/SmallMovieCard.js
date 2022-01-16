@@ -6,8 +6,8 @@ function SmallMovieCard({movie,history}) {
     const smallMovieCardStyle =  SmallMovieCardStyle();
     return (
         <Stack direction="row"
-            justifyContent="center"
-            alignItems="center"
+            justifyContent="flex-start"
+            alignItems="flex-start"
             spacing={1}
             style={{cursor:"pointer"}}
             onClick={() => history.push(`/movie/${movie.id}`)}>

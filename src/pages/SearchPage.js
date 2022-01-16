@@ -63,9 +63,9 @@ function SearchPage() {
             container
             direction="row"
             justifyContent="space-between"
-            style={{ margin: "10px 0" }}
+            style={{ margin: "10px 0", maxWidth: "70rem" }}
           >
-            <Grid style={{ maxWidth: "750px" }} item xs={12} md={8.5}>
+            <Grid style={{ maxWidth: "47rem" }} item xs={12} md={8.5}>
               <div className={movieStyle.header}>Filtered Movies</div>
               <Stack direction="row" alignItems="center" spacing={2} p={1}>
                 <Stack position="relative" onClick={handleChange}>
