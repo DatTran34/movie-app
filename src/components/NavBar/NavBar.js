@@ -12,6 +12,7 @@ import InputBase from '@mui/material/InputBase';
 import { useHistory, useLocation } from "react-router";
 import defaultLanguages from "../../data/CountryList"
 import ReactCountryFlag from "react-country-flag"
+import logo from "../../images/logo.png"
 function SearchCard({ history, item, className_ }) {
   const navbarStyle = NavBarStyle();
   return (
@@ -215,7 +216,12 @@ function NavBar() {
             alignItems="center"
           >
             <Grid item md={1}>
-              Logo
+              <Stack pl={10}
+                direction="row"
+                justifyContent="center"
+                alignItems="center">
+                <img style={{width: "10rem"}} src={logo}/>
+              </Stack>
             </Grid>
             <Grid item xs={8}>
               <Stack

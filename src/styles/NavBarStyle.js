@@ -34,7 +34,7 @@ const NavBarStyle = makeStyles((theme) => ({
         cursor:"pointer",
         padding:"0.5rem",
         "&:hover":{
-            background: "#3b3266",
+            background: "#fbc108",
         },
     },
     search_language_box: {
@@ -58,11 +58,11 @@ const NavBarStyle = makeStyles((theme) => ({
     navbar_button:{
         padding:"10px 20px",
         cursor:"pointer",
-        borderRadius:"10px"
+        borderRadius:"10px",
     },
     navbar_button_hover:{
         borderRadius: "10px 10px 0 0",
-        backgroundColor: "#4CCDEB",
+        backgroundColor: "#fbc108",
         color: "#ffffff"
     },
     navbar_search:{
@@ -141,7 +141,7 @@ const NavBarStyle = makeStyles((theme) => ({
         flexDirection:"row",
         cursor:"pointer",
         '&:hover' : {
-            background: "#3b3266",
+            background: "#fbc108",
         }
     },
     navbar_search_panel_last_item: {
@@ -155,7 +155,7 @@ const NavBarStyle = makeStyles((theme) => ({
     },
     item_span:{
         padding:"5px",
-        color:"#BDBDBD"
+        color:"#fb4e68"
     }
 }))
 

@@ -1,10 +1,23 @@
 import { makeStyles } from "@mui/styles";
+import { keyframes } from "@mui/styled-engine";
+
+const bounce = keyframes`
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.2);
+  }
+`;
+
 const MovieCardStyle = makeStyles((theme) => ({
     box : {
         height:"245px",
         width:"165px",
         position: "relative",
-        cursor:"pointer"
+        cursor:"pointer",
+        position: "relative"
     },
     imdb_rating_box:{
         position: "absolute",
@@ -16,13 +29,22 @@ const MovieCardStyle = makeStyles((theme) => ({
         fontSize:"12px",
         fontWeight:"700",
         color: "#05103A",
-       
+        zIndex:"2"
     },
     img:{
         width: "165px",
         height:"245px",
-        borderRadius:"10px"
+        borderRadius:"10px",
+        transition: "all 0.5s ease-out",
+        "&:hover": {
+            position: "absolute",
+            top: "-10px",
+            left: "0px",
+            transform: "scale(1.2)",
+            //animation: `${bounce} 0.4s ease`,
+        }
     },
+    
     content:{
         paddingTop:"1rem",
         fontSize:"14px",
