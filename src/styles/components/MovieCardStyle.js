@@ -39,10 +39,12 @@ const MovieCardStyle = makeStyles((theme) => ({
     // },
   },
   box: {
-    height: "15rem",
-    width: "10rem",
     cursor: "pointer",
     position: "relative",
+    "& img": {
+        width: "100%",
+        height: "100%"
+      },
   },
   imdb_rating_box: {
     position: "absolute",
@@ -68,8 +70,6 @@ const MovieCardStyle = makeStyles((theme) => ({
     transition: "all 0.3s ease-out",
   },
   img: {
-    width: "10rem",
-    height: "15rem",
     borderRadius: "10px",
     transition: "all 0.2s ease-out",
   },

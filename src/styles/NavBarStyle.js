@@ -102,12 +102,13 @@ const NavBarStyle = makeStyles((theme) => ({
     },
     navbar_input:{
         background:"transparent",
+        color: "#CCD2E3",
         // '&:placeholder-shown ': {
         //     backgroundColor: "transparent",   
         // },
-        // '$navbar_input:hover ~$navbar_searchButton': {
-        //     display: "flex",
-        // },
+        '$navbar_input:hover ~$navbar_searchButton': {
+            backgroundColor:"yellow"
+        },
         border:"none",
         outline:"none",
     },
@@ -118,6 +119,7 @@ const NavBarStyle = makeStyles((theme) => ({
         padding: "0.25rem 1rem",
         justifyContent: "center",
         alignItems: "center",
+        color: "#CCD2E3",
         borderRadius: "20px",
         backgroundColor: "#374269",
         transition: "all 1s ease-out"
