@@ -1,26 +1,24 @@
-import { Grid, Stack } from "@mui/material";
 import { React, useEffect, useState } from "react";
-import {
-  getFilteredMovies,
-} from "../axios/MovieResquest";
-import MovieStyle from "../styles/MovieStyle";
-import MovieCard from "./MovieCard";
+import { getFilteredMovies } from "../axios/MovieResquest";
+import MovieListStyle from '../styles/components/MovieListStyle';
 import { useHistory, useLocation } from "react-router";
+import MovieCard from "./MovieCard";
+import { Stack } from "@mui/material";
+
 function MovieList({ searchParams }) {
   const history = useHistory();
   const location = useLocation();
-  const movieStyle = MovieStyle();
+  const movieListStyle = MovieListStyle();
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
   useEffect(() => {
     if (searchParams !== null) {
       if (searchParams.get("page") === null) {
-        searchParams.set("page", 1)
-        setPage(1)
-      }
-      else {
-        setPage(searchParams.get("page"))
+        searchParams.set("page", 1);
+        setPage(1);
+      } else {
+        setPage(searchParams.get("page"));
       }
       getFilteredMovies(searchParams, page)
         .then((data) => {
@@ -29,7 +27,7 @@ function MovieList({ searchParams }) {
               return { media_type: searchParams.get("media_type"), ...movie };
             })
           );
-          setIsLoading(false)
+          setIsLoading(false);
         })
         .catch((e) => {
           console.error(e);
@@ -37,28 +35,25 @@ function MovieList({ searchParams }) {
     }
   }, [searchParams, page]);
 
-  
   const handleNextPage = () => {
     const page = searchParams.get("page");
-    searchParams.set("page", parseInt(page) + 1)
+    searchParams.set("page", parseInt(page) + 1);
     history.push({
       pathname: "/filter",
-      search: searchParams.toString()
+      search: searchParams.toString(),
     });
   };
 
   const handlePrevPage = () => {
     const page = searchParams.get("page");
     if (searchParams.get("page") !== "1") {
-      searchParams.set("page", parseInt(page) - 1)
+      searchParams.set("page", parseInt(page) - 1);
       history.push({
         pathname: "/filter",
-        search: searchParams.toString()
+        search: searchParams.toString(),
       });
     }
   };
-
-
   return (
     <>
       {" "}
@@ -66,26 +61,21 @@ function MovieList({ searchParams }) {
         <>Loading</>
       ) : (
         <>
-          <Grid
-            container
-            direction="row"
-            justifyContent="center"
-            className={movieStyle.left_box}
-          >
+          <div className={movieListStyle.grid}>
             {movieList?.map((movie, key) => {
               return (
-                <Grid item xs={4} md={3} style={{ padding: "10px", alignItems:"center" }} key={key}>
-                  <MovieCard movie={movie}></MovieCard>
-                </Grid>
+                <div className={movieListStyle.col} key={key}>
+                  <MovieCard movie={movie} />
+                </div>
               );
             })}
-          </Grid>
+          </div>
           <Stack
             direction="row"
             justifyContent="center"
             alignItems="center"
             spacing={1}
-            className={movieStyle.pageButton}
+            className={movieListStyle.pageButton}
           >
             <div onClick={handlePrevPage}>Previous</div>
             <div>Page {page}</div>

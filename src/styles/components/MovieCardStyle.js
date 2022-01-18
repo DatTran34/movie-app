@@ -12,37 +12,39 @@ const bounce = keyframes`
 `;
 
 const MovieCardStyle = makeStyles((theme) => ({
-  card: {
-    display: "flex",
-    height: "20rem",
-    flexDirection: "column",
-    justifyContent: "flex-end",
-    position: "relative",
-    // "&:hover $img": {
-    //   position: "absolute",
-    //   top: "-10px",
-    //   left: "0px",
-    //   transform: "scale(1.2)",
-    //   border: "3px solid #4CCDEB"
-    //   //animation: `${bounce} 0.4s ease`,
-    // },
-    // "&:hover $imdb_rating_box": {
-    //   top: "-20px",
-    //   right: "-5px",
-    // },
-    // "&:hover $circular": {
-    //     bottom: "0px",
-    //     left: "0px",
-    // },
-    // "&:hover $content": {
-    //   paddingTop: "1.25rem",
-    // },
-  },
+  // card: {
+  //   display: "flex",
+  //   height: "20rem",
+  //   flexDirection: "column",
+  //   justifyContent: "flex-end",
+  //   position: "relative",
+  //   // "&:hover $img": {
+  //   //   position: "absolute",
+  //   //   top: "-10px",
+  //   //   left: "0px",
+  //   //   transform: "scale(1.2)",
+  //   //   border: "3px solid #4CCDEB"
+  //   //   //animation: `${bounce} 0.4s ease`,
+  //   // },
+  //   // "&:hover $imdb_rating_box": {
+  //   //   top: "-20px",
+  //   //   right: "-5px",
+  //   // },
+  //   // "&:hover $circular": {
+  //   //     bottom: "0px",
+  //   //     left: "0px",
+  //   // },
+  //   // "&:hover $content": {
+  //   //   paddingTop: "1.25rem",
+  //   // },
+  // },
   box: {
-    height: "15rem",
-    width: "10rem",
     cursor: "pointer",
     position: "relative",
+    "& img": {
+      width: "100%",
+      height: "100%"
+    },
   },
   imdb_rating_box: {
     position: "absolute",
@@ -68,8 +70,6 @@ const MovieCardStyle = makeStyles((theme) => ({
     transition: "all 0.3s ease-out",
   },
   img: {
-    width: "10rem",
-    height: "15rem",
     borderRadius: "10px",
     transition: "all 0.2s ease-out",
   },

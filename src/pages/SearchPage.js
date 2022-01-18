@@ -1,16 +1,15 @@
-import { Grid, List, ListItem, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import { React, useEffect, useState } from "react";
-import HomeStyle from "../styles/HomeStyle";
-import NavBar from "../components/NavBar/NavBar";
-import MovieList from "../components/MovieList";
+import NavBar2 from "../components/NavBar/NavBar2";
 import PeopleList from "../components/PeopleList";
-import SmallMovieCard from "../components/SmallMovieCard";
-import { getTrendingMovies, getUpComingMovies } from "../axios/MovieResquest";
-import MovieStyle from "../styles/MovieStyle";
+import {  getUpComingMovies } from "../axios/MovieResquest";
 import { useHistory, useLocation } from "react-router";
 import CategoryTags from "../components/CategoryTags";
 import VerticalScrollBox from "../components/VerticalScrollBox";
-import MovieList2 from "../components/MovieList2";
+import MovieList from "../components/MovieList";
+import MovieStyle from "../styles/MovieStyle";
+
+
 function SearchPage() {
   const history = useHistory();
   const location = useLocation();
@@ -21,13 +20,12 @@ function SearchPage() {
   const searchParams = new URLSearchParams(location.search);
 
   const handleChange = () => {
-    setChecked(!checked)
+    setChecked(!checked);
     let searchParams = new URLSearchParams(location.search);
     if (!checked) {
-      searchParams.set("media_type", "tv")
-    }
-    else {
-      searchParams.set("media_type", "movie")
+      searchParams.set("media_type", "tv");
+    } else {
+      searchParams.set("media_type", "movie");
     }
     searchParams.delete("genre");
     history.push({
@@ -38,59 +36,59 @@ function SearchPage() {
 
   useEffect(() => {
     let searchParams = new URLSearchParams(location.search);
-    if(searchParams.get("media_type") === "movie") {
-      setChecked(false)
+    if (searchParams.get("media_type") === "movie") {
+      setChecked(false);
     } else {
-      setChecked(true)
+      setChecked(true);
     }
     getUpComingMovies()
       .then((data) => {
-        setUpComingList(data.results.map((movie) => {
-          return { media_type: "movie", ...movie };
-        }));
+        setUpComingList(
+          data.results.map((movie) => {
+            return { media_type: "movie", ...movie };
+          })
+        );
       })
       .catch((e) => {
         console.error(e);
       });
   }, [location]);
-
-  const homeStyle = HomeStyle();
   return (
     <div>
-      <NavBar></NavBar>
-      <Stack paddingTop="200px" position="relative">
-        <div className={movieStyle.container}>
-          <Grid
-            container
-            direction="row"
-            justifyContent="space-between"
-            style={{ margin: "10px 0", maxWidth: "70rem" }}
-          >
-            <Grid style={{ maxWidth: "47rem" }} item xs={12} md={8.5}>
-              <div className={movieStyle.header}>Filtered Movies</div>
-              <Stack direction="row" alignItems="center" spacing={2} p={1}>
-                <Stack position="relative" onClick={handleChange}>
-                  <input
-                    className={movieStyle.input_role_switch}
-                    type="checkbox"
-                    role="switch"
-                    checked={checked}
-
-                  />
-                  <Stack className={movieStyle.input_role_switch_movie} >Movie</Stack>
-                  <Stack className={movieStyle.input_role_switch_tv} >TV</Stack>
+      <NavBar2></NavBar2>
+      <div className={movieStyle.container}>
+        <div className={movieStyle.grid}>
+          <div className={movieStyle.col}>
+            <div className={movieStyle.header}>Filtered Movies</div>
+            <Stack direction="row" alignItems="center" spacing={2} p={1}>
+              <Stack position="relative" onClick={handleChange}>
+                <input
+                  className={movieStyle.input_role_switch}
+                  type="checkbox"
+                  role="switch"
+                  checked={checked}
+                />
+                <Stack className={movieStyle.input_role_switch_movie}>
+                  Movie
                 </Stack>
-                <CategoryTags />
+                <Stack className={movieStyle.input_role_switch_tv}>TV</Stack>
               </Stack>
-              {searchParams.get("category") === "person" ? (<PeopleList searchParams={searchParams}></PeopleList>) : (<MovieList2 searchParams={searchParams} ></MovieList2>)}
-
-            </Grid>
-            <Grid item xs={12} md={3.5}>
-            <VerticalScrollBox title={"Up Coming"} data={upcomingList}></VerticalScrollBox>
-            </Grid>
-          </Grid>
+              <CategoryTags />
+            </Stack>
+            {searchParams.get("category") === "person" ? (
+              <PeopleList searchParams={searchParams}></PeopleList>
+            ) : (
+              <MovieList searchParams={searchParams}></MovieList>
+            )}
+          </div>
+          <div className={movieStyle.col}>
+            <VerticalScrollBox
+              title={"Up Coming"}
+              data={upcomingList}
+            ></VerticalScrollBox>
+          </div>
         </div>
-      </Stack>
+      </div>
     </div>
   );
 }
