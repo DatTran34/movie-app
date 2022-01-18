@@ -28,7 +28,7 @@ const NavBarStyle = makeStyles((theme) => ({
   gridSmall: {
     display: "grid",
     gridGap: "1rem",
-    gridTemplateColumns: "0.5fr 1fr 5fr",
+    gridTemplateColumns: "1fr 1fr",
   },
   col: {
     //background: "pink",
@@ -114,7 +114,10 @@ function NavBar2() {
             <div style={{ padding: "1rem" }}>
               <div className={`${navbarStyle.container}`}>
                 <div className={`${navbarStyle.gridSmall}`}>
-                  <div className={navbarStyle.col}>
+                  <div on className={navbarStyle.col}>
+                    <img style={{ width: "10rem" }} src={logo} />
+                  </div>
+                  <div className={navbarStyle.col} style={{ justifyContent:"right"}}>
                     <MenuSharpIcon
                       style={{ cursor: "pointer" }}
                       onClick={() => {
@@ -126,12 +129,7 @@ function NavBar2() {
                     />{" "}
                     {isSmallCategoryBarShown && <SmallCategoryBar />}
                   </div>
-                  <div on className={navbarStyle.col}>
-                    <img style={{ width: "10rem" }} src={logo} />
-                  </div>
-                  <div className={navbarStyle.col}>
-                    <SearchBar />
-                  </div>
+                  
                 </div>
               </div>
             </div>
