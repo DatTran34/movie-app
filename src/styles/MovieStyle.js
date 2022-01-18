@@ -2,8 +2,7 @@ import { makeStyles } from "@mui/styles";
 
 const MovieStyle = makeStyles((theme) => ({
   container: {
-    padding: "20px",
-    margin: "auto",
+    paddingTop: "12rem",
   },
   header: {
     color: "white",
@@ -11,17 +10,18 @@ const MovieStyle = makeStyles((theme) => ({
     fontWeight: "600",
     textAlign: "left",
   },
-  description: {
-    color: "#9C9C9C",
-    fontSize: "14px",
-    fontWeight: "600",
-    textAlign: "left",
+  grid: {
+    display: "grid",
+    padding: "1rem",
+    gridGap: "1rem",
+    margin: "auto",
+    ["@media (min-width:960px)"]: {
+      maxWidth: "70rem",
+      gridTemplateColumns: "2fr 1fr",
+    },
   },
-  left_box: {
-    borderRadius: "10px",
-  },
-  pageButton: {
-    color: "white",
+  col: {
+
   },
   input_role_switch: {
     appearance: "none",
@@ -92,7 +92,7 @@ const MovieStyle = makeStyles((theme) => ({
     fontWeight: "600",
     transform: "translate(30%, 0%)",
     color: "#4CCDEB",
-    cursor: "pointer"
+    cursor: "pointer",
   },
   input_role_switch_tv: {
     position: "absolute",
@@ -101,7 +101,7 @@ const MovieStyle = makeStyles((theme) => ({
     fontWeight: "600",
     transform: "translate(-130%, 0%)",
     color: "#4CCDEB",
-    cursor: "pointer"
+    cursor: "pointer",
   },
 }));
 

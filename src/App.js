@@ -5,7 +5,6 @@ import MovieInfoPage from "./pages/MovieInfoPage";
 import TvShowInfoPage from "./pages/TvShowInfoPage";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import SearchPage from "./pages/SearchPage";
-import SearchPage2 from "./pages/SearchPage2";
 import PersonPage from "./pages/PersonPage";
 import PersonInfoPage from "./pages/PersonInfoPage";
 function App() {
@@ -18,7 +17,7 @@ function App() {
           <Route exact path="/tv/:id" component={TvShowInfoPage}></Route>
           <Route exact path="/person/:id" component={PersonInfoPage}></Route>
           <Route path="/person/:content" component={PersonPage}></Route>
-          <Route path="/filter" component={SearchPage2}></Route>
+          <Route path="/filter" component={SearchPage}></Route>
         </Switch>
       </div>
     </Router>

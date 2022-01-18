@@ -3,7 +3,7 @@ import { Grid, Stack } from '@mui/material'
 import { getPersonInfo, getPersonMovieCredits, getPersonCombinedCredits } from "../axios/TmdbRequest";
 import { getPersonDetails, getPersonBio } from "../axios/ImdbRequest";
 import Style from "../styles/Style";
-import NavBar from "../components/NavBar/NavBar";
+import NavBar2 from "../components/NavBar/NavBar2";
 import { useParams } from "react-router";
 import PersonInfoPageStyle from "../styles/pages/PersonInfoPageStyle";
 import CreditMovieList from "../components/CreditMovieList";
@@ -62,8 +62,8 @@ function PersonInfoPage() {
   }
   return (
     <>
-      <NavBar></NavBar>
-      <Stack paddingTop="200px" position="relative">
+      <NavBar2></NavBar2>
+      <Stack padding="12rem 1.5rem " position="relative">
         {!loading ? (
           <Stack>Loading..</Stack>
         ) : (
@@ -158,7 +158,7 @@ function PersonInfoPage() {
               </Grid>
             </Grid>
             <Grid container style={{ zIndex: "1", marginTop: "20px" }}>
-              <Grid item xs={12} md={3} style={{padding:"0 20px"}}>
+              <Grid item xs={12} md={3}>
                     <VerticalScrollBox title={"Known For"} data={movieCredits}></VerticalScrollBox>
               </Grid>
               <Grid item xs={12} md={9} >

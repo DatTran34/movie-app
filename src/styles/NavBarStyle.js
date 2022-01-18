@@ -8,7 +8,7 @@ const NavBarStyle = makeStyles((theme) => ({
     {
         padding: "0.5rem 1.5rem",
         borderRadius: "10px",
-        background: "#172a46",
+        background: "#fff",
         color:"#CCD2E3",
         boxShadow: "5px 4px 4px rgba(0, 0, 0, 0.25)"
     },

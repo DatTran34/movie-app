@@ -11,7 +11,7 @@ import Rotten_Tomatoes2 from "../images/Rotten_Tomatoes2.png";
 import Rotten_Tomatoes3 from "../images/Rotten_Tomatoes3.png";
 import { Box } from "@mui/system";
 import Award from "../components/Award";
-import NavBar from "../components/NavBar/NavBar";
+import NavBar2 from "../components/NavBar/NavBar2";
 import { useParams } from "react-router";
 import { useHistory, useLocation } from "react-router";
 function CircularProgressWithLabel(props) {
@@ -111,8 +111,8 @@ function MovieInfoPage() {
   };
   return (
     <>
-      <NavBar></NavBar>
-      <Stack paddingTop="200px" position="relative">
+      <NavBar2></NavBar2>
+      <Stack padding="12rem 1.5rem " position="relative">
         {!loading ? (
           <Stack>Loading..</Stack>
         ) : (
@@ -146,7 +146,7 @@ function MovieInfoPage() {
                     <Stack className={style.trailer_button}>
                       Watch Trailer
                     </Stack>
-                    <Stack direction="row" spacing={2} py={1}>
+                    <Stack direction="row" spacing={2}>
                       {tmdbMovieInfo.genres.map((genre, key) => (
                         <Stack
                           sx={{ cursor: "pointer" }}
@@ -156,7 +156,7 @@ function MovieInfoPage() {
                           key={key}
                           className={style.category_button}
                         >
-                          {genre.name}
+                          <Stack>{genre.name}</Stack>
                         </Stack>
                       ))}
                     </Stack>

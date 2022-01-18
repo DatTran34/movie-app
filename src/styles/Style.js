@@ -86,10 +86,13 @@ const Style = makeStyles((theme) => ({
         justifyContent: "center",
         alignItems: "center",
         textAlign: "center",
-        color: "#CCD2E3",
-        border: "2px solid #CCD2E3",
         borderRadius: "50px",
-        padding: "0px 20px",
+        padding: "0.25rem 0.75rem",
+        borderRadius:"20px",
+        border:"2px solid #4CCDEB",
+        color:"#4CCDEB",
+        fontWeight:"600",
+        backgroundColor:"rgba(76, 205, 235, 0.1)",
     },
     box: {
         width: "6.5rem"
