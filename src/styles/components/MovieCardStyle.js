@@ -59,15 +59,23 @@ const MovieCardStyle = makeStyles((theme) => ({
     zIndex: "2",
     transition: "all 0.3s ease-out",
   },
-  circular: {
+  rating: {
     position: "absolute",
+    width: "1.75rem",
+    height: "1.75rem",
     bottom: "10px",
     left: "10px",
-    display: "inline-flex",
-    backgroundColor: "#363761",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#112b42",
+    fontWeight: "600",
+    color: "#2cc9b7",
     borderRadius: "100%",
     padding: "5px",
+    border: "2.5px solid #2cc9b7",
     transition: "all 0.3s ease-out",
+    boxShadow: "3px 3px 10px rgba(76, 205, 235, 0.5)"
   },
   img: {
     borderRadius: "10px",

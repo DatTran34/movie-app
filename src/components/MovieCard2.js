@@ -43,7 +43,8 @@ function MovieCard2({ movie }) {
         className={movieCardStyle.img}
         src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}
       />
-      <CircularProgressWithLabel value={movie.vote_average} />
+      <div className={movieCardStyle.rating}>{movie.vote_average}</div>
+      {/* <CircularProgressWithLabel value={movie.vote_average} /> */}
     </div>
     <Stack
       direction="column"
