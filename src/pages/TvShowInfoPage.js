@@ -14,6 +14,7 @@ import Award from "../components/Award"
 import NavBar from "../components/NavBar/NavBar"
 import { useParams } from "react-router";
 import { useHistory, useLocation } from "react-router";
+import SeasonSelector from '../components/SeasonSelector';
 function CircularProgressWithLabel(props) {
     return (
       <Box sx={{ position: 'relative', display: 'inline-flex', backgroundColor: "#363761", borderRadius: "100%", padding: "5px" }}>
@@ -91,6 +92,8 @@ function TvShowInfoPage() {
           searchParams.set("media_type", "tv");
         }
       };
+
+      console.log(tmdbMovieInfo)
     return (
         <>
            <NavBar></NavBar>
@@ -223,6 +226,7 @@ function TvShowInfoPage() {
                             <Stack></Stack>
                         </Stack>
                         <Award ImdbID={imdb_id}/>
+                        <SeasonSelector movie = {tmdbMovieInfo}/>
                     </>
                 )}
             </Stack>

@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from "react";
 import HomeStyle from "../styles/HomeStyle";
-import NavBar2 from "../components/NavBar/NavBar2";
+import NavBar from "../components/NavBar/NavBar";
 import MovieList from "../components/MovieList";
 import { getUpComingMovies } from "../axios/MovieResquest";
 import MovieStyle from "../styles/MovieStyle";
@@ -36,7 +36,7 @@ function HomePage({ history }) {
     <>
 
     <div>
-    <NavBar2></NavBar2>
+    <NavBar></NavBar>
     <div className={movieStyle.container}>
       <div className={movieStyle.grid}>
         <div className={movieStyle.col}>

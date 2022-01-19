@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
 import { React, useEffect, useState } from "react";
-import NavBar2 from "../components/NavBar/NavBar2";
+import NavBar from "../components/NavBar/NavBar";
 import PeopleList from "../components/PeopleList";
 import {  getUpComingMovies } from "../axios/MovieResquest";
 import { useHistory, useLocation } from "react-router";
@@ -63,7 +63,7 @@ function SearchPage() {
   };
   return (
     <div>
-      <NavBar2></NavBar2>
+      <NavBar></NavBar>
       <div className={movieStyle.container}>
         <div className={movieStyle.grid}>
           <div className={movieStyle.col}>

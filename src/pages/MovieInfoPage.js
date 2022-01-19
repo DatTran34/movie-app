@@ -11,7 +11,7 @@ import Rotten_Tomatoes2 from "../images/Rotten_Tomatoes2.png";
 import Rotten_Tomatoes3 from "../images/Rotten_Tomatoes3.png";
 import { Box } from "@mui/system";
 import Award from "../components/Award";
-import NavBar2 from "../components/NavBar/NavBar2";
+import NavBar from "../components/NavBar/NavBar";
 import { useParams } from "react-router";
 import { useHistory, useLocation } from "react-router";
 function CircularProgressWithLabel(props) {
@@ -111,7 +111,7 @@ function MovieInfoPage() {
   };
   return (
     <>
-      <NavBar2></NavBar2>
+      <NavBar></NavBar>
       <Stack padding="12rem 1.5rem " position="relative">
         {!loading ? (
           <Stack>Loading..</Stack>

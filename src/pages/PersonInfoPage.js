@@ -3,7 +3,7 @@ import { Grid, Stack } from '@mui/material'
 import { getPersonInfo, getPersonMovieCredits, getPersonCombinedCredits } from "../axios/TmdbRequest";
 import { getPersonDetails, getPersonBio } from "../axios/ImdbRequest";
 import Style from "../styles/Style";
-import NavBar2 from "../components/NavBar/NavBar2";
+import NavBar from "../components/NavBar/NavBar";
 import { useParams } from "react-router";
 import PersonInfoPageStyle from "../styles/pages/PersonInfoPageStyle";
 import CreditMovieList from "../components/CreditMovieList";
@@ -62,7 +62,7 @@ function PersonInfoPage() {
   }
   return (
     <>
-      <NavBar2></NavBar2>
+      <NavBar></NavBar>
       <Stack padding="12rem 1.5rem " position="relative">
         {!loading ? (
           <Stack>Loading..</Stack>
