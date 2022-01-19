@@ -103,6 +103,32 @@ const MovieStyle = makeStyles((theme) => ({
     color: "#4CCDEB",
     cursor: "pointer",
   },
+  search_filter: {
+    width: "100%",
+    backgroundColor: "#fff",
+    borderRadius: "1opx",
+    margin: "1rem 0rem"
+  },
+  search_filter_title: {
+    padding: "1rem",
+    backgroundColor: "#4ccdeb",
+    color: "#fff"
+  },
+  search_filter_box: {
+    padding: "0.5rem 1rem",
+    cursor: "pointer",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    "&:hover" : {
+      backgroundColor: "#aaa"
+    }
+  },
+  search_filter_media_type: {
+    
+  },
+  search_filter_number: {
+    
+  }
 }));
 
 export default MovieStyle;

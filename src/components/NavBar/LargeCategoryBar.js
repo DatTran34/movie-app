@@ -39,13 +39,11 @@ const CategoryBarStyle = makeStyles((theme) => ({
   navbar_panel: {
     position: "absolute",
     top: "2.3rem",
-    background: "rgba(51, 45, 89, 0.6)",
+    background: "#1f2845",
     transform: "translateX(-45)",
     border: "none",
     borderRadius: "0 10px 10px 10px",
     boxShadow: "5px 4px 4px rgba(0, 0, 0, 0.25)",
-    webkitBackdropFilter: "blur(40px)",
-    backdropFilter: "blur(40px)",
   },
   column: {
     display: "flex",
@@ -118,7 +116,7 @@ const navbarCountryButtonStyle = classNames({
   useEffect(() => {
     let searchParams = new URLSearchParams(location.search);
     let mediaType = " ";
-    if (searchParams.get("media_type") === null) {
+    if (searchParams.get("media_type") === null || searchParams.get("media_type") === "person") {
       mediaType = "movie";
     } else {
       mediaType = searchParams.get("media_type");
@@ -468,7 +466,7 @@ const navbarCountryButtonStyle = classNames({
                       <div
                         className={categoryBarStyle.navbar_panel_item}
                         onClick={() => {
-                          addQuery_2("movie", "person");
+                          addQuery_2("person", "popular");
                         }}
                       >
                         Popular People
