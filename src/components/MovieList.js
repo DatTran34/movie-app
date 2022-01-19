@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { getFilteredMovies } from "../axios/MovieResquest";
+import { getFilteredMovies, getMultiSearch } from "../axios/MovieResquest";
 import MovieListStyle from '../styles/components/MovieListStyle';
 import { useHistory, useLocation } from "react-router";
 import MovieCard from "./MovieCard";
@@ -20,8 +20,10 @@ function MovieList({ searchParams }) {
       } else {
         setPage(searchParams.get("page"));
       }
-      getFilteredMovies(searchParams, page)
+      if(searchParams.has("query")){
+        getMultiSearch(searchParams.get("media_type"), searchParams.get("query"), page)
         .then((data) => {
+          console.log(data)
           setMovieList(
             data.results.map((movie) => {
               return { media_type: searchParams.get("media_type"), ...movie };
@@ -32,9 +34,22 @@ function MovieList({ searchParams }) {
         .catch((e) => {
           console.error(e);
         });
+      } else {
+        getFilteredMovies(searchParams, page)
+          .then((data) => {
+            setMovieList(
+              data.results.map((movie) => {
+                return { media_type: searchParams.get("media_type"), ...movie };
+              })
+            );
+            setIsLoading(false);
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      }
     }
   }, [searchParams, page]);
-
   const handleNextPage = () => {
     const page = searchParams.get("page");
     searchParams.set("page", parseInt(page) + 1);

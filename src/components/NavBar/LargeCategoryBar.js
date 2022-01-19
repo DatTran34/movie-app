@@ -116,7 +116,7 @@ const navbarCountryButtonStyle = classNames({
   useEffect(() => {
     let searchParams = new URLSearchParams(location.search);
     let mediaType = " ";
-    if (searchParams.get("media_type") === null) {
+    if (searchParams.get("media_type") === null || searchParams.get("media_type") === "person") {
       mediaType = "movie";
     } else {
       mediaType = searchParams.get("media_type");
@@ -466,7 +466,7 @@ const navbarCountryButtonStyle = classNames({
                       <div
                         className={categoryBarStyle.navbar_panel_item}
                         onClick={() => {
-                          addQuery_2("movie", "person");
+                          addQuery_2("person", "popular");
                         }}
                       >
                         Popular People

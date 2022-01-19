@@ -1,7 +1,7 @@
 import { Grid, Stack } from "@mui/material";
 import { React, useEffect, useState } from "react";
 import {
-  getFilteredMovies,
+  getFilteredMovies,getMultiSearch
 } from "../axios/MovieResquest";
 import MovieStyle from "../styles/MovieStyle";
 import MovieCard from "./MovieCard";
@@ -25,6 +25,20 @@ function PeopleList({ searchParams }) {
       else {
         setPage(searchParams.get("page"))
       }
+      if(searchParams.has("query")){
+        getMultiSearch(searchParams.get("media_type"), searchParams.get("query"), page)
+        .then((data) => {
+          setPeopleList(
+            data.results.map((movie) => {
+              return { media_type: searchParams.get("media_type"), ...movie };
+            })
+          );
+          setIsLoading(false);
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+      } else {
       getFilteredMovies(searchParams)
         .then((data) => {
           console.log(data)
@@ -37,7 +51,7 @@ function PeopleList({ searchParams }) {
         })
         .catch((e) => {
           console.error(e);
-        });
+        });}
     }
   }, [searchParams]);
 

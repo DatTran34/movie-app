@@ -9,7 +9,6 @@ import VerticalScrollBox from "../components/VerticalScrollBox";
 import MovieList from "../components/MovieList";
 import MovieStyle from "../styles/MovieStyle";
 
-
 function SearchPage() {
   const history = useHistory();
   const location = useLocation();
@@ -53,39 +52,90 @@ function SearchPage() {
         console.error(e);
       });
   }, [location]);
+  const addQuery = (key) => {
+    console.log("ss")
+    let searchParams = new URLSearchParams(location.search);
+    searchParams.set("media_type", key);
+    history.push({
+      pathname: "/filter",
+      search: searchParams.toString(),
+    });
+  };
   return (
     <div>
       <NavBar2></NavBar2>
       <div className={movieStyle.container}>
         <div className={movieStyle.grid}>
           <div className={movieStyle.col}>
-            <div className={movieStyle.header}>Filtered Movies</div>
-            <Stack direction="row" alignItems="center" spacing={2} p={1}>
-              <Stack position="relative" onClick={handleChange}>
-                <input
-                  className={movieStyle.input_role_switch}
-                  type="checkbox"
-                  role="switch"
-                  checked={checked}
-                />
-                <Stack className={movieStyle.input_role_switch_movie}>
-                  Movie
-                </Stack>
-                <Stack className={movieStyle.input_role_switch_tv}>TV</Stack>
-              </Stack>
-              <CategoryTags />
-            </Stack>
-            {searchParams.get("category") === "person" ? (
-              <PeopleList searchParams={searchParams}></PeopleList>
-            ) : (
-              <MovieList searchParams={searchParams}></MovieList>
-            )}
+              <>
+                {searchParams.get("media_type") === "person" ? (
+                  <>
+                    <div className={movieStyle.header}>Popular People</div>
+                    <CategoryTags />
+                    <PeopleList searchParams={searchParams}></PeopleList>
+                  </>
+                ) : (
+                  <>
+                    <div className={movieStyle.header}>Filtered Movies</div>
+                    <Stack
+                      direction="row"
+                      alignItems="center"
+                      spacing={2}
+                      p={1}
+                    >
+                      <Stack position="relative" onClick={handleChange}>
+                        <input
+                          className={movieStyle.input_role_switch}
+                          type="checkbox"
+                          role="switch"
+                          checked={checked}
+                        />
+                        <Stack className={movieStyle.input_role_switch_movie}>
+                          Movie
+                        </Stack>
+                        <Stack className={movieStyle.input_role_switch_tv}>
+                          TV
+                        </Stack>
+                      </Stack>
+                      <CategoryTags />
+                    </Stack>
+                    <MovieList searchParams={searchParams}></MovieList>
+                  </>
+                )}
+              </>
           </div>
           <div className={movieStyle.col}>
-            <VerticalScrollBox
-              title={"Up Coming"}
-              data={upcomingList}
-            ></VerticalScrollBox>
+          {searchParams.get("query") ? (
+              <>
+                  <Stack className={movieStyle.search_filter}>
+                    <div className={movieStyle.search_filter_title}>Search Results</div>
+                    <Stack>
+                      <Stack className={movieStyle.search_filter_box} onClick={() => {addQuery("movie")}}>
+                        <div className={movieStyle.search_filter_media_type}>Movies</div>
+                        <div className={movieStyle.search_filter_number}>551</div>
+                      </Stack>
+                      <Stack className={movieStyle.search_filter_box} onClick={() => {addQuery("tv")}}>
+                        <div className={movieStyle.search_filter_media_type}>Tv Show</div>
+                        <div className={movieStyle.search_filter_number}>120</div>
+                      </Stack>
+                      <Stack className={movieStyle.search_filter_box} onClick={() => {addQuery("person")}}>
+                        <div className={movieStyle.search_filter_media_type}>People</div>
+                        <div className={movieStyle.search_filter_number}>37</div>
+                      </Stack>
+                    </Stack>
+                  </Stack>
+                  <VerticalScrollBox
+                    title={"Up Coming"}
+                    data={upcomingList}
+                  ></VerticalScrollBox>
+              </>
+            ) : (
+              <>
+                <VerticalScrollBox
+                  title={"Up Coming"}
+                  data={upcomingList}
+                ></VerticalScrollBox>
+              </>)}
           </div>
         </div>
       </div>

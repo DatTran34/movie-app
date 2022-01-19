@@ -6,7 +6,7 @@ import { searchData } from "../../axios/NavBarRequest";
 import PersonIcon from "@mui/icons-material/Person";
 import TheatersIcon from "@mui/icons-material/Theaters";
 import TvIcon from "@mui/icons-material/Tv";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import SearchBarStyle from "../../styles/components/SearchBarStyle"
 import { makeStyles } from "@mui/styles";
 function SearchCard({ history, item, className_ }) {
@@ -52,6 +52,7 @@ function SearchCard({ history, item, className_ }) {
 function SearchBar() {
     const searchBarStyle = SearchBarStyle();
   const history = useHistory();
+  const location = useLocation();
   const MAX_SEARCH_ELEMENTS = 8;
   const [isSearchShown, setIsSearchShown] = useState(false);
 
@@ -72,9 +73,11 @@ function SearchBar() {
 
   // ================== SEARCH ==============
   const [searchList, setSearchList] = useState([]);
+  const [query, setQuery] = useState("")
   const handleSearch = (e) => {
     if (e.target.value !== "") {
       setIsSearchShown(true);
+      setQuery(e.target.value)
       searchData(e.target.value)
         .then((data) => {
           setSearchList(data.results);
@@ -86,6 +89,24 @@ function SearchBar() {
       setIsSearchShown(false);
     }
   };
+
+  const addQuery = () => {
+    console.log("ss")
+    let searchParams = new URLSearchParams(location.search);
+    searchParams.delete("genre");
+    searchParams.delete("year");
+    searchParams.delete("country");
+    searchParams.delete("page");
+    searchParams.delete("category");
+    searchParams.set("media_type", "movie");
+    searchParams.set("query", query);
+    setQuery("")
+    setIsSearchShown(false);
+    history.push({
+      pathname: "/filter",
+      search: searchParams.toString(),
+    });
+  };
   return (
     <div className={searchBarStyle.navbar_search_1}>
       <Stack className={navbarSearchBoxStyle}>
@@ -94,12 +115,13 @@ function SearchBar() {
           <input
             style={{ width: "100%" }}
             onChange={handleSearch}
+            value={query}
             className={navbarSearchInputStyle}
             type="text"
             placeholder="Search..."
           ></input>
         </Stack>
-        <div className={navbarSearchButtonStyle}>Search</div>
+        <div className={navbarSearchButtonStyle} onClick={() => {addQuery()}}>Search</div>
       </Stack>
       {isSearchShown && (
         <div className={`${searchBarStyle.navbar_search_panel} ${searchBarStyle.navbar_search_panel_absolute}`}>
