@@ -1,7 +1,7 @@
 import { Grid, Stack } from "@mui/material";
 import { React, useEffect, useState } from "react";
 import {
-  getFilteredMovies,getMultiSearch
+  getFiltered,getMultiSearch
 } from "../axios/MovieResquest";
 import MovieStyle from "../styles/MovieStyle";
 import MovieCard from "./MovieCard";
@@ -39,7 +39,7 @@ function PeopleList({ searchParams }) {
           console.error(e);
         });
       } else {
-      getFilteredMovies(searchParams)
+      getFiltered(searchParams)
         .then((data) => {
           console.log(data)
           setPeopleList(

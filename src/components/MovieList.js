@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import { getFilteredMovies, getMultiSearch } from "../axios/MovieResquest";
+import { getFiltered, getMultiSearch } from "../axios/MovieResquest";
 import MovieListStyle from '../styles/components/MovieListStyle';
 import { useHistory, useLocation } from "react-router";
 import MovieCard from "./MovieCard";
@@ -35,7 +35,7 @@ function MovieList({ searchParams }) {
           console.error(e);
         });
       } else {
-        getFilteredMovies(searchParams, page)
+        getFiltered(searchParams, page)
           .then((data) => {
             setMovieList(
               data.results.map((movie) => {

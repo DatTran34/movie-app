@@ -17,7 +17,7 @@ export const getMultiSearch = async (media_type, query, page) => {
     console.error(error);
   }
 }
-export const getFilteredMovies = async (searchParams, page) => {
+export const getFiltered = async (searchParams, page) => {
   try {
     if(searchParams.get("media_type") === "person") {
 
