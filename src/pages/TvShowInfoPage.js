@@ -28,10 +28,10 @@ function CircularProgressWithLabel(props) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: "#ffffff"
+            color: "#CCD2E3"
           }}
         >
-          <Stack color="#ffffff">
+          <Stack color="#CCD2E3">
             {`${props.value}`}
           </Stack>
         </Box>
@@ -172,13 +172,13 @@ function TvShowInfoPage() {
                                             <img style={{width: "60px", height: "25px"}} src={imdb}/>
                                             <Stack pb={0.25} color="#000000" fontWeight="800" fontSize="1.5rem">{rapidMovieInfo?.Ratings[0].Value.slice(0,-3)}</Stack>
                                         </Stack>}
-                                        {rapidMovieInfo?.Ratings[1] && <Stack spacing={0.5} direction="row" p={0.5} px={1} backgroundColor="#FFFFFF" justifyContent="center" alignItems="center" borderRadius="10px">
+                                        {rapidMovieInfo?.Ratings[1] && <Stack spacing={0.5} direction="row" p={0.5} px={1} backgroundColor="#CCD2E3" justifyContent="center" alignItems="center" borderRadius="10px">
                                             <img style={{width: "30px", height: "30px"}} src={Rotten_Tomatoes2}/>
                                             <Stack pb={0.25} color="#000000" fontWeight="800" fontSize="1.5rem">{rapidMovieInfo?.Ratings[1].Value}</Stack>
                                         </Stack>}
                                         {rapidMovieInfo?.Ratings[2] && <Stack spacing={1.5} direction="row" p={0.5} px={1} backgroundColor="#66CC33" justifyContent="center" alignItems="center" borderRadius="10px">
                                             <img style={{width: "30px", height: "30px"}} src={metacritic}/>
-                                            <Stack pb={0.25} color="#ffffff" fontWeight="800" fontSize="1.5rem">{rapidMovieInfo?.Ratings[2].Value.slice(0,-4)}</Stack>
+                                            <Stack pb={0.25} color="#CCD2E3" fontWeight="800" fontSize="1.5rem">{rapidMovieInfo?.Ratings[2].Value.slice(0,-4)}</Stack>
                                         </Stack>} */}
                                     </Stack>
                                     {/* <Stack direction="row" spacing={2} justifyContent="flex-start" alignItems="center">
@@ -190,7 +190,7 @@ function TvShowInfoPage() {
                                             <Stack className={style.title}>REVENUE</Stack>
                                             <Stack className={style.content}>{`$${tmdbMovieInfo.revenue.toLocaleString('en-US')}`}</Stack>
                                         </Stack>
-                                        <Stack spacing={0.5} direction="row" p={0.5}  backgroundColor="#FFFFFF" justifyContent="center" alignItems="center" borderRadius="10px">
+                                        <Stack spacing={0.5} direction="row" p={0.5}  backgroundColor="#CCD2E3" justifyContent="center" alignItems="center" borderRadius="10px">
                                             {tmdbMovieInfo.production_companies.map((company, key) => {
                                                     if(company.logo_path === null) return
                                                     return <img key={key} style={{height: "35px", padding: "0 0.5rem"}} src={`http://image.tmdb.org/t/p/original/${company.logo_path}`}/>
@@ -202,7 +202,7 @@ function TvShowInfoPage() {
                             </Grid>
                             <Grid item xs={3}>
                                 <Stack backgroundColor="#16214A" p={2} m={2} borderRadius="10px" spacing={2}>
-                                    <Stack color="#ffffff" fontWeight="800" fontSize="1.5rem" textAlign="start">Cast</Stack>
+                                    <Stack color="#CCD2E3" fontWeight="800" fontSize="1.5rem" textAlign="start">Cast</Stack>
                                     <Stack spacing={2}>
                                         {cast.slice(0, 4).map((person, key) => (
                                                 <Stack direction="row" key={key}>

@@ -129,7 +129,7 @@ function PersonInfoPage() {
                   spacing={2}
                 >
                   <Stack
-                    color="#ffffff"
+                    color="#CCD2E3"
                     fontWeight="800"
                     fontSize="1.5rem"
                     textAlign="start"

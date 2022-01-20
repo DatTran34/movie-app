@@ -80,7 +80,7 @@ const SearchBarStyle = makeStyles((theme) => ({
     transform: "translateX(-45)",
     border: "none",
     borderRadius: "5px",
-    color: "#ffffff",
+    color: "#CCD2E3",
     display: "flex",
     flexDirection: "column",
   },

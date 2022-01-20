@@ -40,12 +40,12 @@ const SmallsmallCategoryStyle = makeStyles((theme) => ({
     borderRadius:"10px",
     "&:hover": {
       background: "#4CCDEB",
-      color: "#ffffff"
+      color: "#CCD2E3"
     },
   },
   navbar_button_hover:{
     background: "#4CCDEB",
-    color: "#ffffff"
+    color: "#CCD2E3"
 },
   panel: {
     display: "grid",

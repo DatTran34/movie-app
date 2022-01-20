@@ -4,8 +4,10 @@ import MovieListStyle from '../styles/components/MovieListStyle';
 import { useHistory, useLocation } from "react-router";
 import MovieCard from "./MovieCard";
 import { Stack } from "@mui/material";
-
-function MovieList({ searchParams }) {
+import classNames from "classname";
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+function MovieList({ searchParams, isMovie }) {
   const history = useHistory();
   const location = useLocation();
   const movieListStyle = MovieListStyle();
@@ -21,6 +23,7 @@ function MovieList({ searchParams }) {
         setPage(searchParams.get("page"));
       }
       if(searchParams.has("query")){
+        
         getMultiSearch(searchParams.get("media_type"), searchParams.get("query"), page)
         .then((data) => {
           console.log(data)
@@ -50,19 +53,19 @@ function MovieList({ searchParams }) {
       }
     }
   }, [searchParams, page]);
-  const handleNextPage = () => {
+  const handleNextPage = (level) => {
     const page = searchParams.get("page");
-    searchParams.set("page", parseInt(page) + 1);
+    searchParams.set("page", parseInt(page) + level);
     history.push({
       pathname: "/filter",
       search: searchParams.toString(),
     });
   };
 
-  const handlePrevPage = () => {
+  const handlePrevPage = (level) => {
     const page = searchParams.get("page");
     if (searchParams.get("page") !== "1") {
-      searchParams.set("page", parseInt(page) - 1);
+      searchParams.set("page", parseInt(page) - level);
       history.push({
         pathname: "/filter",
         search: searchParams.toString(),
@@ -80,7 +83,7 @@ function MovieList({ searchParams }) {
             {movieList?.map((movie, key) => {
               return (
                 <div className={movieListStyle.col} key={key}>
-                  <MovieCard movie={movie} />
+                  <MovieCard movie={movie} isMovie={isMovie}/>
                 </div>
               );
             })}
@@ -90,11 +93,45 @@ function MovieList({ searchParams }) {
             justifyContent="center"
             alignItems="center"
             spacing={1}
-            className={movieListStyle.pageButton}
+            className={movieListStyle.pagination}
           >
-            <div onClick={handlePrevPage}>Previous</div>
-            <div>Page {page}</div>
-            <div onClick={handleNextPage}>Next</div>
+            {parseInt(page) === 1 ? (
+                <>
+                  <Stack direction="row"  p={1} spacing={2}>
+                    <div className={classNames({[movieListStyle.movie_color]: isMovie, [movieListStyle.pagination_number_focus]: true, [movieListStyle.pagination_number]: true,})}>{page}</div>
+                    <div className={movieListStyle.pagination_number} onClick={() => {handleNextPage(1)}}>{`${parseInt(page) + 1}`}</div>
+                    <div className={movieListStyle.pagination_number} onClick={() => {handleNextPage(2)}}>{`${parseInt(page) + 2}`}</div>
+                  </Stack>
+                  <ArrowRightIcon className={movieListStyle.pagination_btn} onClick={() => {handleNextPage(1)}}/>                
+                </>
+              ) : (
+                <>
+                  {parseInt(page) === 2 ? (
+                    <>
+                      <ArrowLeftIcon className={movieListStyle.pagination_btn} onClick={() => {handlePrevPage(1)}}/>
+                      <Stack direction="row"  p={1} spacing={2}>
+                        <div className={movieListStyle.pagination_number} onClick={() => {handlePrevPage(1)}}>{page - 1}</div>
+                        <div className={classNames({[movieListStyle.movie_color]: isMovie, [movieListStyle.pagination_number_focus]: true, [movieListStyle.pagination_number]: true,})}>{page}</div>
+                        <div className={movieListStyle.pagination_number} onClick={() => {handleNextPage(1)}}>{`${parseInt(page) + 1}`}</div>
+                        <div className={movieListStyle.pagination_number} onClick={() => {handleNextPage(2)}}>{`${parseInt(page) + 2}`}</div>
+                      </Stack>
+                      <ArrowRightIcon className={movieListStyle.pagination_btn} onClick={() => {handleNextPage(1)}}/>                
+                    </>
+                  ) : (
+                    <>
+                      <ArrowLeftIcon className={movieListStyle.pagination_btn} onClick={() => {handlePrevPage(1)}}/>
+                      <Stack direction="row"  p={1} spacing={2}>
+                        <div className={movieListStyle.pagination_number} onClick={() => {handlePrevPage(2)}}>{page - 2}</div>
+                        <div className={movieListStyle.pagination_number} onClick={() => {handlePrevPage(1)}}>{page - 1}</div>
+                        <div className={classNames({[movieListStyle.movie_color]: isMovie, [movieListStyle.pagination_number_focus]: true, [movieListStyle.pagination_number]: true,})}>{page}</div>
+                        <div className={movieListStyle.pagination_number} onClick={() => {handleNextPage(1)}}>{`${parseInt(page) + 1}`}</div>
+                        <div className={movieListStyle.pagination_number} onClick={() => {handleNextPage(2)}}>{`${parseInt(page) + 2}`}</div>
+                      </Stack>
+                      <ArrowRightIcon className={movieListStyle.pagination_btn} onClick={() => {handleNextPage(1)}}/>
+                    </>
+                  )}
+                </>
+              )}
           </Stack>
         </>
       )}

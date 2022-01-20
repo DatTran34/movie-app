@@ -35,7 +35,7 @@ const PersonCardStyle = makeStyles((theme) => ({
         fontSize:"24px"
     },
     content:{
-        color:"#FFFFFF",
+        color:"#CCD2E3",
         fontWeight:"600",
         textAlign:"left"
     }

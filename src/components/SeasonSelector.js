@@ -4,11 +4,11 @@ import { makeStyles } from "@mui/styles";
 
 const SeasonSelectorStyle = makeStyles((theme) => ({
   root: {
-    color: "#ffffff",
+    color: "#CCD2E3",
     "& select": {
       backgroundColor: "#2D375A",
       padding: "10px",
-      color: "#ffffff",
+      color: "#CCD2E3",
       border: "none",
       alignItems: "left",
       borderRadius: "10px",

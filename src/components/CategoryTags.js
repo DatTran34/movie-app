@@ -1,9 +1,38 @@
 import React, { useEffect, useState } from "react";
 import CancelRoundedIcon from "@mui/icons-material/CancelRounded";
+import AddIcon from '@mui/icons-material/Add';
 import { Stack } from "@mui/material";
 import CategoryList from "../data/CategoryList";
 import { useHistory, useLocation } from "react-router";
-function CategoryTags() {
+import classNames from "classname";
+import { makeStyles } from "@mui/styles";
+const CategoryTagsStyle = makeStyles((theme) => ({
+  box: {
+    position: "relative",
+    // borderRadius="20px"
+    border: "2px solid #4CCDEB",
+    color: "#4CCDEB",
+    padding: "0.25rem 0.25rem 0.2rem 0.5rem",
+    fontWeight: "600",
+  },
+  movie_color_box: {
+    border: "2px solid #29bdae",
+    color: "#29bdae",
+  },
+  icon: {
+    color: "#0a192f",
+    zIndex: "2",
+    transform: "rotate(45deg)",
+    cursor: "pointer",
+  },
+  box_right: {
+    position: "absolute", top: "0", right: "0", backgroundColor: "#4CCDEB", width: "2rem", height: "2rem"
+  }
+}));
+
+function CategoryTags({isMovie}) {
+  console.log(isMovie)
+  const categoryTagsStyle = CategoryTagsStyle();
   const history = useHistory();
   const location = useLocation();
   const [categoryList, setCategoryList] = useState([]);
@@ -37,23 +66,18 @@ function CategoryTags() {
           return (
             <Stack
               direction="row"
-              borderRadius="20px"
-              border="2px solid #4CCDEB"
-              color="#4CCDEB"
-              px={1}
-              py={0.5}
-              spacing={0.5}
-              fontWeight="600"
+              spacing={1.5}
               key={index}
-              backgroundColor="rgba(76, 205, 235, 0.1)"
+              className={classNames({[categoryTagsStyle.movie_color_box]: isMovie, [categoryTagsStyle.box]: true})}
             >
               <Stack>{catgry.name}</Stack>
-              <CancelRoundedIcon
-                cursor="pointer"
+              <AddIcon
+                className={categoryTagsStyle.icon}
                 onClick={() => {
-                    removeQuery(category.key);
-                  }}
+                  removeQuery(category.key);
+                }}
               />
+              <div className={categoryTagsStyle.box_right}></div>
             </Stack>
           );
         } else if (category.key === "language") {
@@ -61,47 +85,37 @@ function CategoryTags() {
           console.log(catgry)
           return (
             <Stack
-              direction="row"
-              borderRadius="20px"
-              border="2px solid #4CCDEB"
-              color="#4CCDEB"
-              px={1}
-              py={0.5}
-              spacing={0.5}
-              fontWeight="600"
-              key={index}
-              backgroundColor="rgba(76, 205, 235, 0.1)"
+            direction="row"
+            spacing={1.5}
+            key={index}
+            className={classNames({[categoryTagsStyle.movie_color_box]: isMovie, [categoryTagsStyle.box]: true})}
             >
               <Stack>{catgry}</Stack>
-              <CancelRoundedIcon
-                cursor="pointer"
+              <AddIcon
+                className={categoryTagsStyle.icon}
                 onClick={() => {
                     removeQuery(category.key);
                   }}
               />
+              <div className={categoryTagsStyle.box_right}></div>
             </Stack>
           );
         } else {
           return (
             <Stack
-              direction="row"
-              borderRadius="20px"
-              border="2px solid #4CCDEB"
-              color="#4CCDEB"
-              px={1}
-              py={0.5}
-              spacing={0.5}
-              fontWeight="600"
-              backgroundColor="rgba(76, 205, 235, 0.1)"
-              key={index}
+            direction="row"
+            spacing={1.5}
+            key={index}
+            className={classNames({[categoryTagsStyle.movie_color_box]: isMovie, [categoryTagsStyle.box]: true})}
             >
               <Stack>{category.value}</Stack>
-              <CancelRoundedIcon
-                cursor="pointer"
+              <AddIcon
+                className={categoryTagsStyle.icon}
                 onClick={() => {
                   removeQuery(category.key);
                 }}
               />
+              <div className={categoryTagsStyle.box_right}></div>
             </Stack>
           );
         }

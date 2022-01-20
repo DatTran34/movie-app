@@ -28,7 +28,6 @@ const AwardStyle = makeStyles((theme) => ({
     paddingBottom: "20px",
   },
   award_card: {
-    display: "inline-block",
     background: "#05103A",
     width:"20rem",
     height:"20rem"

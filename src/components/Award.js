@@ -26,11 +26,12 @@ function Award({ ImdbID }) {
   }, []);
   console.log(awardList);
   return (
-    <div  style={{overflowX:"auto"}}>
+    <div style={{width:"50rem", background:"red"}}>
+      <div  style={{display:"grid", gridGap:"1rem", gridTemplateColumns:"1fr 1fr 1fr" ,overflow:"auto", width:"100%"}}>
         {awardList.filter(award => award.type === "Winner").map(award => {
           return <div className={awardStyle.award_card}>s</div>
         })}
-      
+    </div>
     </div>
   );
 }

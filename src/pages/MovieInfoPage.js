@@ -41,10 +41,10 @@ function CircularProgressWithLabel(props) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "#ffffff",
+          color: "#CCD2E3",
         }}
       >
-        <Stack color="#ffffff">{`${props.value}`}</Stack>
+        <Stack color="#CCD2E3">{`${props.value}`}</Stack>
       </Box>
     </Box>
   );
@@ -239,7 +239,7 @@ function MovieInfoPage() {
                         direction="row"
                         p={0.5}
                         px={1}
-                        backgroundColor="#FFFFFF"
+                        backgroundColor="#CCD2E3"
                         justifyContent="center"
                         alignItems="center"
                         borderRadius="10px"
@@ -275,7 +275,7 @@ function MovieInfoPage() {
                         />
                         <Stack
                           pb={0.25}
-                          color="#ffffff"
+                          color="#CCD2E3"
                           fontWeight="800"
                           fontSize="1.5rem"
                         >
@@ -310,7 +310,7 @@ function MovieInfoPage() {
                       spacing={0.5}
                       direction="row"
                       p={0.5}
-                      backgroundColor="#FFFFFF"
+                      backgroundColor="#CCD2E3"
                       justifyContent="center"
                       alignItems="center"
                       borderRadius="10px"
@@ -336,11 +336,10 @@ function MovieInfoPage() {
                   backgroundColor="#16214A"
                   p={2}
                   m={2}
-                  borderRadius="10px"
                   spacing={2}
                 >
                   <Stack
-                    color="#ffffff"
+                    color="#CCD2E3"
                     fontWeight="800"
                     fontSize="1.5rem"
                     textAlign="start"

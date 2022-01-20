@@ -9,11 +9,11 @@ import SmallCategoryBar from "./SmallCategoryBar";
 import { useMediaQuery } from "./useMediaQuery";
 const NavBarStyle = makeStyles((theme) => ({
   container: {
-    padding: "0.5rem 1.5rem",
-    borderRadius: "10px",
-    background: "#1f2845",
+    padding: "1rem 1.5rem",
+    background: " #0a192f",
     color: "#CCD2E3",
-    boxShadow: "5px 4px 4px rgba(0, 0, 0, 0.25)",
+    borderBottom: "1px solid rgb(204, 210, 227, 0.5)"
+    // boxShadow: "5px 4px 4px rgba(0, 0, 0, 0.25)",
   },
   gridLarge: {
     display: "grid",
@@ -72,11 +72,11 @@ function NavBar() {
   return (
     <div style={{ width: "100%", position: "fixed", zIndex: "50" }}>
       {isPageWide ? (
-        <div style={{ padding: "1rem" }}>
+        <div >
           <div className={`${navbarStyle.container}`}>
             <div className={`${navbarStyle.gridLarge}`}>
               <div className={navbarStyle.col}>
-                <img style={{ width: "10rem" }} src={logo} />
+                <img style={{ width: "8rem" }} src={logo} />
               </div>
               <div className={navbarStyle.col}>
                 <LargeCategoryBar />
@@ -90,7 +90,7 @@ function NavBar() {
       ) : (
         <>
           {isPageMedium ? (
-            <div style={{ padding: "1rem" }}>
+            <div>
               <div className={`${navbarStyle.container}`}>
                 <div className={`${navbarStyle.gridMedium}`}>
                   <div className={navbarStyle.col}>
@@ -109,7 +109,7 @@ function NavBar() {
               </div>
             </div>
           ) : (
-            <div style={{ padding: "1rem" }}>
+            <div>
               <div className={`${navbarStyle.container}`}>
                 <div className={`${navbarStyle.gridSmall}`}>
                   <div on className={navbarStyle.col}>

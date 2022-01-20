@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 const Style = makeStyles((theme) => ({
     root: {
         fontWeight: "600",
-        color: "#ffffff",
+        color: "#CCD2E3",
     },
     backdrop_container: {
         position: "absolute",
@@ -102,10 +102,10 @@ const Style = makeStyles((theme) => ({
         color: "#4CCDEB"
     },
     content:{
-        color: "#ffffff",
+        color: "#CCD2E3",
     },
     content_overview:{
-        color: "#ffffff",
+        color: "#CCD2E3",
     },
     cast_image: {
         width: "50px",
