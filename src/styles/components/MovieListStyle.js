@@ -22,9 +22,30 @@ const MovieListStyle = makeStyles((theme) => ({
   col: {
    
   },
-  pageButton: {
-    color: "white",
+  pagination: {
+    userSelect: "none",
+    color: "#CCD2E3",
+    margin: "2rem 0"
   },
+  pagination_number: {
+    cursor: "pointer",
+    padding: "0.5rem 0.75rem",
+    fontWeight: "600"
+  },
+  pagination_number_focus: {
+    backgroundColor: "#29bdae",
+    color: "#172a46",
+    // border: "1px solid #4ccdeb"
+  },
+  movie_color:{
+    backgroundColor: "#4ccdeb",
+    color: "#172a46",
+  },
+  pagination_btn: {
+    backgroundColor: "#172a46",
+    padding: "0.5rem",
+    cursor: "pointer"
+  }
 }));
 
 export default MovieListStyle;

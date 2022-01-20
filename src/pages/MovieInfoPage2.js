@@ -85,13 +85,12 @@ const MovieInfoPageStyle = makeStyles((theme) => ({
     background: "blue",
   },
   cast_container: {
-    background: "#2D375A",
+    background: "#172a46",
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
     justifyContent: "center",
     padding: "20px",
-    borderRadius: "10px",
     marginBottom: "1rem",
   },
   cast: {
@@ -139,10 +138,10 @@ function CircularProgressWithLabel(props) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "#ffffff",
+          color: "#CCD2E3",
         }}
       >
-        <Stack color="#ffffff">{`${props.value}`}</Stack>
+        <Stack color="#CCD2E3">{`${props.value}`}</Stack>
       </Box>
     </Box>
   );

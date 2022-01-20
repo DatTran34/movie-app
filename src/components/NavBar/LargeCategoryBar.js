@@ -24,14 +24,15 @@ const CategoryBarStyle = makeStyles((theme) => ({
   },
   navbar_button_hover:{
     backgroundColor: "#fbc108",
-    color: "#ffffff"
+    color: "#fff"
 },
   navbar_panel_item: {
-    color: "#ffffff",
+    color: "#CCD2E3",
     cursor: "pointer",
     padding: "0.5rem",
     "&:hover": {
       background: "#fbc108",
+      color: "#fff",
     },
   },
   navbar_panel: {
@@ -54,7 +55,7 @@ const CategoryBarStyle = makeStyles((theme) => ({
 input_language: {
   fontWeight: "500",
   background:"transparent",
-  color:"#ffffff",
+  color:"#CCD2E3",
   border:"none",
   outline:"none",
 },
@@ -67,7 +68,7 @@ search_language_box: {
   borderBottom: "1px solid #fff",
   transition: "width 0.5s",
   padding: "0.5rem",
-  color: "#ffffff"
+  color: "#CCD2E3"
 },
 }));
 

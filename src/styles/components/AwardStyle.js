@@ -5,7 +5,7 @@ const AwardStyle = makeStyles((theme) => ({
 
     },
     title: {
-        color: "#ffffff",
+        color: "#CCD2E3",
         margin: "20px"
     },
     panel: {
@@ -78,7 +78,7 @@ const AwardStyle = makeStyles((theme) => ({
     award:{
         fontWeight: "600",
         fontSize: "14px",
-        color: "#ffffff",
+        color: "#CCD2E3",
     }
 }))
 

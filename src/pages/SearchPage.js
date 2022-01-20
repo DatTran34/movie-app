@@ -8,20 +8,20 @@ import CategoryTags from "../components/CategoryTags";
 import VerticalScrollBox from "../components/VerticalScrollBox";
 import MovieList from "../components/MovieList";
 import MovieStyle from "../styles/MovieStyle";
-
+import classNames from "classname";
 function SearchPage() {
   const history = useHistory();
   const location = useLocation();
   const movieStyle = MovieStyle();
   const [upcomingList, setUpComingList] = useState([]);
 
-  const [checked, setChecked] = useState(false);
+  const [isMovie, setIsMovie] = useState(true);
   const searchParams = new URLSearchParams(location.search);
 
   const handleChange = () => {
-    setChecked(!checked);
+    setIsMovie(!isMovie);
     let searchParams = new URLSearchParams(location.search);
-    if (!checked) {
+    if (isMovie) {
       searchParams.set("media_type", "tv");
     } else {
       searchParams.set("media_type", "movie");
@@ -36,9 +36,9 @@ function SearchPage() {
   useEffect(() => {
     let searchParams = new URLSearchParams(location.search);
     if (searchParams.get("media_type") === "movie") {
-      setChecked(false);
+      setIsMovie(true);
     } else {
-      setChecked(true);
+      setIsMovie(false);
     }
     getUpComingMovies()
       .then((data) => {
@@ -71,7 +71,7 @@ function SearchPage() {
                 {searchParams.get("media_type") === "person" ? (
                   <>
                     <div className={movieStyle.header}>Popular People</div>
-                    <CategoryTags />
+                    <CategoryTags isMovie={isMovie}/>
                     <PeopleList searchParams={searchParams}></PeopleList>
                   </>
                 ) : (
@@ -86,10 +86,10 @@ function SearchPage() {
                       
                       <Stack position="relative" onClick={handleChange}>
                         <input
-                          className={movieStyle.input_role_switch}
+                          className={classNames({[movieStyle.movie_color_input_role_switch]: isMovie,[movieStyle.input_role_switch]: true})}
                           type="checkbox"
                           role="switch"
-                          checked={checked}
+                          checked={!isMovie}
                         />
                         <Stack className={movieStyle.input_role_switch_movie}>
                           Movie

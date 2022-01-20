@@ -12,7 +12,7 @@ const NavBarStyle = makeStyles((theme) => ({
     padding: "1rem 1.5rem",
     background: " #0a192f",
     color: "#CCD2E3",
-    borderBottom: "1px solid #CCD2E3"
+    borderBottom: "1px solid rgb(204, 210, 227, 0.5)"
     // boxShadow: "5px 4px 4px rgba(0, 0, 0, 0.25)",
   },
   gridLarge: {

@@ -4,7 +4,7 @@ import { getImageMovie } from "../axios/MovieResquest";
 import { useHistory } from "react-router";
 import { makeStyles } from "@mui/styles";
 import MovieCardStyle from '../styles/components/MovieCardStyle';
-
+import classNames from "classname";
 
 function CircularProgressWithLabel(props) {
     return (
@@ -20,10 +20,10 @@ function CircularProgressWithLabel(props) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: "#ffffff"
+            color: "#CCD2E3"
           }}
         >
-          <div color="#ffffff" style={{fontSize:"14px"}}>
+          <div color="#CCD2E3" style={{fontSize:"14px"}}>
             {`${props.value}`}
           </div>
         </Box>
@@ -32,7 +32,7 @@ function CircularProgressWithLabel(props) {
   }
 
 
-function MovieCard({ movie }) {
+function MovieCard({ movie, isMovie }) {
   const history = useHistory();
   const movieCardStyle = MovieCardStyle();
   return (
@@ -43,7 +43,7 @@ function MovieCard({ movie }) {
         className={movieCardStyle.img}
         src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}
       />
-      <div className={movieCardStyle.rating}>{movie.vote_average}</div>
+      <div className={classNames({[movieCardStyle.movie_color_rating]: isMovie, [movieCardStyle.rating]: true})}>{movie.vote_average}</div>
       {/* <CircularProgressWithLabel value={movie.vote_average} /> */}
     </div>
     <Stack
@@ -57,14 +57,14 @@ function MovieCard({ movie }) {
       {movie.media_type === "movie" ? (
         <>
           <div className={movieCardStyle.title}>{movie.title}</div>
-          <div className={movieCardStyle.year}>
+          <div className={classNames({[movieCardStyle.movie_color]: isMovie, [movieCardStyle.year]: true,})}>
             {movie.release_date.slice(0, 4)}
           </div>
         </>
       ) : (
         <>
           <div className={movieCardStyle.title}>{movie.name}</div>
-          <div className={movieCardStyle.year}>
+          <div className={classNames({[movieCardStyle.movie_color]: isMovie, [movieCardStyle.year]: true,})}>
             {movie.first_air_date.slice(0, 4)}
           </div>
         </>

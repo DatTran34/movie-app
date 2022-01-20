@@ -19,7 +19,7 @@ const PersonInfoPageStyle = makeStyles((theme) => ({
         borderRadius: "10px",
         background: "#2D375A",
         padding: "10px",
-        color: "#ffffff",
+        color: "#CCD2E3",
         textAlign: "left",
     },
     year_box_movie_name: {
@@ -28,7 +28,7 @@ const PersonInfoPageStyle = makeStyles((theme) => ({
         cursor:"pointer"
     },
     year_box_actor_name: {
-        color: "#ffffff",
+        color: "#CCD2E3",
         fontWeight: "500",
     },
 }))

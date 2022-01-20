@@ -70,15 +70,14 @@ const MovieCardStyle = makeStyles((theme) => ({
     alignItems: "center",
     backgroundColor: "#112b42",
     fontWeight: "600",
-    color: "#2cc9b7",
+    color: "#29bdae",
     borderRadius: "100%",
     padding: "5px",
-    border: "2.5px solid #2cc9b7",
+    border: "2.5px solid #29bdae",
     transition: "all 0.3s ease-out",
     boxShadow: "3px 3px 10px rgba(76, 205, 235, 0.5)"
   },
   img: {
-    borderRadius: "10px",
     transition: "all 0.2s ease-out",
   },
   content: {
@@ -90,14 +89,21 @@ const MovieCardStyle = makeStyles((theme) => ({
     overflow: "hidden",
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
-    color: "#ffffff",
+    color: "#CCD2E3",
   },
   time: {
     color: "#BDBDBD",
   },
   year: {
-    color: "#4CCDEB",
+    color: "#29bdae",
   },
+  movie_color_rating:{
+    color: "#4CCDEB",
+    border: "2.5px solid #4CCDEB",
+  },
+  movie_color:{
+    color: "#4CCDEB",
+  }
 }));
 
 export default MovieCardStyle;
