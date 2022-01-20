@@ -214,7 +214,6 @@ function MovieInfoPage2() {
       searchParams.set("media_type", "movie");
     }
   };
-  console.log(cast);
   return (
     <>
       <NavBar></NavBar>
@@ -353,7 +352,9 @@ function MovieInfoPage2() {
                   data={recommendedMovie}
                 ></VerticalScrollBox>
               </div>
-              <div className={movieInfoPageStyle.col}>d</div>
+              <div className={movieInfoPageStyle.col}>
+                <Award ImdbID={imdb_id}/>
+              </div>
             </div>
           </>
         )}
