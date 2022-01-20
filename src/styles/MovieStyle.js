@@ -6,7 +6,7 @@ const MovieStyle = makeStyles((theme) => ({
   },
   header: {
     color: "white",
-    fontSize: "24px",
+    fontSize: "3rem",
     fontWeight: "600",
     textAlign: "left",
   },
@@ -105,7 +105,7 @@ const MovieStyle = makeStyles((theme) => ({
   },
   search_filter: {
     width: "100%",
-    backgroundColor: "#fff",
+    backgroundColor: "#172a46",
     borderRadius: "1opx",
     margin: "1rem 0rem"
   },
@@ -120,14 +120,14 @@ const MovieStyle = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
     "&:hover" : {
-      backgroundColor: "#aaa"
+      backgroundColor: "#0a192f"
     }
   },
   search_filter_media_type: {
-    
+    color: "#CCD2E3"
   },
   search_filter_number: {
-    
+    color: "#CCD2E3"
   }
 }));
 

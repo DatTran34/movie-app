@@ -5,13 +5,12 @@ import { makeStyles } from "@mui/styles";
 import { useHistory, useLocation } from "react-router";
 const VerticalScrollBoxStyle = makeStyles((theme) => ({
     vertical_scroll_box_container : {
-      background: "#2D375A",
+      background: "#172a46",
       display: "flex",
       flexDirection: "column",
       alignItems: "flex-start",
       justifyContent: "center",
       padding: "20px",
-      borderRadius: "10px",
     },
     vertical_scroll_box: {
         width: "100%",
@@ -26,7 +25,7 @@ const VerticalScrollBoxStyle = makeStyles((theme) => ({
 
     },
     vertical_scroll_box_title: {
-      color: "#F6C700",
+      color: "#bb86fc",
       fontWeight: "700",
       fontSize: "24px",
       paddingBottom: "20px",

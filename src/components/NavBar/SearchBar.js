@@ -85,6 +85,7 @@ function SearchBar() {
         .catch((e) => {
           console.log(e);
         });
+        
     } else {
       setIsSearchShown(false);
     }
@@ -115,7 +116,6 @@ function SearchBar() {
           <input
             style={{ width: "100%" }}
             onChange={handleSearch}
-            value={query}
             className={navbarSearchInputStyle}
             type="text"
             placeholder="Search..."

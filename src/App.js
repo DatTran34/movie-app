@@ -16,7 +16,7 @@ function App() {
           <Route exact path="/" component={HomePage}></Route>
           <Route exact path="/movie/:id" component={MovieInfoPage}></Route>
           <Route exact path="/tv/:id" component={TvShowInfoPage}></Route>
-          <Route exact path="/person/:id" component={PersonInfoPage2}></Route>
+          <Route exact path="/person/:id" component={PersonInfoPage}></Route>
           <Route path="/person/:content" component={PersonPage}></Route>
           <Route path="/filter" component={SearchPage}></Route>
         </Switch>

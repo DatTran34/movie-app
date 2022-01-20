@@ -76,13 +76,14 @@ function SearchPage() {
                   </>
                 ) : (
                   <>
-                    <div className={movieStyle.header}>Filtered Movies</div>
+                    <div className={movieStyle.header}>FILTERED MOVIES</div>
                     <Stack
                       direction="row"
                       alignItems="center"
                       spacing={2}
-                      p={1}
+                      py={1}
                     >
+                      
                       <Stack position="relative" onClick={handleChange}>
                         <input
                           className={movieStyle.input_role_switch}

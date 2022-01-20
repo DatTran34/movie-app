@@ -21,10 +21,8 @@ const CategoryBarStyle = makeStyles((theme) => ({
   navbar_button: {
     cursor: "pointer",
     padding: "0.5rem 0 ",
-    borderRadius: "10px",
   },
   navbar_button_hover:{
-    borderRadius: "10px 10px 0 0",
     backgroundColor: "#fbc108",
     color: "#ffffff"
 },
@@ -39,10 +37,9 @@ const CategoryBarStyle = makeStyles((theme) => ({
   navbar_panel: {
     position: "absolute",
     top: "2.3rem",
-    background: "#1f2845",
+    background: "#172a46",
     transform: "translateX(-45)",
     border: "none",
-    borderRadius: "0 10px 10px 10px",
     boxShadow: "5px 4px 4px rgba(0, 0, 0, 0.25)",
   },
   column: {
@@ -176,6 +173,7 @@ const navbarCountryButtonStyle = classNames({
     searchParams.set(key, value);
     searchParams.delete("category");
     searchParams.delete("page");
+    searchParams.delete("query");
     history.push({
       pathname: "/filter",
       search: searchParams.toString(),
@@ -188,6 +186,7 @@ const navbarCountryButtonStyle = classNames({
     searchParams.delete("year");
     searchParams.delete("country");
     searchParams.delete("page");
+    searchParams.delete("query");
     searchParams.set("media_type", media_type);
     searchParams.set("category", value);
     history.push({
