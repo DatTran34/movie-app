@@ -8,7 +8,6 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import SearchPage from "./pages/SearchPage";
 import PersonPage from "./pages/PersonPage";
 import PersonInfoPage from "./pages/PersonInfoPage";
-import PersonInfoPage2 from "./pages/PersonInfoPage2";
 function App() {
   return (
     <Router>

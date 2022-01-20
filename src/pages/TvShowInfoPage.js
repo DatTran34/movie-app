@@ -226,7 +226,7 @@ function TvShowInfoPage() {
                             <Stack></Stack>
                         </Stack>
                         <Award ImdbID={imdb_id}/>
-                        <SeasonSelector movie = {tmdbMovieInfo}/>
+                        <SeasonSelector seasons = {tmdbMovieInfo.seasons}/>
                     </>
                 )}
             </Stack>

@@ -1,9 +1,10 @@
-
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@mui/styles";
+import { Stack } from "@mui/material";
 
 const SeasonSelectorStyle = makeStyles((theme) => ({
   root: {
+    margin: "2rem",
     color: "#CCD2E3",
     "& select": {
       backgroundColor: "#2D375A",
@@ -11,45 +12,69 @@ const SeasonSelectorStyle = makeStyles((theme) => ({
       color: "#CCD2E3",
       border: "none",
       alignItems: "left",
-      borderRadius: "10px",
       fontWeight: "600",
-      fontSize: "14px",
+      fontSize: "1rem",
     },
     alignItems: "left",
   },
-  selectItems: {
-    backgroundColor: "DodgerBlue",
+  option: {
+    "&:hover" : {
+      backgroundColor: "DodgerBlue",
+    }
+  },
+  season_container:{
+    display: "grid",
+    gridGap: "1rem",
+    marginTop: "1rem",
+    ["@media (min-width:720px)"]: {
+      gridTemplateColumns: "1fr 8fr",
+    },
+  },
+  img: {
+    width: "10rem"
+  },
+  title: {
+    fontSize: "3rem",
   },
 }));
 
-function SeasonSelector({movie}) {
-    const seasonSelectorStyle = SeasonSelectorStyle()
+function SeasonSelector({ seasons }) {
+  const seasonSelectorStyle = SeasonSelectorStyle();
   const [selectedSeason, setSelectedSeason] = useState(1);
 
   const handleSelectedSeason = (e) => {
     setSelectedSeason(e.target.value);
   };
-  console.log(selectedSeason)
+  console.log(seasons);
   return (
     <div className={seasonSelectorStyle.root}>
-      <div>Select Seasons</div>
       <div>
         <select onChange={handleSelectedSeason}>
-          {movie.seasons?.map((season, key) => {
+          {seasons?.map((season, key) => {
             return (
-              <option value={season.name} key={key}>
+              <option className={seasonSelectorStyle.option} value={season.name} key={key}>
                 {season.name}
               </option>
             );
           })}
         </select>
       </div>
-      <div>{selectedSeason} Info</div>
-      <div>{movie.seasons?.map((season,key)=>{
-          if (season.name === selectedSeason){
-              return (<div>{season.overview}</div>)
+      <div>
+        {seasons?.map((season, key) => {
+          if (season.name === selectedSeason) {
+            return (
+              <div className={seasonSelectorStyle.season_container}>
+                <img className={seasonSelectorStyle.img} src={`http://image.tmdb.org/t/p/original/${season.poster_path}`}/>
+                <Stack>
+                  <div className={seasonSelectorStyle.title} >{season.name}</div>
+                  <div>{`${season.episode_count} episodes`}</div>
+                  <div>{season.overview}</div>
+                </Stack>
+              </div>
+            );
           }
-      })}</div>
+        })}
+      </div>
     </div>
   );
 }
