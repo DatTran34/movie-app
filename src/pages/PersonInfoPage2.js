@@ -18,29 +18,50 @@ import cast_img from "../images/cast_img.jpg";
 import { makeStyles } from "@mui/styles";
 
 const PersonInfoPageStyle = makeStyles((theme) => ({
-  grid_info: {
-    display: "grid",
-    background: "white",
+  grid: {
     justifyContent: "center",
+    // alignContent:"center",
+    // ["@media (min-width:720px)"]: {
+    //   gridTemplateColumns: "1fr 2fr",
+    // },
+    // ["@media (min-width:1200px)"]: {
+    //   gridTemplateColumns: "1fr 3fr",
+    // },
+    display: "grid",
+    padding: "1rem",
     gridGap: "1rem",
+    margin: "auto",
+
     ["@media (min-width:960px)"]: {
-      gridTemplateColumns: "1fr 3fr",
-      background: "red",
-      "& img": {
-        width: "70%",
-      },
+      maxWidth: "70rem",
+      gridTemplateColumns: "1fr 2fr",
     },
     ["@media (min-width:1200px)"]: {
-      gridTemplateColumns: "1fr 2.5fr 1fr",
-      background: "blue",
+      gridTemplateColumns: "1fr 3fr",
     },
-    width: "100%",
   },
-  col: {
-    background: "pink",
+  col: {},
+  img: {
     "& img": {
       width: "100%",
+      display: "block",
+      margin: "auto",
     },
+  },
+  info_grid: {
+    display: "grid",
+    //background: "#2d375a",
+    gridGap: "1rem",
+    //padding: "1rem",
+    borderRadius: "1rem",
+  },
+  info_col: {
+    //background: "yellow",
+    color: "#fff",
+  },
+  info_text_box: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
   },
 }));
 
@@ -106,68 +127,83 @@ function PersonInfoPage2() {
           <div>Loading..</div>
         ) : (
           <>
-            <div className={personInfoPageStyle.grid_info}>
+            <div className={personInfoPageStyle.grid}>
               <div className={personInfoPageStyle.col}>
-                <img src={cast_img}></img>
+                <div className={personInfoPageStyle.img}>
+                  <img  src={`http://image.tmdb.org/t/p/original/${tmdbPersonInfo.profile_path}`} />
+                </div>
               </div>
               <div className={personInfoPageStyle.col}>
-                <Stack spacing={2}>
-                  <Stack direction="row" alignItems="center" spacing={3}>
-                    <Stack className={style.name}>{tmdbPersonInfo.name}</Stack>
-                  </Stack>
-                  <Stack direction="row" spacing={2}>
-                    <Stack className={style.box}>
-                      <Stack className={style.title}>POPULARITY</Stack>
-                      <Stack className={style.content}>
-                        {tmdbPersonInfo.popularity
-                          ? `${tmdbPersonInfo.popularity}`
-                          : "Unknown"}
-                      </Stack>
-                    </Stack>
-                    <Stack className={style.box}>
-                      <Stack className={style.title}>BIRTHDAY</Stack>
-                      <Stack className={style.content}>
-                        {tmdbPersonInfo.birthday
-                          ? `${tmdbPersonInfo.birthday} (${age} years old)`
-                          : "Unknown"}
-                      </Stack>
-                    </Stack>
-                    <Stack className={style.box}>
-                      <Stack className={style.title}>HEIGHT</Stack>
-                      <Stack className={style.content}>
-                        {tmdbPersonInfo.height
-                          ? `${tmdbPersonInfo.height}`
-                          : "Unknown"}
-                      </Stack>
-                    </Stack>
-                    <Stack className={style.box}>
-                      <Stack className={style.title}>PLACE OF BIRTH</Stack>
-                      <Stack className={style.content}>
-                        {tmdbPersonInfo.place_of_birth
-                          ? `${tmdbPersonInfo.place_of_birth}`
-                          : "Unknown"}
-                      </Stack>
-                    </Stack>
-                    <Stack className={style.box}>
-                      <Stack className={style.title}>STAR SIGN</Stack>
-                      <Stack className={style.content}>
-                        {imdbPersonInfo.star_sign
-                          ? `${imdbPersonInfo.star_sign}`
-                          : "Unknown"}
-                      </Stack>
-                    </Stack>
-                  </Stack>
-                  <Stack textAlign="left">
-                    <Stack className={style.title}>BIOGRAPHY</Stack>
-                    <Stack className={style.content_overview}>
+                <div className={personInfoPageStyle.info_grid}>
+                  <div
+                    className={`${personInfoPageStyle.info_col} ${style.name}`}
+                  >
+                    {tmdbPersonInfo.name}
+                  </div>
+                  <div  className={`${personInfoPageStyle.info_col} ${personInfoPageStyle.info_text_box}`}>
+                    <div className={style.title}>POPULARITY</div>
+                    <div className={style.content}>
+                      {tmdbPersonInfo.popularity
+                        ? `${tmdbPersonInfo.popularity}`
+                        : "Unknown"}
+                    </div>
+                  </div>
+                  <div className={`${personInfoPageStyle.info_col} ${personInfoPageStyle.info_text_box}`}>
+                    <div className={style.title}>BIRTHDAY</div>
+                    <div className={style.content}>
+                      {tmdbPersonInfo.birthday
+                        ? `${tmdbPersonInfo.birthday} (${age} years old)`
+                        : "Unknown"}
+                    </div>
+                  </div>
+                  <div className={`${personInfoPageStyle.info_col} ${personInfoPageStyle.info_text_box}`}>
+                    <div className={style.title}>HEIGHT</div>
+                    <div className={style.content}>
+                      {tmdbPersonInfo.height
+                        ? `${tmdbPersonInfo.height}`
+                        : "Unknown"}
+                    </div>
+                  </div>
+                  <div className={`${personInfoPageStyle.info_col} ${personInfoPageStyle.info_text_box}`}>
+                    <div className={style.title}>PLACE OF BIRTH</div>
+                    <div className={style.content}>
+                      {tmdbPersonInfo.place_of_birth
+                        ? `${tmdbPersonInfo.place_of_birth}`
+                        : "Unknown"}
+                    </div>
+                  </div>
+                  <div className={`${personInfoPageStyle.info_col} ${personInfoPageStyle.info_text_box}`}>
+                    <div className={style.title}>STAR SIGN</div>
+                    <div className={style.content}>
+                      {imdbPersonInfo.star_sign
+                        ? `${imdbPersonInfo.star_sign}`
+                        : "Unknown"}
+                    </div>
+                  </div>
+                  <div className={personInfoPageStyle.info_col}>
+                    <div className={style.title}>BIOGRAPHY</div>
+                    <div className={style.content_overview}>
                       {tmdbPersonInfo.biography
                         ? `${tmdbPersonInfo.biography}`
                         : "Unknown"}
-                    </Stack>
-                  </Stack>
-                </Stack>
+                    </div>
+                  </div>
+                 
+                </div>
+              
+              
+              
+              
               </div>
-              <div className={personInfoPageStyle.col}>cast</div>
+              <div className={personInfoPageStyle.col}>
+                <VerticalScrollBox
+                  title={"Known For"}
+                  data={movieCredits}
+                ></VerticalScrollBox>
+              </div>
+              <div className={personInfoPageStyle.col}>
+                <CreditMovieList params={params}></CreditMovieList>
+              </div>
             </div>
           </>
         )}

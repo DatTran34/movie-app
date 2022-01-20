@@ -44,3 +44,21 @@ export const getCast = async (media_type, movieId) => {
       console.error(error);
     }
   }
+
+
+  export const getRecommendedMovie  = async (media_type,movieId) => {
+    try {
+      if(media_type === "movie")
+      {
+          const response = await axios.get(`https://api.themoviedb.org/3/${media_type}/${movieId}/similar?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`);
+          return response.data;
+      }
+      else {
+        const response = await axios.get(`https://api.themoviedb.org/3/${media_type}/${movieId}/recommendations?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`);
+        return response.data;
+      }
+      
+    } catch (error) {
+      console.error(error);
+    }
+  }

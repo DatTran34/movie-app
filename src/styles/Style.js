@@ -69,7 +69,7 @@ const Style = makeStyles((theme) => ({
     },
     name: {
         fontWeight: "800",
-        fontSize: "3rem",
+        fontSize: "4rem",
     },
     year:{
         color: "#CCD2E3",
@@ -77,6 +77,7 @@ const Style = makeStyles((theme) => ({
         fontSize: "1.5rem",
     },
     trailer_button:{
+        textAlign: "center",
         padding: "10px 20px",
         backgroundColor: "#4CCDEB",
         borderRadius: "10px",
