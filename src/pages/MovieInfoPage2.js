@@ -19,10 +19,10 @@ import NavBar from "../components/NavBar/NavBar";
 import { useParams } from "react-router";
 import { useHistory, useLocation } from "react-router";
 import VerticalScrollBox from "../components/VerticalScrollBox";
-
+import MovieInfoPageStyle from "../styles/pages/MovieInfoPageStyle"
 import { makeStyles } from "@mui/styles";
 
-const MovieInfoPageStyle = makeStyles((theme) => ({
+const MovieInfoPageStyle2 = makeStyles((theme) => ({
   grid: {
     justifyContent: "center",
     display: "grid",
@@ -304,7 +304,7 @@ function MovieInfoPage2() {
                               spacing={1}
                               style={{ cursor: "pointer" }}
                               onClick={() =>
-                                history.push(`/movie/${person.id}`)
+                                history.push(`/person/${person.id}`)
                               }
                             >
                               <img style={{width:"4rem"}}
