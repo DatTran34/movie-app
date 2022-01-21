@@ -91,7 +91,7 @@ function PeopleList({ searchParams }) {
           >
             {peopleList?.map((person, key) => {
               return (
-                <Grid item xs={12} md={6} style={{ padding: "10px" }} key={key}>
+                <Grid item xs={12} md={3} style={{ padding: "10px" }} key={key}>
                   <PersonCard person={person}></PersonCard>
                 </Grid>
               );
