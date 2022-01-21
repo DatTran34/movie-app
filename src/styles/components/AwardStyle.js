@@ -2,25 +2,23 @@ import { makeStyles } from "@mui/styles";
 
 const AwardStyle = makeStyles((theme) => ({
   award_container: {
-    background: "#2D375A",
+    background: "#172a46",
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
     justifyContent: "center",
     padding: "20px",
-    borderRadius: "10px",
-    marginBottom: "1rem",
   },
   award: {
     width: "100%",
   },
-  award_overlay_outter: {
+  award_overlay_inner: {
     overflow: "auto",
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "flex-start",
+    whiteSpace: "nowrap",
   },
-  award_overlay_inner: {},
+  award_overlay_inner: {
+
+  },
   award_title: {
     color: "#F6C700",
     fontWeight: "700",
@@ -28,11 +26,11 @@ const AwardStyle = makeStyles((theme) => ({
     paddingBottom: "20px",
   },
   award_card: {
-    background: "#05103A",
-    width:"20rem",
-    height:"20rem"
+    display: "inline-block",
+    width: "15rem",
+    height: "15rem",
+    backgroundColor: "#2D375A",
   },
-
   root: {},
   title: {
     color: "#ffffff",

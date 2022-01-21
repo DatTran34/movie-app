@@ -36,7 +36,6 @@ const MovieInfoPageStyle = makeStyles((theme) => ({
     padding: "1rem",
     gridGap: "1rem",
     margin: "auto",
-    background: "white",
     ["@media (min-width:960px)"]: {
       maxWidth: "70rem",
       gridTemplateColumns: "1fr 2fr",
@@ -46,7 +45,6 @@ const MovieInfoPageStyle = makeStyles((theme) => ({
     },
   },
   col: {
-    background: "pink",
   },
   img: {
     "& img": {
@@ -68,21 +66,26 @@ const MovieInfoPageStyle = makeStyles((theme) => ({
   },
   info_col_grid: {
     display: "grid",
-    gridGap: "1rem",
+    gridColumnGap: "7rem",
+    gridRowGap: "0.5rem",
     gridTemplateColumns: "1fr 1fr",
   },
   info_text_box: {
     display: "grid",
+    maxWidth: "15rem",
+    gridColumnGap: "1rem",
     gridTemplateColumns: "1fr 1fr",
   },
   trailer_genres_grid: {
     display: "grid",
     gridGap: "1rem",
-    background: "red",
     gridTemplateColumns: "repeat(2, 1fr)",
   },
+  genres_grid: {
+    display: "flex",
+    flexDirection: "row",
+  },
   trailer_genres_col: {
-    background: "blue",
   },
   cast_container: {
     background: "#172a46",
@@ -91,7 +94,6 @@ const MovieInfoPageStyle = makeStyles((theme) => ({
     alignItems: "flex-start",
     justifyContent: "center",
     padding: "20px",
-    marginBottom: "1rem",
   },
   cast: {
     width: "100%",
@@ -237,6 +239,80 @@ function MovieInfoPage2() {
                   <img
                     src={`http://image.tmdb.org/t/p/original/${tmdbMovieInfo.poster_path}`}
                   />
+                  <Stack direction="row" mt={2}>
+                  {rapidMovieInfo?.Ratings[0] && (
+                      <Stack
+                        spacing={0.5}
+                        direction="row"
+                        py={0.5}
+                        px={1}
+                        backgroundColor="#F6C700"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <img
+                          style={{ width: "60px", height: "25px" }}
+                          src={imdb}
+                        />
+                        <Stack
+                          pb={0.25}
+                          color="#000000"
+                          fontWeight="800"
+                          fontSize="1.5rem"
+                        >
+                          {rapidMovieInfo?.Ratings[0].Value.slice(0, -3)}
+                        </Stack>
+                      </Stack>
+                    )}
+                    {rapidMovieInfo?.Ratings[1] && (
+                      <Stack
+                        spacing={0.5}
+                        direction="row"
+                        p={0.5}
+                        px={1}
+                        backgroundColor="#fff"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <img
+                          style={{ width: "30px", height: "30px" }}
+                          src={Rotten_Tomatoes2}
+                        />
+                        <Stack
+                          pb={0.25}
+                          color="#000000"
+                          fontWeight="800"
+                          fontSize="1.5rem"
+                        >
+                          {rapidMovieInfo?.Ratings[1].Value}
+                        </Stack>
+                      </Stack>
+                    )}
+                    {rapidMovieInfo?.Ratings[2] && (
+                      <Stack
+                        spacing={1.5}
+                        direction="row"
+                        p={0.5}
+                        px={1}
+                        backgroundColor="#66CC33"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <img
+                          style={{ width: "30px", height: "30px" }}
+                          src={metacritic}
+                        />
+                        <Stack
+                          pb={0.25}
+                          color="#fff"
+                          fontWeight="800"
+                          fontSize="1.5rem"
+                        >
+                          {rapidMovieInfo?.Ratings[2].Value.slice(0, -4)}
+                        </Stack>
+                      </Stack>
+                    )}
+                  </Stack>
                 </div>
               </div>
               <div className={movieInfoPageStyle.col}>
@@ -254,18 +330,22 @@ function MovieInfoPage2() {
                     >
                       Watch Trailer
                     </div>
-                    {tmdbMovieInfo.genres.map((genre, key) => (
-                      <div
-                        sx={{ cursor: "pointer" }}
-                        onClick={() => {
-                          addQuery("genre", `${genre.id}`);
-                        }}
-                        key={key}
-                        className={`${style.category_button} ${movieInfoPageStyle.trailer_genres_col}`}
-                      >
-                        <div>{genre.name}</div>
-                      </div>
-                    ))}
+                    <div
+                      className={`${movieInfoPageStyle.genres_grid}`}
+                    >
+                      {tmdbMovieInfo.genres.map((genre, key) => (
+                        <div
+                          sx={{ cursor: "pointer" }}
+                          onClick={() => {
+                            addQuery("genre", `${genre.id}`);
+                          }}
+                          key={key}
+                          className={`${style.category_button}`}
+                        >
+                          <div>{genre.name}</div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                   <div
                     className={`${movieInfoPageStyle.info_col} ${movieInfoPageStyle.info_col_grid}`}
@@ -276,12 +356,7 @@ function MovieInfoPage2() {
                         {tmdbMovieInfo.status}
                       </div>
                     </div>
-                    <div className={movieInfoPageStyle.info_text_box}>
-                      <div className={style.title}>COUNTRY</div>
-                      <div className={style.content}>
-                        {tmdbMovieInfo.production_countries[0]?.name}
-                      </div>
-                    </div>
+                    
                     <div className={movieInfoPageStyle.info_text_box}>
                       <div className={style.title}>RUNTIME</div>
                       <div className={style.content}>{runtime}</div>
@@ -290,6 +365,30 @@ function MovieInfoPage2() {
                       <div className={style.title}>DIRECTOR</div>
                       <div className={style.content}>
                         {rapidMovieInfo.Director}
+                      </div>
+                    </div>
+                    <div className={movieInfoPageStyle.info_text_box}>
+                      <div className={style.title}>WRITER</div>
+                      <div className={style.content}>
+                        {rapidMovieInfo.Director}
+                      </div>
+                    </div>
+                    <div className={movieInfoPageStyle.info_text_box}>
+                      <div className={style.title}>BUDGET</div>
+                      <div className={style.content}>
+                        {rapidMovieInfo.Director}
+                      </div>
+                    </div>
+                    <div className={movieInfoPageStyle.info_text_box}>
+                      <div className={style.title}>REVENUE</div>
+                      <div className={style.content}>
+                        {rapidMovieInfo.Director}
+                      </div>
+                    </div>
+                    <div className={movieInfoPageStyle.info_text_box}>
+                      <div className={style.title}>COUNTRY</div>
+                      <div className={style.content}>
+                        {tmdbMovieInfo.production_countries[0]?.name}
                       </div>
                     </div>
                   </div>
@@ -322,7 +421,8 @@ function MovieInfoPage2() {
                                 history.push(`/movie/${person.id}`)
                               }
                             >
-                              <img style={{width:"4rem"}}
+                              <img
+                                style={{ width: "4rem" }}
                                 src={`http://image.tmdb.org/t/p/w500/${person.profile_path}`}
                               />
                               <Stack
@@ -332,10 +432,17 @@ function MovieInfoPage2() {
                                 style={{ textAlign: "left" }}
                                 spacing={1}
                               >
-                                <div style={{color: "#4CCDEB", fontWeight: "600"}} >
+                                <div
+                                  style={{
+                                    color: "#4CCDEB",
+                                    fontWeight: "600",
+                                  }}
+                                >
                                   {person.name}
                                 </div>
-                                <div style={{color: "white", fontWeight: "500"}}>
+                                <div
+                                  style={{ color: "white", fontWeight: "500" }}
+                                >
                                   {person.character}
                                 </div>
                               </Stack>
@@ -346,15 +453,13 @@ function MovieInfoPage2() {
                     </div>
                   </div>
                 </div>
-                <VerticalScrollBox
-                  title={"Known For"}
-                  data={recommendedMovie}
-                ></VerticalScrollBox>
               </div>
-              <div className={movieInfoPageStyle.col}>
-                <Award ImdbID={imdb_id}/>
-              </div>
-              
+
+              <Award className={movieInfoPageStyle.col} ImdbID={imdb_id} />
+              <VerticalScrollBox
+                title={"Known For"}
+                data={recommendedMovie}
+              ></VerticalScrollBox>
             </div>
           </>
         )}
