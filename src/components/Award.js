@@ -26,12 +26,53 @@ function Award({ ImdbID }) {
   }, []);
   console.log(awardList);
   return (
-    <div style={{width:"50rem", background:"red"}}>
-      <div  style={{display:"grid", gridGap:"1rem", gridTemplateColumns:"1fr 1fr 1fr" ,overflow:"auto", width:"100%"}}>
-        {awardList.filter(award => award.type === "Winner").map(award => {
-          return <div className={awardStyle.award_card}>s</div>
-        })}
-    </div>
+    <div style={{ width: "100%" }}>
+      <div
+        style={{
+          display: "grid",
+          gridGap: "1rem",
+          background: "#162945",
+          padding: "1rem",
+          
+        }}
+      >
+        <div style={{ color: "#F6C700", fontWeight: "700", fontSize: "24px" }}>
+          Awards and Nominations
+        </div>
+        <div
+          style={{
+            display: "grid",
+            gridGap: "1rem",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            overflow: "auto",
+            whiteSpace: "nowrap",
+            height: "20.5rem",
+          }}
+        >
+          {awardList
+            .filter((award) => award.type === "Winner")
+            .map((award) => {
+              return (
+                <Stack className={awardStyle.card}>
+                  <Stack className={awardStyle.content}>
+                    <Stack className={awardStyle.award_name}>
+                      {award.award_name}
+                    </Stack>
+                    <Stack className={awardStyle.year}>{award.year}</Stack>
+                    <Stack className={awardStyle.event_name}>
+                      {award.event_name}
+                    </Stack>
+                    <Stack className={awardStyle.award}>{award.award}</Stack>
+                  </Stack>
+                  <Stack className={awardStyle.blur}></Stack>
+                  <Stack className={awardStyle.hide}></Stack>
+                  <img className={awardStyle.trophy} src={awardImg} />
+                  <img className={awardStyle.circle} src={circle} />
+                </Stack>
+              );
+            })}
+        </div>
+      </div>
     </div>
   );
 }

@@ -25,18 +25,10 @@ import { makeStyles } from "@mui/styles";
 const MovieInfoPageStyle = makeStyles((theme) => ({
   grid: {
     justifyContent: "center",
-    // alignContent:"center",
-    // ["@media (min-width:720px)"]: {
-    //   gridTemplateColumns: "1fr 2fr",
-    // },
-    // ["@media (min-width:1200px)"]: {
-    //   gridTemplateColumns: "1fr 3fr",
-    // },
     display: "grid",
     padding: "1rem",
     gridGap: "1rem",
     margin: "auto",
-    background: "white",
     ["@media (min-width:960px)"]: {
       maxWidth: "70rem",
       gridTemplateColumns: "1fr 2fr",
@@ -46,7 +38,6 @@ const MovieInfoPageStyle = makeStyles((theme) => ({
     },
   },
   col: {
-    background: "pink",
   },
   img: {
     "& img": {
@@ -57,13 +48,10 @@ const MovieInfoPageStyle = makeStyles((theme) => ({
   },
   info_grid: {
     display: "grid",
-    //background: "#2d375a",
     gridGap: "1rem",
-    //padding: "1rem",
     borderRadius: "1rem",
   },
   info_col: {
-    //background: "yellow",
     color: "#fff",
   },
   info_col_grid: {
@@ -78,11 +66,9 @@ const MovieInfoPageStyle = makeStyles((theme) => ({
   trailer_genres_grid: {
     display: "grid",
     gridGap: "1rem",
-    background: "red",
     gridTemplateColumns: "repeat(2, 1fr)",
   },
   trailer_genres_col: {
-    background: "blue",
   },
   cast_container: {
     background: "#172a46",
@@ -91,7 +77,6 @@ const MovieInfoPageStyle = makeStyles((theme) => ({
     alignItems: "flex-start",
     justifyContent: "center",
     padding: "20px",
-    marginBottom: "1rem",
   },
   cast: {
     width: "100%",
@@ -100,7 +85,7 @@ const MovieInfoPageStyle = makeStyles((theme) => ({
     overflow: "auto",
     display: "flex",
     alignItems: "flex-start",
-    height: "300px",
+    height: "20rem",
   },
   cast_overlay_inner: {},
   cast_title: {
@@ -346,14 +331,13 @@ function MovieInfoPage2() {
                     </div>
                   </div>
                 </div>
-                <VerticalScrollBox
+               
+              </div>
+              <Award ImdbID={imdb_id}/>
+              <VerticalScrollBox
                   title={"Known For"}
                   data={recommendedMovie}
                 ></VerticalScrollBox>
-              </div>
-              <div className={movieInfoPageStyle.col}>
-                <Award ImdbID={imdb_id}/>
-              </div>
               
             </div>
           </>
