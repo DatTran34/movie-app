@@ -19,9 +19,6 @@ const MovieListStyle = makeStyles((theme) => ({
       gridTemplateColumns: "repeat(4,1fr)",
     },
   },
-  col: {
-   
-  },
   pagination: {
     userSelect: "none",
     color: "#CCD2E3",
@@ -33,12 +30,12 @@ const MovieListStyle = makeStyles((theme) => ({
     fontWeight: "600"
   },
   pagination_number_focus: {
-    backgroundColor: "#29bdae",
+    backgroundColor: "#4ccdeb",
     color: "#172a46",
     // border: "1px solid #4ccdeb"
   },
   movie_color:{
-    backgroundColor: "#4ccdeb",
+    backgroundColor: "#29bdae",
     color: "#172a46",
   },
   pagination_btn: {

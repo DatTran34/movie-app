@@ -169,7 +169,9 @@ const navbarCountryButtonStyle = classNames({
     let pathname = location.pathname;
     // returns path: '/app/books'
     let searchParams = new URLSearchParams(location.search);
-    checkMediaType(searchParams);
+    if (!searchParams.has("media_type") || searchParams.get("media_type") === "person") {
+      searchParams.set("media_type", "movie");
+    } 
     // returns the existing query string: '?genre=fiction&year=2019'
     searchParams.set(key, value);
     searchParams.delete("category");
@@ -185,7 +187,7 @@ const navbarCountryButtonStyle = classNames({
     let searchParams = new URLSearchParams(location.search);
     searchParams.delete("genre");
     searchParams.delete("year");
-    searchParams.delete("country");
+    searchParams.delete("language");
     searchParams.delete("page");
     searchParams.delete("query");
     searchParams.set("media_type", media_type);
@@ -194,12 +196,6 @@ const navbarCountryButtonStyle = classNames({
       pathname: "/filter",
       search: searchParams.toString(),
     });
-  };
-
-  const checkMediaType = (searchParams) => {
-    if (!searchParams.has("media_type")) {
-      searchParams.set("media_type", "movie");
-    }
   };
 
   const removeQuery = (key) => {

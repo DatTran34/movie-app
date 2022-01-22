@@ -82,9 +82,7 @@ function MovieList({ searchParams, isMovie }) {
           <div className={movieListStyle.grid}>
             {movieList?.map((movie, key) => {
               return (
-                <div className={movieListStyle.col} key={key}>
-                  <MovieCard movie={movie} isMovie={isMovie}/>
-                </div>
+                  <MovieCard key={key} movie={movie} isMovie={isMovie}/>
               );
             })}
           </div>

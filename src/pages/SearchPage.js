@@ -14,7 +14,7 @@ function SearchPage() {
   const location = useLocation();
   const movieStyle = MovieStyle();
   const [upcomingList, setUpComingList] = useState([]);
-
+  const [isPerson, setIsPerson] = useState(false);
   const [isMovie, setIsMovie] = useState(true);
   const searchParams = new URLSearchParams(location.search);
 
@@ -25,7 +25,7 @@ function SearchPage() {
       searchParams.set("media_type", "tv");
     } else {
       searchParams.set("media_type", "movie");
-    }
+    } 
     searchParams.delete("genre");
     history.push({
       pathname: "filter",
@@ -37,8 +37,12 @@ function SearchPage() {
     let searchParams = new URLSearchParams(location.search);
     if (searchParams.get("media_type") === "movie") {
       setIsMovie(true);
-    } else {
+      setIsPerson(false)
+    } else if (searchParams.get("media_type") === "tv"){
       setIsMovie(false);
+      setIsPerson(false)
+    } else {
+      setIsPerson(true)
     }
     getUpComingMovies()
       .then((data) => {
@@ -61,7 +65,6 @@ function SearchPage() {
       search: searchParams.toString(),
     });
   };
-  console.log(isMovie)
   return (
     <div>
       <NavBar></NavBar>
@@ -72,7 +75,14 @@ function SearchPage() {
                 {searchParams.get("media_type") === "person" ? (
                   <>
                     <div className={movieStyle.header}>Popular People</div>
-                    <CategoryTags media_type={searchParams.get("media_type")}/>
+                    <Stack
+                      direction="row"
+                      alignItems="center"
+                      spacing={2}
+                      py={1}
+                    >
+                      <CategoryTags isPerson={isPerson}/>
+                    </Stack>
                     <PeopleList searchParams={searchParams}></PeopleList>
                   </>
                 ) : (
@@ -99,9 +109,9 @@ function SearchPage() {
                           TV
                         </Stack>
                       </Stack>
-                      <CategoryTags />
+                      <CategoryTags isMovie={isMovie}/>
                     </Stack>
-                    <MovieList searchParams={searchParams}></MovieList>
+                    <MovieList isMovie={isMovie} searchParams={searchParams}></MovieList>
                   </>
                 )}
               </>

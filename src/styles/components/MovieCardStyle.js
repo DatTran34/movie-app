@@ -70,10 +70,10 @@ const MovieCardStyle = makeStyles((theme) => ({
     alignItems: "center",
     backgroundColor: "#112b42",
     fontWeight: "600",
-    color: "#29bdae",
+    color: "#4CCDEB",
     borderRadius: "100%",
     padding: "5px",
-    border: "2.5px solid #29bdae",
+    border: "2.5px solid #4CCDEB",
     transition: "all 0.3s ease-out",
     boxShadow: "3px 3px 10px rgba(76, 205, 235, 0.5)"
   },
@@ -95,14 +95,14 @@ const MovieCardStyle = makeStyles((theme) => ({
     color: "#BDBDBD",
   },
   year: {
-    color: "#29bdae",
+    color: "#4CCDEB",
   },
   movie_color_rating:{
-    color: "#4CCDEB",
-    border: "2.5px solid #4CCDEB",
+    color: "#29bdae",
+    border: "2.5px solid #29bdae",
   },
   movie_color:{
-    color: "#4CCDEB",
+    color: "#29bdae",
   }
 }));
 

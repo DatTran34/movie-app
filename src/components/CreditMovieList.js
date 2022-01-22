@@ -7,12 +7,11 @@ import { useHistory, useLocation } from "react-router";
 const YearSelectorStyle = makeStyles((theme) => ({
   root: {
     "& select": {
-      backgroundColor: "#2D375A",
+      backgroundColor: "#172a46",
       padding: "10px",
       color: "#CCD2E3",
       border: "none",
       alignItems: "left",
-      borderRadius:"10px",
       fontWeight:"600",
       fontSize:"14px"
     },
@@ -185,6 +184,7 @@ function CreditMovieList({ params }) {
                               direction="row"
                               justifyContent="flex-start"
                               spacing={0.5}
+                              mt={1}
                               key={key}
                             >
                               <div
@@ -211,6 +211,7 @@ function CreditMovieList({ params }) {
                               direction="row"
                               justifyContent="flex-start"
                               spacing={0.5}
+                              mt={1}
                               key={key}
                             >
                               <div
@@ -219,7 +220,7 @@ function CreditMovieList({ params }) {
                                 }
                                 onClick={() => history.push(`/movie/${movie.id}`)}
                               >
-                                {movie.name} ({movie.episode_count} episodes){" "}
+                                {`${movie.name} - ${movie.episode_count} episodes`}
                               </div>
                               {(movie.character !== undefined && movie.character !== "") &&
                               (

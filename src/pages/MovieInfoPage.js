@@ -1,9 +1,5 @@
 import { CircularProgress, Grid, Stack, Typography } from "@mui/material";
-import {
-  getMovieInfo,
-  getCast,
-  getRecommendedMovie,
-} from "../axios/TmdbRequest";
+import { getMovieInfo, getCast } from "../axios/TmdbRequest";
 import { getRapidMovieInfo } from "../axios/RapidImdbRequest";
 import React, { useEffect, useState } from "react";
 import Style from "../styles/Style";
@@ -18,87 +14,6 @@ import Award from "../components/Award";
 import NavBar from "../components/NavBar/NavBar";
 import { useParams } from "react-router";
 import { useHistory, useLocation } from "react-router";
-import VerticalScrollBox from "../components/VerticalScrollBox";
-
-import { makeStyles } from "@mui/styles";
-
-const MovieInfoPageStyle = makeStyles((theme) => ({
-  grid: {
-    justifyContent: "center",
-    display: "grid",
-    padding: "1rem",
-    gridGap: "1rem",
-    margin: "auto",
-    ["@media (min-width:960px)"]: {
-      maxWidth: "70rem",
-      gridTemplateColumns: "1fr 2fr",
-    },
-    ["@media (min-width:1200px)"]: {
-      gridTemplateColumns: "1fr 3fr",
-    },
-  },
-  img: {
-    "& img": {
-      width: "100%",
-      display: "block",
-      margin: "auto",
-    },
-  },
-  info_grid: {
-    display: "grid",
-    gridGap: "1rem",
-    borderRadius: "1rem",
-  },
-  info_col: {
-    color: "#fff",
-  },
-  info_col_grid: {
-    display: "grid",
-    gridColumnGap: "7rem",
-    gridRowGap: "0.5rem",
-    gridTemplateColumns: "1fr 1fr",
-  },
-  info_text_box: {
-    display: "grid",
-    maxWidth: "15rem",
-    gridColumnGap: "1rem",
-    gridTemplateColumns: "1fr 1fr",
-  },
-  trailer_genres_grid: {
-    display: "grid",
-    gridGap: "1rem",
-    gridTemplateColumns: "repeat(2, 1fr)",
-  },
-  genres_grid: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  cast_container: {
-    background: "#172a46",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    justifyContent: "center",
-    padding: "20px",
-  },
-  cast: {
-    width: "100%",
-  },
-  cast_overlay_outter: {
-    overflow: "auto",
-    display: "flex",
-    alignItems: "flex-start",
-    height: "20rem",
-  },
-  cast_overlay_inner: {},
-  cast_title: {
-    color: "#F6C700",
-    fontWeight: "700",
-    fontSize: "24px",
-    paddingBottom: "20px",
-  },
-}));
-
 function CircularProgressWithLabel(props) {
   return (
     <Box
@@ -136,14 +51,12 @@ function CircularProgressWithLabel(props) {
 }
 
 function MovieInfoPage() {
-  const movieInfoPageStyle = MovieInfoPageStyle();
   const history = useHistory();
   const location = useLocation();
   const params = useParams();
   const style = Style();
   const [tmdbMovieInfo, setTmdbMovieInfo] = useState([]);
   const [rapidMovieInfo, setRapidMovieInfo] = useState([]);
-  const [recommendedMovie, setRecommendedMovie] = useState([]);
   const [cast, setCast] = useState([]);
   const [loading, setLoading] = useState(false);
   const [imdb_id, setImdb_id] = useState(null);
@@ -156,17 +69,12 @@ function MovieInfoPage() {
     return `${rhours}h${rminutes}m`;
   };
   useEffect(() => {
-    Promise.all([
-      getMovieInfo("movie", params.id),
-      getCast("movie", params.id),
-      getRecommendedMovie("movie", params.id),
-    ])
-      .then(([urlOneData, urlTwoData, urlThreeData]) => {
+    Promise.all([getMovieInfo("movie", params.id), getCast("movie",params.id)])
+      .then(([urlOneData, urlTwoData]) => {
         setTmdbMovieInfo(urlOneData);
         setRuntime(calRuntime(urlOneData.runtime));
         setImdb_id(urlOneData.imdb_id);
-        setCast(urlTwoData.cast);
-        setRecommendedMovie(urlThreeData.results);
+        setCast( urlTwoData.cast);
       })
       .catch((e) => {
         console.log(e);
@@ -209,7 +117,7 @@ function MovieInfoPage() {
           <Stack>Loading..</Stack>
         ) : (
           <>
-            {/* <Stack className={style.backdrop_container}>
+            <Stack className={style.backdrop_container}>
               <Stack className={style.backdrop_blur1}></Stack>
               <Stack className={style.backdrop_blur2}></Stack>
               <Stack className={style.backdrop_blur3}></Stack>
@@ -218,15 +126,89 @@ function MovieInfoPage() {
                 className={style.backdrop}
                 src={`http://image.tmdb.org/t/p/original/${tmdbMovieInfo.backdrop_path}`}
               />
-            </Stack> */}
-            <div className={movieInfoPageStyle.grid}>
-              <div className={movieInfoPageStyle.col}>
-                <div className={movieInfoPageStyle.img}>
-                  <img
-                    src={`http://image.tmdb.org/t/p/original/${tmdbMovieInfo.poster_path}`}
-                  />
-                  <Stack direction="row" mt={2}>
-                  {rapidMovieInfo?.Ratings[0] && (
+            </Stack>
+            <Grid container style={{ zIndex: "1" }}>
+              <Grid item xs={3}>
+                <img
+                  className={style.poster}
+                  src={`http://image.tmdb.org/t/p/original/${tmdbMovieInfo.poster_path}`}
+                />
+              </Grid>
+              <Grid item xs={6} className={style.root}>
+                <Stack spacing={2}>
+                  <Stack direction="row" alignItems="center" spacing={3}>
+                    <Stack className={style.name}>
+                      {tmdbMovieInfo.title}
+                    </Stack>
+                    <Stack className={style.year}>{rapidMovieInfo.Year}</Stack>
+                  </Stack>
+                  <Stack direction="row" spacing={2}>
+                    <Stack className={style.trailer_button}>
+                      Watch Trailer
+                    </Stack>
+                    <Stack direction="row" spacing={2}>
+                      {tmdbMovieInfo.genres.map((genre, key) => (
+                        <Stack
+                          sx={{ cursor: "pointer" }}
+                          onClick={() => {
+                            addQuery("genre", `${genre.id}`);
+                          }}
+                          key={key}
+                          className={style.category_button}
+                        >
+                          <Stack>{genre.name}</Stack>
+                        </Stack>
+                      ))}
+                    </Stack>
+                  </Stack>
+                  <Stack direction="row" spacing={2}>
+                    <Stack className={style.box}>
+                      <Stack className={style.title}>STATUS</Stack>
+                      <Stack className={style.content}>
+                        {tmdbMovieInfo.status}
+                      </Stack>
+                    </Stack>
+                    <Stack className={style.box}>
+                      <Stack className={style.title}>COUNTRY</Stack>
+                      <Stack className={style.content}>
+                        {tmdbMovieInfo.production_countries[0]?.name}
+                      </Stack>
+                    </Stack>
+                    <Stack className={style.box}>
+                      <Stack className={style.title}>RUNTIME</Stack>
+                      <Stack className={style.content}>{runtime}</Stack>
+                    </Stack>
+                    <Stack className={style.box}>
+                      <Stack className={style.title}>DIRECTOR</Stack>
+                      <Stack className={style.content}>
+                        {rapidMovieInfo.Director}
+                      </Stack>
+                    </Stack>
+                  </Stack>
+                  <Stack textAlign="left">
+                    <Stack className={style.title}>STORYLINE</Stack>
+                    <Stack className={style.content_overview}>
+                      {tmdbMovieInfo.overview}
+                    </Stack>
+                  </Stack>
+                  <Stack
+                    direction="row"
+                    spacing={2}
+                    justifyContent="flex-start"
+                    alignItems="center"
+                  >
+                    <Stack
+                      direction="row"
+                      justifyContent="flex-start"
+                      alignItems="center"
+                      spacing={2}
+                    >
+                      <CircularProgressWithLabel
+                        value={tmdbMovieInfo.vote_average}
+                      />
+                      <Stack>{`${tmdbMovieInfo.vote_count} Ratings`}</Stack>
+                    </Stack>
+                    {rapidMovieInfo?.Ratings[0] && (
                       <Stack
                         spacing={0.5}
                         direction="row"
@@ -235,6 +217,7 @@ function MovieInfoPage() {
                         backgroundColor="#F6C700"
                         justifyContent="center"
                         alignItems="center"
+                        borderRadius="10px"
                       >
                         <img
                           style={{ width: "60px", height: "25px" }}
@@ -256,9 +239,10 @@ function MovieInfoPage() {
                         direction="row"
                         p={0.5}
                         px={1}
-                        backgroundColor="#fff"
+                        backgroundColor="#CCD2E3"
                         justifyContent="center"
                         alignItems="center"
+                        borderRadius="10px"
                       >
                         <img
                           style={{ width: "30px", height: "30px" }}
@@ -283,6 +267,7 @@ function MovieInfoPage() {
                         backgroundColor="#66CC33"
                         justifyContent="center"
                         alignItems="center"
+                        borderRadius="10px"
                       >
                         <img
                           style={{ width: "30px", height: "30px" }}
@@ -290,7 +275,7 @@ function MovieInfoPage() {
                         />
                         <Stack
                           pb={0.25}
-                          color="#fff"
+                          color="#CCD2E3"
                           fontWeight="800"
                           fontSize="1.5rem"
                         >
@@ -299,151 +284,96 @@ function MovieInfoPage() {
                       </Stack>
                     )}
                   </Stack>
-                </div>
-              </div>
-
-                <div className={movieInfoPageStyle.info_grid}>
-                  <div
-                    className={`${movieInfoPageStyle.info_col} ${style.name}`}
+                  <Stack
+                    direction="row"
+                    spacing={2}
+                    justifyContent="flex-start"
+                    alignItems="center"
                   >
-                    {tmdbMovieInfo.title}
-                  </div>
-                  <div
-                    className={`${movieInfoPageStyle.info_col} ${movieInfoPageStyle.trailer_genres_grid}`}
-                  >
-                    <div
-                      className={`${style.trailer_button}`}
-                    >
-                      Watch Trailer
-                    </div>
-                    <div
-                      className={`${movieInfoPageStyle.genres_grid}`}
-                    >
-                      {tmdbMovieInfo.genres.map((genre, key) => (
-                        <div
-                          sx={{ cursor: "pointer" }}
-                          onClick={() => {
-                            addQuery("genre", `${genre.id}`);
-                          }}
-                          key={key}
-                          className={`${style.category_button}`}
-                        >
-                          <div>{genre.name}</div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div
-                    className={`${movieInfoPageStyle.info_col} ${movieInfoPageStyle.info_col_grid}`}
-                  >
-                    <div className={movieInfoPageStyle.info_text_box}>
-                      <div className={style.title}>STATUS</div>
-                      <div className={style.content}>
-                        {tmdbMovieInfo.status}
-                      </div>
-                    </div>
-                    
-                    <div className={movieInfoPageStyle.info_text_box}>
-                      <div className={style.title}>RUNTIME</div>
-                      <div className={style.content}>{runtime}</div>
-                    </div>
-                    <div className={movieInfoPageStyle.info_text_box}>
-                      <div className={style.title}>DIRECTOR</div>
-                      <div className={style.content}>
-                        {rapidMovieInfo.Director}
-                      </div>
-                    </div>
-                    <div className={movieInfoPageStyle.info_text_box}>
-                      <div className={style.title}>WRITER</div>
-                      <div className={style.content}>
-                        {rapidMovieInfo.Director}
-                      </div>
-                    </div>
-                    <div className={movieInfoPageStyle.info_text_box}>
-                      <div className={style.title}>BUDGET</div>
-                      <div className={style.content}>
-                        {rapidMovieInfo.Director}
-                      </div>
-                    </div>
-                    <div className={movieInfoPageStyle.info_text_box}>
-                      <div className={style.title}>REVENUE</div>
-                      <div className={style.content}>
-                        {rapidMovieInfo.Director}
-                      </div>
-                    </div>
-                    <div className={movieInfoPageStyle.info_text_box}>
-                      <div className={style.title}>COUNTRY</div>
-                      <div className={style.content}>
-                        {tmdbMovieInfo.production_countries[0]?.name}
-                      </div>
-                    </div>
-                  </div>
-                  <div className={movieInfoPageStyle.info_col}>
-                    {tmdbMovieInfo.overview}
-                  </div>
-                </div>
-
-                <div className={movieInfoPageStyle.cast_container}>
-                  <div className={movieInfoPageStyle.cast_title}>Cast</div>
-                  <div className={movieInfoPageStyle.cast}>
-                    <div className={movieInfoPageStyle.cast_overlay_outter}>
+                    <Stack>
+                      <Stack className={style.title}>BUDGET</Stack>
                       <Stack
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="flex-start"
-                        spacing={1}
-                        className={movieInfoPageStyle.cast_overlay_inner}
-                      >
-                        {cast?.map((person, key) => {
+                        className={style.content}
+                      >{`$${tmdbMovieInfo.budget.toLocaleString(
+                        "en-US"
+                      )}`}</Stack>
+                    </Stack>
+                    <Stack>
+                      <Stack className={style.title}>REVENUE</Stack>
+                      <Stack
+                        className={style.content}
+                      >{`$${tmdbMovieInfo.revenue.toLocaleString(
+                        "en-US"
+                      )}`}</Stack>
+                    </Stack>
+                    <Stack
+                      spacing={0.5}
+                      direction="row"
+                      p={0.5}
+                      backgroundColor="#CCD2E3"
+                      justifyContent="center"
+                      alignItems="center"
+                      borderRadius="10px"
+                    >
+                      {tmdbMovieInfo.production_companies.map(
+                        (company, key) => {
+                          if (company.logo_path === null) return;
                           return (
-                            <Stack
-                              direction="row"
-                              justifyContent="flex-start"
-                              alignItems="flex-start"
-                              spacing={1}
-                              style={{ cursor: "pointer" }}
-                              onClick={() =>
-                                history.push(`/person/${person.id}`)
-                              }
-                            >
-                              <img
-                                style={{ width: "4rem" }}
-                                src={`http://image.tmdb.org/t/p/w500/${person.profile_path}`}
-                              />
-                              <Stack
-                                direction="column"
-                                justifyContent="flex-start"
-                                alignItems="flex-start"
-                                style={{ textAlign: "left" }}
-                                spacing={1}
-                              >
-                                <div
-                                  style={{
-                                    color: "#4CCDEB",
-                                    fontWeight: "600",
-                                  }}
-                                >
-                                  {person.name}
-                                </div>
-                                <div
-                                  style={{ color: "white", fontWeight: "500" }}
-                                >
-                                  {person.character}
-                                </div>
-                              </Stack>
-                            </Stack>
+                            <img
+                              key={key}
+                              style={{ height: "35px", padding: "0 0.5rem" }}
+                              src={`http://image.tmdb.org/t/p/original/${company.logo_path}`}
+                            />
                           );
-                        })}
+                        }
+                      )}
+                    </Stack>
+                  </Stack>
+                </Stack>
+              </Grid>
+              <Grid item xs={3}>
+                <Stack
+                  backgroundColor="#16214A"
+                  p={2}
+                  m={2}
+                  spacing={2}
+                >
+                  <Stack
+                    color="#CCD2E3"
+                    fontWeight="800"
+                    fontSize="1.5rem"
+                    textAlign="start"
+                  >
+                    Cast
+                  </Stack>
+                  <Stack spacing={2}>
+                    {cast.slice(0, 4).map((person, key) => (
+                      <Stack direction="row" key={key}>
+                        {!person.profile_path ? (
+                          <img className={style.cast_image} src={avatar} />
+                        ) : (
+                          <img
+                            className={style.cast_image}
+                            style={{ cursor: "pointer" }}
+                            src={`http://image.tmdb.org/t/p/w500/${person.profile_path}`}
+                            onClick={() => history.push(`/person/${person.id}`)}
+                          />
+                        )}
+                        <Stack pl={2} textAlign="start">
+                          <Stack className={style.title}>
+                            {person.original_name}
+                          </Stack>
+                          <Stack className={style.content}>
+                            {person.character}
+                          </Stack>
+                        </Stack>
                       </Stack>
-                    </div>
-                  </div>
-                </div>
-              <Award ImdbID={imdb_id} />
-              <VerticalScrollBox
-                title={"Known For"}
-                data={recommendedMovie}
-              ></VerticalScrollBox>
-            </div>
+                    ))}
+                  </Stack>
+                </Stack>
+              </Grid>
+            </Grid>
+            <Award ImdbID={imdb_id} />
           </>
         )}
       </Stack>
