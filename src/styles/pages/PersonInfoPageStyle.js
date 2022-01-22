@@ -9,16 +9,15 @@ const PersonInfoPageStyle = makeStyles((theme) => ({
     },
     credits_box_title: {
         color: "white",
-        fontSize: "26px",
+        fontSize: "2rem",
         fontWeight: "700",
         textAlign: "left",
         padding: "10px 0",
-        
     },
     credits_box: {
-        borderRadius: "10px",
         background: "#2D375A",
-        padding: "10px",
+        padding: "1rem",
+        paddingTop: "0.5rem",
         color: "#CCD2E3",
         textAlign: "left",
     },

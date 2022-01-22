@@ -161,6 +161,7 @@ const addQuery = (key, value) => {
   searchParams.set(key, value);
   searchParams.delete("category");
   searchParams.delete("page");
+  searchParams.delete("query");
   history.push({
     pathname: "/filter",
     search: searchParams.toString(),
@@ -173,6 +174,7 @@ const addQuery_2 = (media_type, value) => {
   searchParams.delete("year");
   searchParams.delete("country");
   searchParams.delete("page");
+  searchParams.delete("query");
   searchParams.set("media_type", media_type);
   searchParams.set("category", value);
   history.push({

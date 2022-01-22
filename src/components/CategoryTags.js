@@ -19,6 +19,10 @@ const CategoryTagsStyle = makeStyles((theme) => ({
     border: "2px solid #29bdae",
     color: "#29bdae",
   },
+  person_color_box: {
+    border: "2px solid #bb86fc",
+    color: "#bb86fc",
+  },
   icon: {
     color: "#0a192f",
     zIndex: "2",
@@ -27,11 +31,16 @@ const CategoryTagsStyle = makeStyles((theme) => ({
   },
   box_right: {
     position: "absolute", top: "0", right: "0", backgroundColor: "#4CCDEB", width: "2rem", height: "2rem"
+  },
+  movie_color_box_right: {
+    backgroundColor: "#29bdae",
+  },
+  person_color_box_right: {
+    backgroundColor: "#bb86fc",
   }
 }));
 
-function CategoryTags({abc}) {
-  
+function CategoryTags({isMovie, isPerson}) {
   const categoryTagsStyle = CategoryTagsStyle();
   const history = useHistory();
   const location = useLocation();
@@ -52,62 +61,30 @@ function CategoryTags({abc}) {
   const removeQuery = (key) => {
     let searchParams = new URLSearchParams(location.search);
     searchParams.delete(key);
-    console.log("1")
-    history.push({
-      pathname: "filter",
-      search: searchParams.toString(),
-    });
+    let count = 0
+    for(var pair of searchParams.entries()) {count =count + 1}
+    if (count === 1){
+      history.push({
+        pathname: "/",
+      });
+    } else {
+      history.push({
+        pathname: "filter",
+        search: searchParams.toString(),
+      });
+    }
   };
-  console.log(abc)
+  console.log(isPerson)
   return (
     <Stack direction="row" spacing={1}>
       {categoryList.map((category, index) => {
-        if (category.key === "genre") {
-          let catgry = CategoryList.find(({ id }) => category.value === id);
-          return (
-            <Stack
-              direction="row"
-              spacing={1.5}
-              key={index}
-              className={classNames({[categoryTagsStyle.movie_color_box]: true, [categoryTagsStyle.box]: true})}
-            >
-              <Stack>{catgry.name}</Stack>
-              <AddIcon
-                className={categoryTagsStyle.icon}
-                onClick={() => {
-                  removeQuery(category.key);
-                }}
-              />
-              <div className={categoryTagsStyle.box_right}></div>
-            </Stack>
-          );
-        } else if (category.key === "language") {
-          let catgry = category.value.slice(3, category.value.length);
-          console.log(catgry)
+        if (isPerson === true) {
           return (
             <Stack
             direction="row"
             spacing={1.5}
             key={index}
-            className={classNames({[categoryTagsStyle.movie_color_box]: true, [categoryTagsStyle.box]: true})}
-            >
-              <Stack>{catgry}</Stack>
-              <AddIcon
-                className={categoryTagsStyle.icon}
-                onClick={() => {
-                    removeQuery(category.key);
-                  }}
-              />
-              <div className={categoryTagsStyle.box_right}></div>
-            </Stack>
-          );
-        } else if (category.key !== "page") {
-          return (
-            <Stack
-            direction="row"
-            spacing={1.5}
-            key={index}
-            className={classNames({[categoryTagsStyle.movie_color_box]: true, [categoryTagsStyle.box]: true})}
+            className={classNames({[categoryTagsStyle.person_color_box]: true, [categoryTagsStyle.box]: true})}
             >
               <Stack>{category.value}</Stack>
               <AddIcon
@@ -116,9 +93,68 @@ function CategoryTags({abc}) {
                   removeQuery(category.key);
                 }}
               />
-              <div className={categoryTagsStyle.box_right}></div>
+              <div className={classNames({[categoryTagsStyle.person_color_box_right]: true, [categoryTagsStyle.box_right]: true})}></div>
             </Stack>
           );
+        } else {
+          if (category.key === "genre") {
+            let catgry = CategoryList.find(({ id }) => category.value === id);
+            return (
+              <Stack
+                direction="row"
+                spacing={1.5}
+                key={index}
+                className={classNames({[categoryTagsStyle.movie_color_box]: isMovie, [categoryTagsStyle.box]: true})}
+              >
+                <Stack>{catgry.name}</Stack>
+                <AddIcon
+                  className={categoryTagsStyle.icon}
+                  onClick={() => {
+                    removeQuery(category.key);
+                  }}
+                />
+                <div className={classNames({[categoryTagsStyle.movie_color_box_right]: isMovie, [categoryTagsStyle.box_right]: true})}></div>
+              </Stack>
+            );
+          } else if (category.key === "language") {
+            let catgry = category.value.slice(3, category.value.length);
+            console.log(catgry)
+            return (
+              <Stack
+              direction="row"
+              spacing={1.5}
+              key={index}
+              className={classNames({[categoryTagsStyle.movie_color_box]: isMovie, [categoryTagsStyle.box]: true})}
+              >
+                <Stack>{catgry}</Stack>
+                <AddIcon
+                  className={categoryTagsStyle.icon}
+                  onClick={() => {
+                      removeQuery(category.key);
+                    }}
+                />
+                <div className={classNames({[categoryTagsStyle.movie_color_box_right]: isMovie, [categoryTagsStyle.box_right]: true})}></div>
+              </Stack>
+            );
+          } else if (category.key !== "page") {
+            return (
+              <Stack
+              direction="row"
+              spacing={1.5}
+              key={index}
+              className={classNames({[categoryTagsStyle.movie_color_box]: isMovie, [categoryTagsStyle.box]: true})}
+              >
+                <Stack>{category.value}</Stack>
+                <AddIcon
+                  className={categoryTagsStyle.icon}
+                  onClick={() => {
+                    removeQuery(category.key);
+                  }}
+                />
+                <div className={classNames({[categoryTagsStyle.movie_color_box_right]: isMovie, [categoryTagsStyle.box_right]: true})}></div>
+              </Stack>
+            );
+          }
         }
       })}
     </Stack>

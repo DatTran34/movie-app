@@ -50,7 +50,6 @@ function CircularProgressWithLabel(props) {
 function MovieCard({ movie, isMovie }) {
   const history = useHistory();
   const movieCardStyle = MovieCardStyle();
-  console.log(isMovie);
   return (
     <div onClick={() => history.push(`/${movie.media_type}/${movie.id}`)}>
       <div className={movieCardStyle.box}>
