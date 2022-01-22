@@ -61,6 +61,7 @@ function SearchPage() {
       search: searchParams.toString(),
     });
   };
+  console.log(isMovie)
   return (
     <div>
       <NavBar></NavBar>
@@ -71,7 +72,7 @@ function SearchPage() {
                 {searchParams.get("media_type") === "person" ? (
                   <>
                     <div className={movieStyle.header}>Popular People</div>
-                    <CategoryTags isMovie={isMovie}/>
+                    <CategoryTags abc={true}></CategoryTags>
                     <PeopleList searchParams={searchParams}></PeopleList>
                   </>
                 ) : (
@@ -100,7 +101,7 @@ function SearchPage() {
                       </Stack>
                       <CategoryTags />
                     </Stack>
-                    <MovieList searchParams={searchParams}></MovieList>
+                    <MovieList searchParams={searchParams} isMovie={isMovie}></MovieList>
                   </>
                 )}
               </>

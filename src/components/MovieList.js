@@ -8,6 +8,7 @@ import classNames from "classname";
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 function MovieList({ searchParams, isMovie }) {
+  console.log(isMovie)
   const history = useHistory();
   const location = useLocation();
   const movieListStyle = MovieListStyle();

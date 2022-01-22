@@ -30,8 +30,8 @@ const CategoryTagsStyle = makeStyles((theme) => ({
   }
 }));
 
-function CategoryTags({isMovie}) {
-  console.log(isMovie)
+function CategoryTags({abc}) {
+  
   const categoryTagsStyle = CategoryTagsStyle();
   const history = useHistory();
   const location = useLocation();
@@ -58,6 +58,7 @@ function CategoryTags({isMovie}) {
       search: searchParams.toString(),
     });
   };
+  console.log(abc)
   return (
     <Stack direction="row" spacing={1}>
       {categoryList.map((category, index) => {
@@ -68,7 +69,7 @@ function CategoryTags({isMovie}) {
               direction="row"
               spacing={1.5}
               key={index}
-              className={classNames({[categoryTagsStyle.movie_color_box]: isMovie, [categoryTagsStyle.box]: true})}
+              className={classNames({[categoryTagsStyle.movie_color_box]: true, [categoryTagsStyle.box]: true})}
             >
               <Stack>{catgry.name}</Stack>
               <AddIcon
@@ -88,7 +89,7 @@ function CategoryTags({isMovie}) {
             direction="row"
             spacing={1.5}
             key={index}
-            className={classNames({[categoryTagsStyle.movie_color_box]: isMovie, [categoryTagsStyle.box]: true})}
+            className={classNames({[categoryTagsStyle.movie_color_box]: true, [categoryTagsStyle.box]: true})}
             >
               <Stack>{catgry}</Stack>
               <AddIcon
@@ -100,13 +101,13 @@ function CategoryTags({isMovie}) {
               <div className={categoryTagsStyle.box_right}></div>
             </Stack>
           );
-        } else {
+        } else if (category.key !== "page") {
           return (
             <Stack
             direction="row"
             spacing={1.5}
             key={index}
-            className={classNames({[categoryTagsStyle.movie_color_box]: isMovie, [categoryTagsStyle.box]: true})}
+            className={classNames({[categoryTagsStyle.movie_color_box]: true, [categoryTagsStyle.box]: true})}
             >
               <Stack>{category.value}</Stack>
               <AddIcon
