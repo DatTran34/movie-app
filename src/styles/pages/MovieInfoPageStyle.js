@@ -17,6 +17,7 @@ const MovieInfoStyle = makeStyles((theme) => ({
   },
   col: {},
   img: {
+    position: "relative",
     "& img": {
       width: "100%",
       display: "block",
@@ -171,6 +172,29 @@ const MovieInfoStyle = makeStyles((theme) => ({
     border: "2px solid #4CCDEB",
     borderRadius: "100px",
     objectFit: "cover",
+  },
+  rating: {
+    position: "absolute",
+    width: "2.5rem",
+    height: "2.5rem",
+    bottom: "0",
+    left: "0",
+    transform: "translate(50%, -100%)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#112b42",
+    fontWeight: "600",
+    color: "#4CCDEB",
+    borderRadius: "100%",
+    padding: "5px",
+    border: "2.5px solid #4CCDEB",
+    transition: "all 0.3s ease-out",
+    boxShadow: "3px 3px 10px rgba(76, 205, 235, 0.5)"
+  },
+  movie_color_rating:{
+    color: "#29bdae",
+    border: "2.5px solid #29bdae",
   },
 }));
 

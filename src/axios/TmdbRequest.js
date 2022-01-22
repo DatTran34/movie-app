@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getMovieInfo = async (media_type, movieId) => {
   try {
-    const response = await axios.get(`https://api.themoviedb.org/3/${media_type}/${movieId}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`);
+    const response = await axios.get(`https://api.themoviedb.org/3/${media_type}/${movieId}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&append_to_response=external_ids`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -11,7 +11,7 @@ export const getMovieInfo = async (media_type, movieId) => {
 
 export const getPersonInfo = async (personId) => {
   try {
-    const response = await axios.get(`http://api.themoviedb.org/3/person/${personId}?api_key=${process.env.REACT_APP_API_KEY}`);
+    const response = await axios.get(`http://api.themoviedb.org/3/person/${personId}?api_key=${process.env.REACT_APP_API_KEY}&append_to_response=external_ids`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -44,8 +44,6 @@ export const getCast = async (media_type, movieId) => {
       console.error(error);
     }
   }
-
-
   export const getRecommendedMovie  = async (media_type,movieId) => {
     try {
       if(media_type === "movie")
@@ -57,7 +55,7 @@ export const getCast = async (media_type, movieId) => {
         const response = await axios.get(`https://api.themoviedb.org/3/${media_type}/${movieId}/recommendations?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`);
         return response.data;
       }
-      
+
     } catch (error) {
       console.error(error);
     }

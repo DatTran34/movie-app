@@ -1,5 +1,9 @@
 import { CircularProgress, Grid, Stack, Typography } from "@mui/material";
-import { getMovieInfo, getCast,getRecommendedMovie } from "../axios/TmdbRequest";
+import {
+  getMovieInfo,
+  getCast,
+  getRecommendedMovie,
+} from "../axios/TmdbRequest";
 import { getRapidMovieInfo } from "../axios/RapidImdbRequest";
 import React, { useEffect, useState } from "react";
 import Style from "../styles/Style";
@@ -15,46 +19,11 @@ import NavBar from "../components/NavBar/NavBar";
 import { useParams } from "react-router";
 import { useHistory, useLocation } from "react-router";
 import SeasonSelector from "../components/SeasonSelector";
-import MovieInfoPageStyle from "../styles/pages/MovieInfoPageStyle"
+import MovieInfoPageStyle from "../styles/pages/MovieInfoPageStyle";
 import VerticalScrollBox from "../components/VerticalScrollBox";
-function CircularProgressWithLabel(props) {
-  return (
-    <Box
-      sx={{
-        position: "relative",
-        display: "inline-flex",
-        backgroundColor: "#363761",
-        borderRadius: "100%",
-        padding: "5px",
-      }}
-    >
-      <CircularProgress
-        style={{ color: "#4CCDEB" }}
-        size={48}
-        variant="determinate"
-        color="primary"
-        value={props.value * 10}
-      />
-      <Box
-        sx={{
-          left: "50%",
-          top: "50%",
-          transform: "translate(-50%, -50%)",
-          position: "absolute",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "#CCD2E3",
-        }}
-      >
-        <Stack color="#CCD2E3">{`${props.value}`}</Stack>
-      </Box>
-    </Box>
-  );
-}
-
+import classNames from "classname";
 function TvShowInfoPage() {
-    const movieInfoPageStyle = MovieInfoPageStyle();
+  const movieInfoPageStyle = MovieInfoPageStyle();
   const history = useHistory();
   const location = useLocation();
   const params = useParams();
@@ -74,11 +43,15 @@ function TvShowInfoPage() {
     return `${rhours}h ${rminutes}m`;
   };
   useEffect(() => {
-    Promise.all([getMovieInfo("tv", params.id), getCast("tv", params.id), getRecommendedMovie("tv", params.id),])
+    Promise.all([
+      getMovieInfo("tv", params.id),
+      getCast("tv", params.id),
+      getRecommendedMovie("tv", params.id),
+    ])
       .then(([urlOneData, urlTwoData, urlThreeData]) => {
         setTmdbMovieInfo(urlOneData);
         setRuntime(calRuntime(urlOneData.episode_run_time));
-        setImdb_id(urlOneData.imdb_id);
+        setImdb_id(urlOneData.external_ids.imdb_id);
         setCast(urlTwoData.cast);
         setRecommendedMovie(urlThreeData.results);
       })
@@ -137,6 +110,93 @@ function TvShowInfoPage() {
                   <img
                     src={`http://image.tmdb.org/t/p/original/${tmdbMovieInfo.poster_path}`}
                   />
+                  <div
+                    className={classNames({
+                      [movieInfoPageStyle.movie_color_rating]: true,
+                      [movieInfoPageStyle.rating]: true,
+                    })}
+                  >
+                    {tmdbMovieInfo.vote_average}
+                  </div>
+                  <Stack
+                    direction="row"
+                    spacing={1}
+                    justifyContent="flex-start"
+                    alignItems="center"
+                  >
+                    {rapidMovieInfo?.Ratings[0] && (
+                      <Stack
+                        spacing={0.5}
+                        direction="row"
+                        py={0.5}
+                        px={1}
+                        backgroundColor="#F6C700"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <img
+                          style={{ width: "60px", height: "25px" }}
+                          src={imdb}
+                        />
+                        <Stack
+                          pb={0.25}
+                          color="#000000"
+                          fontWeight="800"
+                          fontSize="1.5rem"
+                        >
+                          {rapidMovieInfo?.Ratings[0].Value.slice(0, -3)}
+                        </Stack>
+                      </Stack>
+                    )}
+                    {rapidMovieInfo?.Ratings[1] && (
+                      <Stack
+                        spacing={0.5}
+                        direction="row"
+                        p={0.5}
+                        px={1}
+                        backgroundColor="#ffffff"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <img
+                          style={{ width: "30px", height: "30px" }}
+                          src={Rotten_Tomatoes2}
+                        />
+                        <Stack
+                          pb={0.25}
+                          color="#000000"
+                          fontWeight="800"
+                          fontSize="1.5rem"
+                        >
+                          {rapidMovieInfo?.Ratings[1].Value}
+                        </Stack>
+                      </Stack>
+                    )}
+                    {rapidMovieInfo?.Ratings[2] && (
+                      <Stack
+                        spacing={1.5}
+                        direction="row"
+                        p={0.5}
+                        px={1}
+                        backgroundColor="#66CC33"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <img
+                          style={{ width: "30px", height: "30px" }}
+                          src={metacritic}
+                        />
+                        <Stack
+                          pb={0.25}
+                          color="#ffffff"
+                          fontWeight="800"
+                          fontSize="1.5rem"
+                        >
+                          {rapidMovieInfo?.Ratings[2].Value.slice(0, -4)}
+                        </Stack>
+                      </Stack>
+                    )}
+                  </Stack>
                 </div>
               </div>
               <div className={movieInfoPageStyle.col}>
@@ -262,7 +322,6 @@ function TvShowInfoPage() {
               ></VerticalScrollBox>
               <SeasonSelector seasons={tmdbMovieInfo.seasons} />
             </div>
-            
           </>
         )}
       </Stack>

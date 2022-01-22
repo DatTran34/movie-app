@@ -6,47 +6,6 @@ import { makeStyles } from "@mui/styles";
 import MovieCardStyle from "../styles/components/MovieCardStyle";
 import classNames from "classname";
 
-function CircularProgressWithLabel(props) {
-  return (
-    <Box
-      sx={{
-        position: "absolute",
-        bottom: "10px",
-        left: "10px",
-        display: "inline-flex",
-        backgroundColor: "#363761",
-        borderRadius: "100%",
-        padding: "5px",
-      }}
-    >
-      <CircularProgress
-        style={{ color: "#4CCDEB" }}
-        size={30}
-        variant="determinate"
-        color="primary"
-        value={props.value * 10}
-      />
-      <Box
-        sx={{
-          left: "50%",
-          top: "50%",
-          padding: "20px",
-          transform: "translate(-50%, -50%)",
-          position: "absolute",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          color: "#CCD2E3",
-        }}
-      >
-        <div color="#CCD2E3" style={{ fontSize: "14px" }}>
-          {`${props.value}`}
-        </div>
-      </Box>
-    </Box>
-  );
-}
-
 function MovieCard({ movie, isMovie }) {
   const history = useHistory();
   const movieCardStyle = MovieCardStyle();
@@ -66,7 +25,6 @@ function MovieCard({ movie, isMovie }) {
         >
           {movie.vote_average}
         </div>
-        {/* <CircularProgressWithLabel value={movie.vote_average} /> */}
       </div>
       <Stack
         direction="column"
