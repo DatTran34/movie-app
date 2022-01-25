@@ -5,7 +5,7 @@ import { useHistory } from "react-router";
 import { makeStyles } from "@mui/styles";
 import MovieCardStyle from "../styles/components/MovieCardStyle";
 import classNames from "classname";
-
+import blank_poster from "../images/blank_poster.jpg"
 function MovieCard({ movie, isMovie }) {
   const history = useHistory();
   const movieCardStyle = MovieCardStyle();
@@ -13,10 +13,17 @@ function MovieCard({ movie, isMovie }) {
     <div onClick={() => history.push(`/${movie.media_type}/${movie.id}`)}>
       <div className={movieCardStyle.box}>
         <div className={movieCardStyle.imdb_rating_box}>IMBD 8.9</div>
-        <img
+        {movie.poster_path === null ? (
+          <img
           className={movieCardStyle.img}
-          src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-        />
+          src={blank_poster}
+          />
+        ) : (
+          <img
+            className={movieCardStyle.img}
+            src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+          />
+        )}
         <div
           className={classNames({
             [movieCardStyle.movie_color_rating]: isMovie,

@@ -4,8 +4,9 @@ import { Stack } from "@mui/material";
 
 const SeasonSelectorStyle = makeStyles((theme) => ({
   root: {
-    margin: "2rem",
+    padding: "1rem",
     color: "#CCD2E3",
+    backgroundColor: "#162945",
     "& select": {
       backgroundColor: "#2D375A",
       padding: "10px",
@@ -67,7 +68,7 @@ function SeasonSelector({ seasons }) {
                 <img className={seasonSelectorStyle.img} src={`http://image.tmdb.org/t/p/original/${season.poster_path}`}/>
                 <Stack>
                   <div className={seasonSelectorStyle.title} >{season.name}</div>
-                  <div>{`${season.episode_count} episodes`}</div>
+                  <div style={{color: "#4ccdeb"}}>{`${season.episode_count} episodes`}</div>
                   <div>{season.overview}</div>
                 </Stack>
               </div>

@@ -2,7 +2,7 @@ import { Stack } from '@mui/material';
 import React from 'react'
 import poster from "../images/poster.jpg";
 import SmallMovieCardStyle from "../styles/components/SmallMovieCardStyle"
-function SmallMovieCard({movie,history}) {
+function SmallMovieCard({isMovie, movie, history}) {
     const smallMovieCardStyle =  SmallMovieCardStyle();
     return (
         <Stack direction="row"
@@ -17,7 +17,11 @@ function SmallMovieCard({movie,history}) {
                 alignItems="flex-start"
                 style={{textAlign:"left"}}
                 spacing={1}>
-                    <div  className={smallMovieCardStyle.title}>{movie.title}</div>
+                    {isMovie ? (
+                        <div  className={smallMovieCardStyle.title}>{movie.title}</div>
+                    ) : (
+                        <div  className={smallMovieCardStyle.title}>{movie.name}</div>
+                    )}
                     <div className={smallMovieCardStyle.year}>01/26/2022</div>
             </Stack>
         </Stack>

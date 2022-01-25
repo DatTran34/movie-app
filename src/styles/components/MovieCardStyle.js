@@ -41,6 +41,7 @@ const MovieCardStyle = makeStyles((theme) => ({
   box: {
     cursor: "pointer",
     position: "relative",
+    
     "& img": {
         width: "100%",
         height: "100%"
@@ -79,6 +80,11 @@ const MovieCardStyle = makeStyles((theme) => ({
   },
   img: {
     transition: "all 0.2s ease-out",
+    boxShadow: "2px 2px 9px 5px rgba(0,0,0,0.75)",
+    "&:hover" :{
+      transform: "scale(1.05)",
+      boxShadow: "5px 5px 16px 5px rgba(0,0,0,0.75)",
+    }
   },
   content: {
     paddingTop: "0.75rem",

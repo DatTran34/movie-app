@@ -239,7 +239,7 @@ function MovieInfoPage() {
                     <div className={movieInfoPageStyle.info_text_box}>
                       <div className={style.title}>COUNTRY</div>
                       <div className={style.content}>
-                        {tmdbMovieInfo.production_countries[0]?.name}
+                        {rapidMovieInfo.Country}
                       </div>
                     </div>
                     <div className={movieInfoPageStyle.info_text_box}>
@@ -255,13 +255,13 @@ function MovieInfoPage() {
                     <div className={movieInfoPageStyle.info_text_box}>
                       <div className={style.title}>BUDGET</div>
                       <div className={style.content}>
-                        {rapidMovieInfo.Director}
+                        {`$${tmdbMovieInfo.budget.toLocaleString('en-US')}`}
                       </div>
                     </div>
                     <div className={movieInfoPageStyle.info_text_box}>
                       <div className={style.title}>REVENUE</div>
                       <div className={style.content}>
-                        {rapidMovieInfo.Director}
+                       {`$${tmdbMovieInfo.revenue.toLocaleString('en-US')}`}
                       </div>
                     </div>
                   </div>
@@ -329,7 +329,7 @@ function MovieInfoPage() {
               </div>
               <Award ImdbID={imdb_id} />
               <VerticalScrollBox
-                title={"Known For"}
+                title={"Similar Movies"}
                 data={recommendedMovie}
               ></VerticalScrollBox>
             </div>

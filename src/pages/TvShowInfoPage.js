@@ -230,7 +230,7 @@ function TvShowInfoPage() {
                   <div
                     className={`${movieInfoPageStyle.info_col} ${movieInfoPageStyle.info_col_grid}`}
                   >
-                    <div className={movieInfoPageStyle.info_text_box}>
+                                        <div className={movieInfoPageStyle.info_text_box}>
                       <div className={style.title}>STATUS</div>
                       <div className={style.content}>
                         {tmdbMovieInfo.status}
@@ -239,7 +239,7 @@ function TvShowInfoPage() {
                     <div className={movieInfoPageStyle.info_text_box}>
                       <div className={style.title}>COUNTRY</div>
                       <div className={style.content}>
-                        {tmdbMovieInfo.production_countries[0]?.name}
+                        {rapidMovieInfo.Country}
                       </div>
                     </div>
                     <div className={movieInfoPageStyle.info_text_box}>
@@ -247,9 +247,24 @@ function TvShowInfoPage() {
                       <div className={style.content}>{runtime}</div>
                     </div>
                     <div className={movieInfoPageStyle.info_text_box}>
-                      <div className={style.title}>DIRECTOR</div>
+                      <div className={style.title}>CREATOR</div>
+                      <div className={style.content} style={{display: "flex", flexDirection: "column"}}>
+                        {tmdbMovieInfo.created_by.map((person) => {
+                          return <div>{`${person.name}`}</div>
+                        }
+                        )}
+                      </div>
+                    </div>
+                    <div className={movieInfoPageStyle.info_text_box}>
+                      <div className={style.title}>NUMBER OF SEASONS</div>
                       <div className={style.content}>
-                        {rapidMovieInfo.Director}
+                        {tmdbMovieInfo.number_of_seasons}
+                      </div>
+                    </div>
+                    <div className={movieInfoPageStyle.info_text_box}>
+                      <div className={style.title}>NUMBER OF EPISODES</div>
+                      <div className={style.content}>
+                       {tmdbMovieInfo.number_of_episodes}
                       </div>
                     </div>
                   </div>
@@ -317,7 +332,8 @@ function TvShowInfoPage() {
               </div>
               <Award ImdbID={imdb_id} />
               <VerticalScrollBox
-                title={"Known For"}
+                isMovie={false}
+                title={"Recommendations"}
                 data={recommendedMovie}
               ></VerticalScrollBox>
               <SeasonSelector seasons={tmdbMovieInfo.seasons} />

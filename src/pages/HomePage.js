@@ -56,6 +56,7 @@ function HomePage({ history }) {
         </div>
         <div className={movieStyle.col}>
           <VerticalScrollBox
+            isMovie={true}
             title={"Up Coming"}
             data={upcomingList}
           ></VerticalScrollBox>

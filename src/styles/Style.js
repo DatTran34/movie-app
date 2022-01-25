@@ -69,7 +69,7 @@ const Style = makeStyles((theme) => ({
     },
     name: {
         fontWeight: "800",
-        fontSize: "4rem",
+        fontSize: "3rem",
     },
     year:{
         color: "#CCD2E3",

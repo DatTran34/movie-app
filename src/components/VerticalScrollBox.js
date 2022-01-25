@@ -34,7 +34,7 @@ const VerticalScrollBoxStyle = makeStyles((theme) => ({
   
   
 
-function VerticalScrollBox({title, data}) {
+function VerticalScrollBox({isMovie, title, data}) {
     const history = useHistory();
     const verticalScrollBoxStyle = VerticalScrollBoxStyle()
     return (
@@ -52,6 +52,7 @@ function VerticalScrollBox({title, data}) {
                         {data?.map((movie, key) => {
                           return (
                             <SmallMovieCard
+                              isMovie={isMovie}
                               movie={movie}
                               history={history}
                               key={key}

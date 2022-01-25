@@ -137,6 +137,7 @@ function SearchPage() {
                     </Stack>
                   </Stack>
                   <VerticalScrollBox
+                    isMovie={true}
                     title={"Up Coming"}
                     data={upcomingList}
                   ></VerticalScrollBox>
@@ -144,6 +145,7 @@ function SearchPage() {
             ) : (
               <>
                 <VerticalScrollBox
+                  isMovie={true}
                   title={"Up Coming"}
                   data={upcomingList}
                 ></VerticalScrollBox>
