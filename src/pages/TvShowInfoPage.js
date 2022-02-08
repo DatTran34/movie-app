@@ -317,7 +317,7 @@ function TvShowInfoPage() {
               </div>
               <Award ImdbID={imdb_id} />
               <VerticalScrollBox
-                title={"Known For"}
+                title={"Recommended"}
                 data={recommendedMovie}
               ></VerticalScrollBox>
               <SeasonSelector seasons={tmdbMovieInfo.seasons} />

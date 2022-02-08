@@ -44,9 +44,17 @@ const MovieInfoStyle = makeStyles((theme) => ({
   trailer_genres_grid: {
     display: "grid",
     gridGap: "1rem",
-    gridTemplateColumns: "repeat(2, 1fr)",
+    gridTemplateColumns: "1fr",
+    ["@media (min-width:960px)"]: {
+      maxWidth: "70rem",
+      gridTemplateColumns: "1fr 2fr",
+    },
   },
-  trailer_genres_col: {},
+  genres_grid:{
+    display: "grid",
+    gridGap: "1rem",
+    gridTemplateColumns: "1fr 1fr 1fr",
+  },
   cast_container: {
     background: "#172a46",
     display: "flex",
@@ -196,6 +204,7 @@ const MovieInfoStyle = makeStyles((theme) => ({
     color: "#29bdae",
     border: "2.5px solid #29bdae",
   },
+
 }));
 
 export default MovieInfoStyle;

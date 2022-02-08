@@ -214,18 +214,22 @@ function MovieInfoPage() {
                     >
                       Watch Trailer
                     </div>
-                    {tmdbMovieInfo.genres.map((genre, key) => (
-                      <div
-                        sx={{ cursor: "pointer" }}
-                        onClick={() => {
-                          addQuery("genre", `${genre.id}`);
-                        }}
-                        key={key}
-                        className={`${style.category_button} ${movieInfoPageStyle.trailer_genres_col}`}
-                      >
-                        <div>{genre.name}</div>
-                      </div>
-                    ))}
+                    <div
+                      className={`${movieInfoPageStyle.genres_grid}`}
+                    >
+                      {tmdbMovieInfo.genres.map((genre, key) => (
+                        <div
+                          sx={{ cursor: "pointer" }}
+                          onClick={() => {
+                            addQuery("genre", `${genre.id}`);
+                          }}
+                          key={key}
+                          className={`${style.category_button} ${movieInfoPageStyle.trailer_genres_col}`}
+                        >
+                          <div>{genre.name}</div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                   <div
                     className={`${movieInfoPageStyle.info_col} ${movieInfoPageStyle.info_col_grid}`}
@@ -329,7 +333,7 @@ function MovieInfoPage() {
               </div>
               <Award ImdbID={imdb_id} />
               <VerticalScrollBox
-                title={"Known For"}
+                title={"Recommended"}
                 data={recommendedMovie}
               ></VerticalScrollBox>
             </div>
