@@ -21,17 +21,18 @@ const CategoryBarStyle = makeStyles((theme) => ({
   navbar_button: {
     cursor: "pointer",
     padding: "0.5rem 0 ",
+    color: "#888"
   },
   navbar_button_hover:{
-    backgroundColor: "#fbc108",
+    backgroundColor: "transparent",
     color: "#fff"
 },
   navbar_panel_item: {
-    color: "#CCD2E3",
+    color: "#888",
     cursor: "pointer",
     padding: "0.5rem",
     "&:hover": {
-      background: "#fbc108",
+      background: "transparent",
       color: "#fff",
     },
   },

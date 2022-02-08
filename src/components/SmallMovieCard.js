@@ -8,12 +8,13 @@ function SmallMovieCard({isMovie, movie, history}) {
         <Stack direction="row"
             justifyContent="flex-start"
             alignItems="flex-start"
-            spacing={1}
             style={{cursor:"pointer"}}
-            onClick={() => history.push(`/movie/${movie.id}`)}>
+            onClick={() => history.push(`/movie/${movie.id}`)}
+            className={smallMovieCardStyle.root}>
             <img className={smallMovieCardStyle.img} src={`http://image.tmdb.org/t/p/w500/${movie.poster_path}`}/>
             <Stack direction="column"
-                justifyContent="flex-start"
+                pl={1.5}
+                justifyContent="center"
                 alignItems="flex-start"
                 style={{textAlign:"left"}}
                 spacing={1}>
@@ -22,7 +23,7 @@ function SmallMovieCard({isMovie, movie, history}) {
                     ) : (
                         <div  className={smallMovieCardStyle.title}>{movie.name}</div>
                     )}
-                    <div className={smallMovieCardStyle.year}>01/26/2022</div>
+                    <div className={smallMovieCardStyle.year}>{movie.release_date}</div>
             </Stack>
         </Stack>
     )

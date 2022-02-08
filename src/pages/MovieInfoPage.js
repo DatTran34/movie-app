@@ -329,6 +329,7 @@ function MovieInfoPage() {
               </div>
               <Award ImdbID={imdb_id} />
               <VerticalScrollBox
+                isMovie={true}
                 title={"Similar Movies"}
                 data={recommendedMovie}
               ></VerticalScrollBox>

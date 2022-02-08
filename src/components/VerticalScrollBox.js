@@ -10,16 +10,15 @@ const VerticalScrollBoxStyle = makeStyles((theme) => ({
       flexDirection: "column",
       alignItems: "flex-start",
       justifyContent: "center",
-      padding: "20px",
     },
     vertical_scroll_box: {
-        width: "100%",
+        width: "100%"
     },
     vertical_scroll_box_overlay_outter:{
         overflow: "auto",
         display: "flex",
         alignItems: "flex-start",
-        height: "500px",
+        height: "35rem"
     },
     vertical_scroll_box_overlay_inner: {
 
@@ -27,8 +26,8 @@ const VerticalScrollBoxStyle = makeStyles((theme) => ({
     vertical_scroll_box_title: {
       color: "#bb86fc",
       fontWeight: "700",
-      fontSize: "24px",
-      paddingBottom: "20px",
+      fontSize: "1.5rem",
+      padding: "1rem",
     },
   }));
   
@@ -46,7 +45,6 @@ function VerticalScrollBox({isMovie, title, data}) {
                         direction="column"
                         justifyContent="center"
                         alignItems="flex-start"
-                        spacing={1}
                         className={verticalScrollBoxStyle.vertical_scroll_box_overlay_inner}
                       >
                         {data?.map((movie, key) => {

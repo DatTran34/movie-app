@@ -48,8 +48,7 @@ const AwardStyle = makeStyles((theme) => ({
     width: "200px",
     height: "227px",
     padding: "10px",
-    backgroundColor: "#05103A",
-    borderRadius: "10px",
+    backgroundColor: "#0a192f",
   },
   trophy: {
     position: "absolute",
