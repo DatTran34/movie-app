@@ -7,16 +7,22 @@ import { Stack } from "@mui/material";
 import classNames from "classname";
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-function MovieList({ searchParams, isMovie }) {
-  console.log(isMovie)
+function MovieList() {
   const history = useHistory();
   const location = useLocation();
   const movieListStyle = MovieListStyle();
   const [movieList, setMovieList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isMovie, setIsMovie] = useState(true);
+  const searchParams = new URLSearchParams(location.search);
   const [page, setPage] = useState(1);
   useEffect(() => {
-    if (searchParams !== null) {
+    if(searchParams === null) return
+    if (searchParams.get("media_type") === "movie") {
+      setIsMovie(true);
+    } else if (searchParams.get("media_type") === "tv"){
+      setIsMovie(false);
+    }
       if (searchParams.get("page") === null) {
         searchParams.set("page", 1);
         setPage(1);
@@ -24,7 +30,6 @@ function MovieList({ searchParams, isMovie }) {
         setPage(searchParams.get("page"));
       }
       if(searchParams.has("query")){
-        
         getMultiSearch(searchParams.get("media_type"), searchParams.get("query"), page)
         .then((data) => {
           console.log(data)
@@ -52,8 +57,7 @@ function MovieList({ searchParams, isMovie }) {
             console.error(e);
           });
       }
-    }
-  }, [searchParams, page]);
+  }, [location, page]);
   const handleNextPage = (level) => {
     const page = searchParams.get("page");
     searchParams.set("page", parseInt(page) + level);

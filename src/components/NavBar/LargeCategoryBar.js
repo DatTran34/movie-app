@@ -160,7 +160,7 @@ const navbarCountryButtonStyle = classNames({
     var current_year = new Date().getFullYear();
     var year_array_ = new Array();
     for (var i = 0; i < THE_NUMBER_OF_YEAR; i++) {
-      year_array_.push(current_year - 1);
+      year_array_.push(current_year);
       current_year = current_year - 1;
     }
     setYearArray(year_array_);

@@ -81,6 +81,7 @@ const Style = makeStyles((theme) => ({
         padding: "10px 20px",
         cursor: "pointer",
         backgroundColor: "#4CCDEB",
+        maxWidth:"10rem"
     },
     category_button:{
         display: "flex",
@@ -88,11 +89,12 @@ const Style = makeStyles((theme) => ({
         justifyContent: "center",
         alignItems: "center",
         textAlign: "center",
-        padding: "0.25rem 0.75rem",
+        padding: "0.1rem",
         border:"2px solid #4CCDEB",
         color:"#4CCDEB",
         fontWeight:"600",
         backgroundColor:"rgba(76, 205, 235, 0.1)",
+        maxHeight:"3rem"
     },
     box: {
         width: "6.5rem"

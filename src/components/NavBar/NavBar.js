@@ -7,6 +7,7 @@ import MenuSharpIcon from "@mui/icons-material/MenuSharp";
 import { makeStyles } from "@mui/styles";
 import SmallCategoryBar from "./SmallCategoryBar";
 import { useMediaQuery } from "./useMediaQuery";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 const NavBarStyle = makeStyles((theme) => ({
   container: {
     padding: "1rem 1.5rem",
@@ -43,6 +44,7 @@ const NavBarStyle = makeStyles((theme) => ({
 }));
 
 function NavBar() {
+  const history = useHistory()
   const navbarStyle = NavBarStyle();
   const [matches, setMatches] = useState(true);
   const [isSmallCategoryBarShown, setIsSmallCategoryBarShown] = useState(false);
@@ -76,7 +78,7 @@ function NavBar() {
           <div className={`${navbarStyle.container}`}>
             <div className={`${navbarStyle.gridLarge}`}>
               <div className={navbarStyle.col}>
-                <img style={{ width: "8rem" }} src={logo} />
+                <img style={{ width: "8rem", cursor: "pointer" }} src={logo} onClick={() => {history.push("/")}}/>
               </div>
               <div className={navbarStyle.col}>
                 <LargeCategoryBar />

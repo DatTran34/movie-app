@@ -20,13 +20,24 @@ function SearchPage() {
 
   const handleChange = () => {
     setIsMovie(!isMovie);
-    let searchParams = new URLSearchParams(location.search);
     if (isMovie) {
       searchParams.set("media_type", "tv");
     } else {
       searchParams.set("media_type", "movie");
     } 
     searchParams.delete("genre");
+    if(searchParams.has("category"))
+    {
+      if (searchParams.get("category") === "Now Playing") {
+        searchParams.set("category", "Airing Today");
+      } else if (searchParams.get("category") === "Airing Today") {
+        searchParams.set("category", "Now Playing");
+      } else if (searchParams.get("category") === "On The Air") {
+        searchParams.set("category", "Up Coming");
+      } else if (searchParams.get("category") === "Up Coming") {
+        searchParams.set("category", "On The Air");
+      }
+    } 
     history.push({
       pathname: "filter",
       search: searchParams.toString(),
@@ -34,7 +45,6 @@ function SearchPage() {
   };
 
   useEffect(() => {
-    let searchParams = new URLSearchParams(location.search);
     if (searchParams.get("media_type") === "movie") {
       setIsMovie(true);
       setIsPerson(false)
@@ -58,7 +68,6 @@ function SearchPage() {
   }, [location]);
   const addQuery = (key) => {
     console.log("ss")
-    let searchParams = new URLSearchParams(location.search);
     searchParams.set("media_type", key);
     history.push({
       pathname: "/filter",
