@@ -21,25 +21,25 @@ const CategoryBarStyle = makeStyles((theme) => ({
   navbar_button: {
     cursor: "pointer",
     padding: "0.5rem 0 ",
-    color: "#888"
+    color: "#ccd6f6"
   },
   navbar_button_hover:{
     backgroundColor: "transparent",
-    color: "#fff"
+    color: "#29bdae"
 },
   navbar_panel_item: {
-    color: "#888",
+    color: "#ccd6f6",
     cursor: "pointer",
     padding: "0.5rem",
     "&:hover": {
       background: "transparent",
-      color: "#fff",
+      color: "#29bdae",
     },
   },
   navbar_panel: {
     position: "absolute",
     top: "2.3rem",
-    background: "#172a46",
+    background: "#112240",
     transform: "translateX(-45)",
     border: "none",
     boxShadow: "5px 4px 4px rgba(0, 0, 0, 0.25)",
@@ -66,7 +66,7 @@ search_language_box: {
   justifyContent: "space-between",
   alignItems: "center",
   backgroundColor: "transparent",
-  borderBottom: "1px solid #fff",
+  borderBottom: "1.5px solid #CCD2E3",
   transition: "width 0.5s",
   padding: "0.5rem",
   color: "#CCD2E3"
@@ -170,13 +170,27 @@ const navbarCountryButtonStyle = classNames({
     let pathname = location.pathname;
     // returns path: '/app/books'
     let searchParams = new URLSearchParams(location.search);
-    if (!searchParams.has("media_type") || searchParams.get("media_type") === "person") {
+    if (
+      !searchParams.has("media_type") ||
+      searchParams.get("media_type") === "person"
+    ) {
       searchParams.set("media_type", "movie");
-    } 
+    }
     // returns the existing query string: '?genre=fiction&year=2019'
-    searchParams.set(key, value);
+    if (key === "genre") {
+      if (searchParams.has("genre")) {
+        let old_genres = searchParams.get("genre")
+        const new_genres = old_genres.concat(",", value);
+        searchParams.set("genre", new_genres);
+      }
+      else {
+        searchParams.set(key, value);
+      }
+    } else {
+      searchParams.set(key, value);
+    }
+    searchParams.set("page", "1");
     searchParams.delete("category");
-    searchParams.delete("page");
     searchParams.delete("query");
     history.push({
       pathname: "/filter",
@@ -193,6 +207,7 @@ const navbarCountryButtonStyle = classNames({
     searchParams.delete("query");
     searchParams.set("media_type", media_type);
     searchParams.set("category", value);
+    searchParams.set("page", "1");
     history.push({
       pathname: "/filter",
       search: searchParams.toString(),

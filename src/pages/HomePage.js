@@ -23,7 +23,11 @@ function HomePage({ history }) {
     setSearchParams([...array]);
     getUpComingMovies()
       .then((data) => {
-        setUpComingList(data.results);
+        setUpComingList(
+          data.results.map((movie) => {
+            return { media_type: "movie", ...movie };
+          })
+          );
       })
       .catch((e) => {
         console.error(e);
@@ -34,7 +38,6 @@ function HomePage({ history }) {
   const homeStyle = HomeStyle();
   return (
     <>
-
     <div>
     <NavBar></NavBar>
     <div className={movieStyle.container}>

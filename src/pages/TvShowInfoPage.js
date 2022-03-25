@@ -118,85 +118,7 @@ function TvShowInfoPage() {
                   >
                     {tmdbMovieInfo.vote_average}
                   </div>
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    justifyContent="flex-start"
-                    alignItems="center"
-                  >
-                    {rapidMovieInfo?.Ratings[0] && (
-                      <Stack
-                        spacing={0.5}
-                        direction="row"
-                        py={0.5}
-                        px={1}
-                        backgroundColor="#F6C700"
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <img
-                          style={{ width: "60px", height: "25px" }}
-                          src={imdb}
-                        />
-                        <Stack
-                          pb={0.25}
-                          color="#000000"
-                          fontWeight="800"
-                          fontSize="1.5rem"
-                        >
-                          {rapidMovieInfo?.Ratings[0].Value.slice(0, -3)}
-                        </Stack>
-                      </Stack>
-                    )}
-                    {rapidMovieInfo?.Ratings[1] && (
-                      <Stack
-                        spacing={0.5}
-                        direction="row"
-                        p={0.5}
-                        px={1}
-                        backgroundColor="#ffffff"
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <img
-                          style={{ width: "30px", height: "30px" }}
-                          src={Rotten_Tomatoes2}
-                        />
-                        <Stack
-                          pb={0.25}
-                          color="#000000"
-                          fontWeight="800"
-                          fontSize="1.5rem"
-                        >
-                          {rapidMovieInfo?.Ratings[1].Value}
-                        </Stack>
-                      </Stack>
-                    )}
-                    {rapidMovieInfo?.Ratings[2] && (
-                      <Stack
-                        spacing={1.5}
-                        direction="row"
-                        p={0.5}
-                        px={1}
-                        backgroundColor="#66CC33"
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <img
-                          style={{ width: "30px", height: "30px" }}
-                          src={metacritic}
-                        />
-                        <Stack
-                          pb={0.25}
-                          color="#ffffff"
-                          fontWeight="800"
-                          fontSize="1.5rem"
-                        >
-                          {rapidMovieInfo?.Ratings[2].Value.slice(0, -4)}
-                        </Stack>
-                      </Stack>
-                    )}
-                  </Stack>
+
                 </div>
               </div>
               <div className={movieInfoPageStyle.col}>
@@ -210,22 +132,89 @@ function TvShowInfoPage() {
                     className={`${movieInfoPageStyle.info_col} ${movieInfoPageStyle.trailer_genres_grid}`}
                   >
                     <div
-                      className={`${style.trailer_button} ${movieInfoPageStyle.trailer_genres_col}`}
+                      className={`${style.trailer_button}`}
                     >
                       Watch Trailer
                     </div>
-                    {tmdbMovieInfo.genres.map((genre, key) => (
-                      <div
-                        sx={{ cursor: "pointer" }}
-                        onClick={() => {
-                          addQuery("genre", `${genre.id}`);
-                        }}
-                        key={key}
-                        className={`${style.category_button} ${movieInfoPageStyle.trailer_genres_col}`}
+                    <Stack
+                      direction="row"
+                      spacing={3}
+                      sx={{ marginTop: "1rem" }}
+                    >
+                      <Stack
+                        direction="row"
+                        spacing={1}
+                        justifyContent="flex-start"
+                        alignItems="center"
                       >
-                        <div>{genre.name}</div>
-                      </div>
-                    ))}
+                        {rapidMovieInfo?.Ratings[0] && (
+                          <Stack
+                            spacing={0.5}
+                            direction="row"
+                            className={movieInfoPageStyle.imdb_box}
+                          >
+                            <img
+                              className={movieInfoPageStyle.imdb_img}
+                              src={imdb}
+                            />
+                            <div className={movieInfoPageStyle.imdb_number}>
+                              {rapidMovieInfo?.Ratings[0].Value.slice(0, -3)}
+                            </div>
+                          </Stack>
+                        )}
+                        {rapidMovieInfo?.Ratings[1] && (
+                          <Stack
+                            spacing={0.5}
+                            direction="row"
+                            className={movieInfoPageStyle.tomato_box}
+                          >
+                            <img
+                              className={movieInfoPageStyle.tomato_img}
+                              src={Rotten_Tomatoes2}
+                            />
+                            <div className={movieInfoPageStyle.tomato_number}>
+                              {rapidMovieInfo?.Ratings[1].Value}
+                            </div>
+                          </Stack>
+                        )}
+                        {rapidMovieInfo?.Ratings[2] && (
+                          <Stack
+                            spacing={1.5}
+                            direction="row"
+                            p={0.5}
+                            px={1}
+                            className={movieInfoPageStyle.metacritic_box}
+                          >
+                            <img
+                              className={movieInfoPageStyle.metacritic_img}
+                              src={metacritic}
+                            />
+                            <div
+                              className={movieInfoPageStyle.metacritic_number}
+                            >
+                              {rapidMovieInfo?.Ratings[2].Value.slice(0, -4)}
+                            </div>
+                          </Stack>
+                        )}
+                      </Stack>
+                      <Stack
+                        direction="row"
+                        spacing={1}
+                        className={`${movieInfoPageStyle.genres_grid}`}
+                      >
+                        {tmdbMovieInfo.genres.map((genre, key) => (
+                          <div
+                            onClick={() => {
+                              addQuery("genre", `${genre.id}`);
+                            }}
+                            key={key}
+                            className={`${style.category_button}`}
+                          >
+                            <div>{genre.name}</div>
+                          </div>
+                        ))}
+                      </Stack>
+                    </Stack>
                   </div>
                   <div
                     className={`${movieInfoPageStyle.info_col} ${movieInfoPageStyle.info_col_grid}`}
@@ -268,7 +257,7 @@ function TvShowInfoPage() {
                       </div>
                     </div>
                   </div>
-                  <div className={movieInfoPageStyle.info_col}>
+                  <div className={movieInfoPageStyle.overview}>
                     {tmdbMovieInfo.overview}
                   </div>
                 </div>
@@ -298,15 +287,12 @@ function TvShowInfoPage() {
                               }
                             >
                               <img
-                                style={{ width: "4rem" }}
-                                src={`http://image.tmdb.org/t/p/w500/${person.profile_path}`}
+                                className={movieInfoPageStyle.cast_image}
+                                src={`http://image.tmdb.org/t/p/original/${person.profile_path}`}
                               />
                               <Stack
                                 direction="column"
-                                justifyContent="flex-start"
-                                alignItems="flex-start"
-                                style={{ textAlign: "left" }}
-                                spacing={1}
+                                justifyContent="center"
                               >
                                 <div
                                   style={{

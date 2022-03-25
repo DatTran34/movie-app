@@ -78,7 +78,7 @@ function PersonInfoPage2() {
   const personInfoPageStyle = PersonInfoPageStyle();
 
   useEffect(() => {
-    Promise.all([getPersonInfo(params.id), getPersonMovieCredits(params.id)])
+    Promise.all([getPersonInfo(params.id), getPersonCombinedCredits(params.id)])
       .then(([urlOneData, urlTwoData]) => {
         setTmdbPersonInfo(urlOneData);
         setImdb_id(urlOneData.imdb_id);

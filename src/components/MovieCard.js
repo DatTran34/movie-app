@@ -14,7 +14,6 @@ function MovieCard({ movie, isMovie }) {
   const history = useHistory();
   const movieCardStyle = MovieCardStyle();
   const [tmdbMovieInfo, setTmdbMovieInfo] = useState([]);
-  const [rapidMovieInfo, setRapidMovieInfo] = useState([]);
   const [runtime, setRuntime] = useState([]);
   const [loading, setLoading] = useState(false);
   const [imdb_id, setImdb_id] = useState(null);
@@ -40,21 +39,10 @@ function MovieCard({ movie, isMovie }) {
       });
   }, [movie.id]);
 
-  useEffect(() => {
-    if (imdb_id === null) return;
-    getRapidMovieInfo(imdb_id)
-      .then((data) => {
-        setRapidMovieInfo(data);
-        setLoading(true);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }, [imdb_id]);
   return (
       <div onClick={() => history.push(`/${movie.media_type}/${movie.id}`)}>
         <div className={movieCardStyle.box}>
-          <div className={movieCardStyle.imdb_rating_box}>{`IMBD ${rapidMovieInfo.imdbRating}`}</div>
+          
           {movie.poster_path === null ? (
             <img
             className={movieCardStyle.img}
@@ -90,7 +78,10 @@ function MovieCard({ movie, isMovie }) {
           {movie.media_type === "movie" ? (
             <>
               <div className={movieCardStyle.title}>{movie.title}</div>
-              <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", width: "100%"}} >
+              <Stack direction="row" spacing={1} style={{alignItems: "center", justifyContent: "flex-start", width: "100%"}} >
+                <div className={movieCardStyle.time}>
+                  {runtime}
+                </div>
                 <div
                   className={classNames({
                     [movieCardStyle.movie_color]: isMovie,
@@ -99,10 +90,7 @@ function MovieCard({ movie, isMovie }) {
                 >
                   {movie.release_date.slice(0, 4)}
                 </div>
-                <div className={movieCardStyle.time}>
-                  {runtime}
-                </div>
-              </div>
+              </Stack>
             </>
           ) : (
             <>

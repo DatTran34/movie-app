@@ -29,9 +29,6 @@ const MovieInfoStyle = makeStyles((theme) => ({
     gridGap: "1rem",
     borderRadius: "1rem",
   },
-  info_col: {
-    color: "#fff",
-  },
   info_col_grid: {
     display: "grid",
     gridGap: "1rem",
@@ -42,18 +39,68 @@ const MovieInfoStyle = makeStyles((theme) => ({
     gridTemplateColumns: "1fr 1fr",
   },
   trailer_genres_grid: {
-    display: "grid",
-    gridGap: "1rem",
-    gridTemplateColumns: "1fr",
-    ["@media (min-width:960px)"]: {
-      maxWidth: "70rem",
-      gridTemplateColumns: "1fr 2fr",
-    },
+    display: "flex",
+    flexDirection: "column",
+  },
+  imdb_box: {
+    flexDirection:"row",
+    padding: "0.25rem 0.5rem",
+    backgroundColor:"#F6C700",
+    justifyContent:"center",
+    alignItems:"center"
+  },
+  imdb_img: {
+    userSelect: "none",
+    width: "40px",
+    height: "15px"
+  },
+  imdb_number: {
+    userSelect: "none",
+    paddingBottom: "0.25",
+    color: "#000000",
+    fontWeight:"800",
+  },
+  tomato_box: {
+    flexDirection:"row",
+    padding: "0.25rem 0.5rem",
+    backgroundColor:"#fff",
+    justifyContent:"center",
+    alignItems:"center"
+  },
+  tomato_img: {
+    userSelect: "none",
+    width: "20px", 
+    height: "20px"
+  },
+  tomato_number: {
+    userSelect: "none",
+    paddingBottom: "0.25",
+    color: "#000000",
+    fontWeight:"800",
+    fontSize:"1rem"
+  },
+  metacritic_box: {
+    flexDirection:"row",
+    padding: "0.25rem 0.5rem",
+    backgroundColor:"#66CC33",
+    justifyContent:"center",
+    alignItems:"center"
+  },
+  metacritic_img: {
+    userSelect: "none",
+    width: "20px", 
+    height: "20px"
+  },
+  metacritic_number: {
+    userSelect: "none",
+    paddingBottom: "0.25",
+    color: "#fff",
+    fontWeight:"800",
+    fontSize:"1rem"
   },
   genres_grid:{
-    display: "grid",
-    gridGap: "1rem",
-    gridTemplateColumns: "1fr 1fr 1fr",
+    display: "flex",
+    flexDirection: "row",
   },
   cast_container: {
     background: "#172a46",
@@ -78,6 +125,19 @@ const MovieInfoStyle = makeStyles((theme) => ({
     fontWeight: "700",
     fontSize: "24px",
     paddingBottom: "20px",
+  },
+  cast_image: {
+    width: "50px",
+    height: "50px",
+    boxSizing: "border-box",
+    border: "2px solid #4CCDEB",
+    borderRadius: "100px",
+    objectFit: "cover",
+  },
+  cast_info: {
+    textAlign: "left",
+    justifyContent: "flex-start",
+    alignItems:"flex-start"
   },
   root: {
     fontWeight: "600",
@@ -156,6 +216,7 @@ const MovieInfoStyle = makeStyles((theme) => ({
     padding: "10px 20px",
     backgroundColor: "#4CCDEB",
     borderRadius: "10px",
+    fontWeight: "800"
   },
   category_button: {
     display: "flex",
@@ -170,16 +231,15 @@ const MovieInfoStyle = makeStyles((theme) => ({
   title: {
     color: "#4CCDEB",
   },
+  overview: {
+    color: "#CCD2E3",
+    "&:before": {
+      color: "#4CCDEB",
+      content: "OVERVIEW",
+    },
+  },
   content: {
     color: "#CCD2E3",
-  },
-  cast_image: {
-    width: "50px",
-    height: "50px",
-    boxSizing: "border-box",
-    border: "2px solid #4CCDEB",
-    borderRadius: "100px",
-    objectFit: "cover",
   },
   rating: {
     position: "absolute",

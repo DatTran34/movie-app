@@ -21,7 +21,7 @@ const VerticalScrollBoxStyle = makeStyles((theme) => ({
         height: "35rem"
     },
     vertical_scroll_box_overlay_inner: {
-
+      width: "100%"
     },
     vertical_scroll_box_title: {
       color: "#bb86fc",
@@ -50,7 +50,7 @@ function VerticalScrollBox({isMovie, title, data}) {
                         {data?.map((movie, key) => {
                           return (
                             <SmallMovieCard
-                              isMovie={isMovie}
+                              media_type={movie.media_type}
                               movie={movie}
                               history={history}
                               key={key}

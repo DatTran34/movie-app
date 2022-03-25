@@ -16,9 +16,7 @@ const AwardStyle = makeStyles((theme) => ({
     overflow: "auto",
     whiteSpace: "nowrap",
   },
-  award_overlay_inner: {
-
-  },
+  award_overlay_inner: {},
   award_title: {
     color: "#F6C700",
     fontWeight: "700",
@@ -31,7 +29,20 @@ const AwardStyle = makeStyles((theme) => ({
     height: "15rem",
     backgroundColor: "#2D375A",
   },
-  root: {},
+  container: {
+    display: "grid",
+    gridGap: "1rem",
+    //gridTemplateColumns: "1fr 1fr 1fr",
+    ["@media (min-width:550px)"]: {
+      gridTemplateColumns: "1fr",
+    },
+    ["@media (min-width:960px)"]: {
+      gridTemplateColumns: "1fr 1fr",
+    },
+    overflow: "auto",
+    whiteSpace: "nowrap",
+    height: "21rem",
+  },
   title: {
     color: "#ffffff",
     margin: "20px",
@@ -45,7 +56,7 @@ const AwardStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-end",
-    width: "200px",
+    width: "350px",
     height: "227px",
     padding: "10px",
     backgroundColor: "#0a192f",
@@ -73,7 +84,7 @@ const AwardStyle = makeStyles((theme) => ({
     width: "200px",
     height: "45px",
     background:
-      "linear-gradient(180deg, rgba(5, 16, 58, 0) 0%, rgba(5, 16, 58, 0.9) 51.67%, #05103A 100%)",
+      "linear-gradient(180deg, rgba(10, 25, 47, 0) 0%, rgba(10, 25, 47, 0.9) 51.67%, #0a192f 100%)",
   },
   hide: {
     zIndex: "1",
@@ -83,7 +94,7 @@ const AwardStyle = makeStyles((theme) => ({
     transform: "translate(-50%, -50%)",
     width: "200px",
     height: "45px",
-    background: "#05103A",
+    background: "#0a192f",
   },
   content: {
     zIndex: "2",
@@ -92,9 +103,13 @@ const AwardStyle = makeStyles((theme) => ({
     fontSize: "24px",
     fontWeight: "600",
     color: "#F6C700",
+    width: "22rem",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
   },
   year: {
-    fontSize: "10px",
+    fontSize: "1rem",
     fontWeight: "600",
     color: "#BDBDBD",
   },
@@ -102,11 +117,19 @@ const AwardStyle = makeStyles((theme) => ({
     fontSize: "10px",
     fontWeight: "600",
     color: "#BDBDBD",
+    width: "22rem",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
   },
   award: {
     fontWeight: "600",
     fontSize: "14px",
     color: "#ffffff",
+    width: "22rem",
+    overflow: "hidden",
+    whiteSpace: "nowrap",
+    textOverflow: "ellipsis",
   },
 }));
 

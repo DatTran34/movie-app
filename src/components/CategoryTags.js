@@ -98,24 +98,28 @@ function CategoryTags({isMovie, isPerson}) {
           );
         } else {
           if (category.key === "genre") {
-            let catgry = CategoryList.find(({ id }) => category.value === id);
-            return (
-              <Stack
-                direction="row"
-                spacing={1.5}
-                key={index}
-                className={classNames({[categoryTagsStyle.movie_color_box]: isMovie, [categoryTagsStyle.box]: true})}
-              >
-                <Stack>{catgry.name}</Stack>
-                <AddIcon
-                  className={categoryTagsStyle.icon}
-                  onClick={() => {
-                    removeQuery(category.key);
-                  }}
-                />
-                <div className={classNames({[categoryTagsStyle.movie_color_box_right]: isMovie, [categoryTagsStyle.box_right]: true})}></div>
-              </Stack>
-            );
+            let genreList = category.value.split(',')
+                genreList.map((genre) => {
+                  let catgry = CategoryList.find(({ id }) => genre === id);
+                  console.log(catgry)
+                  return (
+                    <Stack
+                      direction="row"
+                      spacing={1.5}
+                      key={index}
+                      className={classNames({[categoryTagsStyle.movie_color_box]: isMovie, [categoryTagsStyle.box]: true})}
+                    >
+                      <Stack>{catgry.name}</Stack>
+                      <AddIcon
+                        className={categoryTagsStyle.icon}
+                        onClick={() => {
+                          removeQuery(category.key);
+                        }}
+                      />
+                      <div className={classNames({[categoryTagsStyle.movie_color_box_right]: isMovie, [categoryTagsStyle.box_right]: true})}></div>
+                    </Stack>
+                  );
+                })
           } else if (category.key === "language") {
             let catgry = category.value.slice(3, category.value.length);
             console.log(catgry)

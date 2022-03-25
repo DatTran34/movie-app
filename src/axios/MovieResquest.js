@@ -45,7 +45,7 @@ export const getFiltered = async (searchParams, page) => {
         if (searchParams.get("category") === "Now Playing") {
           param = "now_playing"
         } else if (searchParams.get("category") === "Up Coming") {
-          const response = await axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_API_KEY}&append_to_response=external_ids&page=${searchParams.get("page")}&region=KR`);
+          const response = await axios.get(`https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_API_KEY}&append_to_response=external_ids&page=${searchParams.get("page")}&region=US`);
           return response.data;
         } else if (searchParams.get("category") === "Popular") {
           param = "popular"

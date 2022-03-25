@@ -22,6 +22,25 @@ import VerticalScrollBox from "../components/VerticalScrollBox";
 import { makeStyles } from "@mui/styles";
 import classNames from "classname";
 import MovieInfoPageStyle from "../styles/pages/MovieInfoPageStyle";
+import YouTube from "react-youtube";
+import Modal from "@mui/material/Modal";
+import Carousel from 'react-material-ui-carousel'
+const Trailer = ({videoId}) => {
+  const _onReady = (event) => {
+    // access to player in all event handlers via event.target
+    event.target.pauseVideo();
+  };
+  const opts = {
+    height: "390",
+    width: "640",
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 1,
+    },
+  };
+
+  return <YouTube videoId={videoId} opts={opts} onReady={_onReady} />;
+};
 
 function MovieInfoPage() {
   const movieInfoPageStyle = MovieInfoPageStyle();
@@ -36,6 +55,9 @@ function MovieInfoPage() {
   const [loading, setLoading] = useState(false);
   const [imdb_id, setImdb_id] = useState(null);
   const [runtime, setRuntime] = useState([]);
+  const [openTrailers, setOpenTrailers] = React.useState(false);
+  const handleOpenTrailers = () => setOpenTrailers(true);
+  const handleCloseTrailers = () => setOpenTrailers(false);
   const calRuntime = (total) => {
     var hours = total / 60;
     var rhours = Math.floor(hours);
@@ -43,6 +65,7 @@ function MovieInfoPage() {
     var rminutes = Math.round(minutes);
     return `${rhours}h${rminutes}m`;
   };
+  console.log(tmdbMovieInfo)
   useEffect(() => {
     Promise.all([
       getMovieInfo("movie", params.id),
@@ -54,7 +77,11 @@ function MovieInfoPage() {
         setRuntime(calRuntime(urlOneData.runtime));
         setImdb_id(urlOneData.imdb_id);
         setCast(urlTwoData.cast);
-        setRecommendedMovie(urlThreeData.results);
+        setRecommendedMovie(
+          urlThreeData.results.map((movie) => {
+            return { media_type: "movie", ...movie };
+          })
+        );
       })
       .catch((e) => {
         console.log(e);
@@ -118,122 +145,105 @@ function MovieInfoPage() {
                   >
                     {tmdbMovieInfo.vote_average}
                   </div>
-                  <Stack
-                    direction="row"
-                    spacing={1}
-                    justifyContent="flex-start"
-                    alignItems="center"
-                  >
-                    {rapidMovieInfo?.Ratings[0] && (
-                      <Stack
-                        spacing={0.5}
-                        direction="row"
-                        py={0.5}
-                        px={1}
-                        backgroundColor="#F6C700"
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <img
-                          style={{ width: "60px", height: "25px" }}
-                          src={imdb}
-                        />
-                        <Stack
-                          pb={0.25}
-                          color="#000000"
-                          fontWeight="800"
-                          fontSize="1.5rem"
-                        >
-                          {rapidMovieInfo?.Ratings[0].Value.slice(0, -3)}
-                        </Stack>
-                      </Stack>
-                    )}
-                    {rapidMovieInfo?.Ratings[1] && (
-                      <Stack
-                        spacing={0.5}
-                        direction="row"
-                        p={0.5}
-                        px={1}
-                        backgroundColor="#ffffff"
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <img
-                          style={{ width: "30px", height: "30px" }}
-                          src={Rotten_Tomatoes2}
-                        />
-                        <Stack
-                          pb={0.25}
-                          color="#000000"
-                          fontWeight="800"
-                          fontSize="1.5rem"
-                        >
-                          {rapidMovieInfo?.Ratings[1].Value}
-                        </Stack>
-                      </Stack>
-                    )}
-                    {rapidMovieInfo?.Ratings[2] && (
-                      <Stack
-                        spacing={1.5}
-                        direction="row"
-                        p={0.5}
-                        px={1}
-                        backgroundColor="#66CC33"
-                        justifyContent="center"
-                        alignItems="center"
-                      >
-                        <img
-                          style={{ width: "30px", height: "30px" }}
-                          src={metacritic}
-                        />
-                        <Stack
-                          pb={0.25}
-                          color="#ffffff"
-                          fontWeight="800"
-                          fontSize="1.5rem"
-                        >
-                          {rapidMovieInfo?.Ratings[2].Value.slice(0, -4)}
-                        </Stack>
-                      </Stack>
-                    )}
-                  </Stack>
                 </div>
               </div>
               <div className={movieInfoPageStyle.col}>
                 <div className={movieInfoPageStyle.info_grid}>
-                  <div
-                    className={`${movieInfoPageStyle.info_col} ${style.name}`}
-                  >
-                    {tmdbMovieInfo.title}
-                  </div>
-                  <div
-                    className={`${movieInfoPageStyle.info_col} ${movieInfoPageStyle.trailer_genres_grid}`}
-                  >
+                  <Stack>
+                    <div className={`${style.name}`}>
+                      {`${
+                        tmdbMovieInfo.title
+                      } (${tmdbMovieInfo.release_date.slice(0, 4)})`}
+                    </div>
+                  </Stack>
+                  <div className={`${movieInfoPageStyle.trailer_genres_grid}`}>
                     <div
-                      className={`${style.trailer_button} ${movieInfoPageStyle.trailer_genres_col}`}
+                      onClick={handleOpenTrailers}
+                      className={`${style.trailer_button}`}
                     >
                       Watch Trailer
                     </div>
-                    <div
-                      className={`${movieInfoPageStyle.genres_grid}`}
+                    <Stack
+                      direction="row"
+                      spacing={3}
+                      sx={{ marginTop: "1rem" }}
                     >
-                      {tmdbMovieInfo.genres.map((genre, key) => (
-                        <div
-                          sx={{ cursor: "pointer" }}
-                          onClick={() => {
-                            addQuery("genre", `${genre.id}`);
-                          }}
-                          key={key}
-                          className={`${style.category_button} ${movieInfoPageStyle.trailer_genres_col}`}
-                        >
-                          <div>{genre.name}</div>
-                        </div>
-                      ))}
-                    </div>
+                      <Stack
+                        direction="row"
+                        spacing={1}
+                        justifyContent="flex-start"
+                        alignItems="center"
+                      >
+                        {rapidMovieInfo?.Ratings[0] && (
+                          <Stack
+                            spacing={0.5}
+                            direction="row"
+                            className={movieInfoPageStyle.imdb_box}
+                          >
+                            <img
+                              className={movieInfoPageStyle.imdb_img}
+                              src={imdb}
+                            />
+                            <div className={movieInfoPageStyle.imdb_number}>
+                              {rapidMovieInfo?.Ratings[0].Value.slice(0, -3)}
+                            </div>
+                          </Stack>
+                        )}
+                        {rapidMovieInfo?.Ratings[1] && (
+                          <Stack
+                            spacing={0.5}
+                            direction="row"
+                            className={movieInfoPageStyle.tomato_box}
+                          >
+                            <img
+                              className={movieInfoPageStyle.tomato_img}
+                              src={Rotten_Tomatoes2}
+                            />
+                            <div className={movieInfoPageStyle.tomato_number}>
+                              {rapidMovieInfo?.Ratings[1].Value}
+                            </div>
+                          </Stack>
+                        )}
+                        {rapidMovieInfo?.Ratings[2] && (
+                          <Stack
+                            spacing={1.5}
+                            direction="row"
+                            p={0.5}
+                            px={1}
+                            className={movieInfoPageStyle.metacritic_box}
+                          >
+                            <img
+                              className={movieInfoPageStyle.metacritic_img}
+                              src={metacritic}
+                            />
+                            <div
+                              className={movieInfoPageStyle.metacritic_number}
+                            >
+                              {rapidMovieInfo?.Ratings[2].Value.slice(0, -4)}
+                            </div>
+                          </Stack>
+                        )}
+                      </Stack>
+                      <Stack
+                        direction="row"
+                        spacing={1}
+                        className={`${movieInfoPageStyle.genres_grid}`}
+                      >
+                        {tmdbMovieInfo.genres.map((genre, key) => (
+                          <div
+                            onClick={() => {
+                              addQuery("genre", `${genre.id}`);
+                            }}
+                            key={key}
+                            className={`${style.category_button}`}
+                          >
+                            <div>{genre.name}</div>
+                          </div>
+                        ))}
+                      </Stack>
+                    </Stack>
                   </div>
-                  <div
-                    className={`${movieInfoPageStyle.info_col} ${movieInfoPageStyle.info_col_grid}`}
-                  >
+                  <div className={`${movieInfoPageStyle.info_col_grid}`}>
                     <div className={movieInfoPageStyle.info_text_box}>
                       <div className={style.title}>STATUS</div>
                       <div className={style.content}>
@@ -259,75 +269,82 @@ function MovieInfoPage() {
                     <div className={movieInfoPageStyle.info_text_box}>
                       <div className={style.title}>BUDGET</div>
                       <div className={style.content}>
-                        {`$${tmdbMovieInfo.budget.toLocaleString('en-US')}`}
+                        {`$${tmdbMovieInfo.budget.toLocaleString("en-US")}`}
                       </div>
                     </div>
                     <div className={movieInfoPageStyle.info_text_box}>
                       <div className={style.title}>REVENUE</div>
                       <div className={style.content}>
-                       {`$${tmdbMovieInfo.revenue.toLocaleString('en-US')}`}
+                        {`$${tmdbMovieInfo.revenue.toLocaleString("en-US")}`}
                       </div>
                     </div>
                   </div>
-                  <div className={movieInfoPageStyle.info_col}>
+                  <div className={movieInfoPageStyle.overview}>
                     {tmdbMovieInfo.overview}
                   </div>
                 </div>
               </div>
-              <div className={movieInfoPageStyle.col}>
-                <div className={movieInfoPageStyle.cast_container}>
-                  <div className={movieInfoPageStyle.cast_title}>Cast</div>
-                  <div className={movieInfoPageStyle.cast}>
-                    <div className={movieInfoPageStyle.cast_overlay_outter}>
-                      <Stack
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="flex-start"
-                        spacing={1}
-                        className={movieInfoPageStyle.cast_overlay_inner}
-                      >
-                        {cast?.map((person, key) => {
-                          return (
+              <div className={movieInfoPageStyle.cast_container}>
+                <div className={movieInfoPageStyle.cast_title}>Cast</div>
+                <div className={movieInfoPageStyle.cast}>
+                  <div className={movieInfoPageStyle.cast_overlay_outter}>
+                    <Stack
+                      direction="column"
+                      justifyContent="center"
+                      alignItems="flex-start"
+                      spacing={1}
+                      className={movieInfoPageStyle.cast_overlay_inner}
+                    >
+                      {cast?.map((person, key) => {
+                        return (
+                          <Stack
+                            direction="row"
+                            justifyContent="flex-start"
+                            alignItems="flex-start"
+                            spacing={1}
+                            style={{ cursor: "pointer" }}
+                            onClick={() => history.push(`/person/${person.id}`)}
+                          >
+                            <img
+                              className={movieInfoPageStyle.cast_image}
+                              src={`http://image.tmdb.org/t/p/original/${person.profile_path}`}
+                            />
                             <Stack
-                              direction="row"
+                              direction="column"
                               justifyContent="flex-start"
                               alignItems="flex-start"
+                              style={{ textAlign: "left" }}
                               spacing={1}
-                              style={{ cursor: "pointer" }}
-                              onClick={() =>
-                                history.push(`/person/${person.id}`)
-                              }
                             >
-                              <img
-                                style={{ width: "4rem" }}
-                                src={`http://image.tmdb.org/t/p/w500/${person.profile_path}`}
-                              />
-                              <Stack
-                                direction="column"
-                                justifyContent="flex-start"
-                                alignItems="flex-start"
-                                style={{ textAlign: "left" }}
-                                spacing={1}
+                              <div
+                                style={{
+                                  color: "#4CCDEB",
+                                  fontWeight: "600",
+                                  width: "10rem",
+                                  overflow: "hidden",
+                                  whiteSpace: "nowrap",
+                                  textOverflow: "ellipsis",
+                                }}
                               >
-                                <div
-                                  style={{
-                                    color: "#4CCDEB",
-                                    fontWeight: "600",
-                                  }}
-                                >
-                                  {person.name}
-                                </div>
-                                <div
-                                  style={{ color: "white", fontWeight: "500" }}
-                                >
-                                  {person.character}
-                                </div>
-                              </Stack>
+                                {person.name}
+                              </div>
+                              <div
+                                style={{
+                                  color: "white",
+                                  fontWeight: "500",
+                                  width: "10rem",
+                                  overflow: "hidden",
+                                  whiteSpace: "nowrap",
+                                  textOverflow: "ellipsis",
+                                }}
+                              >
+                                {person.character}
+                              </div>
                             </Stack>
-                          );
-                        })}
-                      </Stack>
-                    </div>
+                          </Stack>
+                        );
+                      })}
+                    </Stack>
                   </div>
                 </div>
               </div>
@@ -341,6 +358,35 @@ function MovieInfoPage() {
           </>
         )}
       </Stack>
+      <Modal
+        open={openTrailers}
+        onClose={handleCloseTrailers}
+        style={{ padding: "100px" }}
+      >
+        <Carousel
+          style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}
+          
+          navButtonsProps={{
+            // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
+            style: {
+              backgroundColor: "cornflowerblue",
+              borderRadius: 0,
+            },
+          }}
+        >
+          {tmdbMovieInfo.videos?.results.map((video, key) => (
+            <div
+              style={{
+                display: "flex", flexDirection: "row", justifyContent: "center",
+                width: "100%",
+                height: "400px",
+              }}
+            >
+              <Trailer key={key} videoId={video.key} />
+            </div>
+          ))}
+        </Carousel>
+      </Modal>
     </>
   );
 }

@@ -10,13 +10,22 @@ const MovieCardStyle = makeStyles((theme) => ({
     img:{
         width: "60px"
     },
+    time: {
+        padding: " 0.125rem 0.5rem",
+        backgroundColor: "#29bdae",
+        color: "#172a46",
+      },
     year:{
-        color:"#F6C700",
+        color:"#CCD2E3",
         fontWeight: "600"
     },
     title:{
-        color:"white",
-        fontWeight: "600"
+        color:"#CCD2E3",
+        fontWeight: "600",
+        width: "10rem",
+        overflow: "hidden",
+        whiteSpace: "nowrap",
+        textOverflow: "ellipsis",
     }
 }))
 

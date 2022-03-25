@@ -3,7 +3,7 @@ import axios from "axios";
 export const getMovieInfo = async (media_type, movieId) => {
   try {
     const response = await axios.get(
-      `https://api.themoviedb.org/3/${media_type}/${movieId}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&append_to_response=external_ids`
+      `https://api.themoviedb.org/3/${media_type}/${movieId}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&append_to_response=external_ids,videos,images`
     );
     return response.data;
   } catch (error) {
@@ -14,7 +14,7 @@ export const getMovieInfo = async (media_type, movieId) => {
 export const getPersonInfo = async (personId) => {
   try {
     const response = await axios.get(
-      `http://api.themoviedb.org/3/person/${personId}?api_key=${process.env.REACT_APP_API_KEY}&append_to_response=external_ids`
+      `http://api.themoviedb.org/3/person/${personId}?api_key=${process.env.REACT_APP_API_KEY}&append_to_response=external_ids,images`
     );
     return response.data;
   } catch (error) {

@@ -98,9 +98,9 @@ const MovieCardStyle = makeStyles((theme) => ({
     color: "#CCD2E3",
   },
   time: {
-    // padding: " 0.25rem 0.5rem",
-    // backgroundColor: "#4CCDEB"
-    color: "#CCD2E3",
+    padding: " 0.125rem 0.5rem",
+    backgroundColor: "#29bdae",
+    color: "#172a46",
   },
   year: {
     color: "#4CCDEB",

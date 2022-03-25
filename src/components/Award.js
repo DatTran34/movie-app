@@ -40,14 +40,7 @@ function Award({ ImdbID }) {
           Awards and Nominations
         </div>
         <div
-          style={{
-            display: "grid",
-            gridGap: "1rem",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            overflow: "auto",
-            whiteSpace: "nowrap",
-            height: "20.5rem",
-          }}
+          className={awardStyle.container}
         >
           {awardList
             .filter((award) => award.type === "Winner")

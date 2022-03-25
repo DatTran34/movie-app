@@ -5,7 +5,7 @@ const MovieStyle = makeStyles((theme) => ({
     paddingTop: "12rem",
   },
   header: {
-    color: "white",
+    color: "#ccd6f6",
     fontSize: "3rem",
     fontWeight: "600",
     textAlign: "left",

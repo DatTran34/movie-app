@@ -83,7 +83,7 @@ const SearchBarStyle = makeStyles((theme) => ({
     width: "100%",
   },
   navbar_search_panel: {
-    background: "rgba(51, 45, 89, 0.6)",
+    background: "#172a46",
     boxShadow: "5px 4px 4px rgba(0, 0, 0, 0.25)",
     webkitBackdropFilter: "blur(40px)",
     backdropFilter: "blur(40px)",
@@ -101,7 +101,7 @@ const SearchBarStyle = makeStyles((theme) => ({
     flexDirection: "row",
     cursor: "pointer",
     "&:hover": {
-      background: "#fbc108",
+      
     },
   },
   navbar_search_panel_last_item: {

@@ -70,6 +70,7 @@ const Style = makeStyles((theme) => ({
     name: {
         fontWeight: "800",
         fontSize: "3rem",
+        color: "#CCD2E3"
     },
     year:{
         color: "#CCD2E3",
@@ -81,15 +82,13 @@ const Style = makeStyles((theme) => ({
         padding: "10px 20px",
         cursor: "pointer",
         backgroundColor: "#4CCDEB",
-        maxWidth:"10rem"
+        maxWidth:"10rem",
+        fontWeight: "700"
     },
     category_button:{
         display: "flex",
         cursor: "pointer",
-        justifyContent: "center",
-        alignItems: "center",
-        textAlign: "center",
-        padding: "0.1rem",
+        padding: "0.25rem 0.5rem",
         border:"2px solid #4CCDEB",
         color:"#4CCDEB",
         fontWeight:"600",
