@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { makeStyles } from "@mui/styles";
 import classNames from "classname";
+import SearchIcon from "@mui/icons-material/Search";
 import SearchBar2 from "./SearchBar2";
 import { getCountries, getGenres } from "../../axios/NavBarRequest";
 import { useHistory, useLocation } from "react-router";
@@ -13,9 +14,8 @@ const SmallsmallCategoryStyle = makeStyles((theme) => ({
     zIndex: "51",
   },
   box: {
-    padding:"1rem",
+    padding:"1rem 0",
     background: "#1f2845",
-    borderRadius: "10px",
   },
   overlay_outter: {
     overflow: "auto",
@@ -27,7 +27,6 @@ const SmallsmallCategoryStyle = makeStyles((theme) => ({
   overlay_inner: {
     display: "grid",
     width: "100%",
-    gridGap: "0.5rem",
 
     textAlign: "center",
   },
@@ -37,27 +36,33 @@ const SmallsmallCategoryStyle = makeStyles((theme) => ({
   navbar_button: {
     cursor: "pointer",
     padding: "0.5rem 0 ",
-    borderRadius:"10px",
     "&:hover": {
-      background: "#4CCDEB",
-      color: "#CCD2E3"
+      color: "#29bdae"
     },
   },
   navbar_button_hover:{
-    background: "#4CCDEB",
-    color: "#CCD2E3"
+    //background: "#29bdae",
+    color: "#29bdae"
 },
   panel: {
     display: "grid",
-    
-    //background: "#fbc108",
+    background: "#0A192F",
+  },
+  panel_column: {
+    display: "grid",
+    gridGap: "0.5rem",
+    gridTemplateColumns: "repeat(3,1fr)",
+    background: "#0A192F",
   },
   panel_item: {
     cursor: "pointer",
-    padding: "0.5rem 0 ",
+    padding: "0.5rem 0",
+    "&:hover": {
+      background: "red",
+    },
   },
 }));
-function SmallCategoryBar() {
+function SmallCategoryBar({setIsSmallCategoryBarShown}) {
   const history = useHistory();
   const location = useLocation();
   const smallCategoryStyle = SmallsmallCategoryStyle();
@@ -206,11 +211,228 @@ const removeQuery = (key) => {
         <div className={smallCategoryStyle.box}>
           <div className={smallCategoryStyle.overlay_outter}>
             <div className={smallCategoryStyle.overlay_inner}>
-              <div className={smallCategoryStyle.col}>
+              <div style={{ padding: "0.5rem 1rem" }}>
                 <SearchBar2 />
               </div>
 
-              <div className={smallCategoryStyle.col}>
+              <div className={navbarMoviesButtonStyle}>
+                <div
+                  onClick={() => {
+                    setIsMoviesShown(!isMoviesShown);
+                    setTVShowsShown(false);
+                    setIsCountryShown(false);
+                    setIsPopularPeopleShown(false);
+                    setIsYearShown(false);
+                    setIsGenresShown(false);
+                  }}
+                >
+                  Movie
+                </div>
+              </div>
+              {isMoviesShown && (
+                <div className={smallCategoryStyle.panel}>
+                  <div
+                    className={smallCategoryStyle.panel_item}
+                    onClick={() => {
+                      setIsSmallCategoryBarShown(false);
+                      addQuery_2("movie", "Popular");
+                    }}
+                  >
+                    Popular
+                  </div>
+                  <div
+                    className={smallCategoryStyle.panel_item}
+                    onClick={() => {
+                      setIsSmallCategoryBarShown(false);
+                      addQuery_2("movie", "Now Playing");
+                    }}
+                  >
+                    Now Playing
+                  </div>
+                  <div
+                    className={smallCategoryStyle.panel_item}
+                    onClick={() => {
+                      setIsSmallCategoryBarShown(false);
+                      addQuery_2("movie", "Up Coming");
+                    }}
+                  >
+                    Up Coming
+                  </div>
+                  <div
+                    className={smallCategoryStyle.panel_item}
+                    onClick={() => {
+                      setIsSmallCategoryBarShown(false);
+                      addQuery_2("movie", "Top Rated");
+                    }}
+                  >
+                    Top Rated
+                  </div>
+                </div>
+              )}
+
+              {/* ============= TV Shows =============== */}
+              <div className={navbarTVShowsButtonStyle}>
+                <div
+                  onClick={() => {
+                    setTVShowsShown(!isTVShowsShown);
+                    setIsMoviesShown(false);
+                    setIsCountryShown(false);
+                    setIsPopularPeopleShown(false);
+                    setIsYearShown(false);
+                    setIsGenresShown(false);
+                  }}
+                >
+                  Tv Shows
+                </div>
+              </div>
+              {isTVShowsShown && (
+                <div className={smallCategoryStyle.panel}>
+                  <div
+                    className={smallCategoryStyle.panel_item}
+                    onClick={() => {
+                      setIsSmallCategoryBarShown(false);
+                      addQuery_2("tv", "Popular");
+                    }}
+                  >
+                    Popular
+                  </div>
+                  <div
+                    className={smallCategoryStyle.panel_item}
+                    onClick={() => {
+                      setIsSmallCategoryBarShown(false);
+                      addQuery_2("tv", "Airing Today");
+                    }}
+                  >
+                    Airing Today
+                  </div>
+                  <div
+                    className={smallCategoryStyle.panel_item}
+                    onClick={() => {
+                      setIsSmallCategoryBarShown(false);
+                      addQuery_2("tv", "On The Air");
+                    }}
+                  >
+                    On The Air
+                  </div>
+                  <div
+                    className={smallCategoryStyle.panel_item}
+                    onClick={() => {
+                      setIsSmallCategoryBarShown(false);
+                      addQuery_2("tv", "Top Rated");
+                    }}
+                  >
+                    Top Rated
+                  </div>
+                </div>
+              )}
+              {/* ============= Genres =============== */}
+              <div className={navbarGenresButtonStyle}>
+                <div
+                  onClick={() => {
+                    setTVShowsShown(false);
+                    setIsMoviesShown(false);
+                    setIsCountryShown(false);
+                    setIsPopularPeopleShown(false);
+                    setIsYearShown(false);
+                    setIsGenresShown(!isGenresShown);
+                  }}
+                >
+                  Genres
+                </div>
+              </div>
+              {isGenresShown && (
+                <div className={smallCategoryStyle.panel_column}>
+                  {genres.map((genre, key) => {
+                    return (
+                      <div
+                        className={smallCategoryStyle.panel_item}
+                        key={key}
+                        onClick={() => {
+                          addQuery("genre", `${genre.id}`);
+                        }}
+                      >
+                        {genre.name}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+              {/* ============= Year =============== */}
+              <div className={navbarYearsButtonStyle}>
+                <div
+                  onClick={() => {
+                    setTVShowsShown(false);
+                    setIsMoviesShown(false);
+                    setIsCountryShown(false);
+                    setIsPopularPeopleShown(false);
+                    setIsYearShown(!isYearShown);
+                    setIsGenresShown(false);
+                  }}
+                >
+                  Year
+                </div>
+              </div>
+              {isYearShown && (
+                <div className={smallCategoryStyle.panel_column}>
+                  {yearArray.map((year, key) => {
+                    return (
+                      <div
+                        className={smallCategoryStyle.panel_item}
+                        key={key}
+                        onClick={() => {
+                          addQuery("year", `${year}`);
+                        }}
+                      >
+                        {year}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+              {/* ============= Country =============== */}
+              <div className={navbarCountryButtonStyle}>
+                <div
+                  onClick={() => {
+                    setTVShowsShown(false);
+                    setIsMoviesShown(false);
+                    setIsCountryShown(!isCountryShown);
+                    setIsPopularPeopleShown(false);
+                    setIsYearShown(false);
+                    setIsGenresShown(false);
+                  }}
+                >
+                  Languages
+                </div>
+              </div>
+              {isCountryShown && (
+                <div>
+                  <div className={smallCategoryStyle.s}>
+                    <div direction="row" style={{ width: "80%" }}>
+                      <SearchIcon></SearchIcon>
+                      <input
+                        style={{ width: "100%" }}
+                        onChange={(e) => {
+                          handleSearchLanguage(e.target.value);
+                        }}
+                        className={smallCategoryStyle.input_language}
+                        type="text"
+                        placeholder="Search..."
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default SmallCategoryBar;
+
+{/* <div className={smallCategoryStyle.col}>
                 <div className={navbarMoviesButtonStyle}>
                   <div
                     onClick={() => {
@@ -219,7 +441,9 @@ const removeQuery = (key) => {
                   >
                     Movie
                   </div>
-                  {isMoviesShown && (
+                  
+                </div>
+                {isMoviesShown && (
                     <div className={smallCategoryStyle.panel}>
                       <div
                         className={smallCategoryStyle.navbar_panel_item}
@@ -255,30 +479,14 @@ const removeQuery = (key) => {
                       </div>
                     </div>
                   )}
-                </div>
-              </div>
+              </div> */}
 
-              <div className={smallCategoryStyle.col}>col</div>
-              <div className={smallCategoryStyle.col}>col</div>
-              <div className={smallCategoryStyle.col}>col</div>
-              <div className={smallCategoryStyle.col}>col</div>
-              <div className={smallCategoryStyle.col}>col</div>
-              <div className={smallCategoryStyle.col}>col</div>
-              <div className={smallCategoryStyle.col}>col</div>
-              <div className={smallCategoryStyle.col}>col</div>
-              <div className={smallCategoryStyle.col}>col</div>
-              <div className={smallCategoryStyle.col}>col</div>
-              <div className={smallCategoryStyle.col}>col</div>
-              <div className={smallCategoryStyle.col}>col</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
-export default SmallCategoryBar;
+
+
+
+
+
 
 {
   /* <div className={smallCategoryStyle.col}>

@@ -127,7 +127,7 @@ function NavBar() {
                         console.log("ss");
                       }}
                     />{" "}
-                    {isSmallCategoryBarShown && <SmallCategoryBar />}
+                    {isSmallCategoryBarShown && <SmallCategoryBar setIsSmallCategoryBarShown={setIsSmallCategoryBarShown}/>}
                   </div>
                   
                 </div>
