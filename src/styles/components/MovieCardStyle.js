@@ -99,10 +99,14 @@ const MovieCardStyle = makeStyles((theme) => ({
   },
   time: {
     padding: " 0.125rem 0.5rem",
+    textAlign: "center",
+    width: "50%",
     backgroundColor: "#29bdae",
     color: "#172a46",
   },
   year: {
+    textAlign: "center",
+    width: "50%",
     color: "#4CCDEB",
   },
   movie_color_rating:{
