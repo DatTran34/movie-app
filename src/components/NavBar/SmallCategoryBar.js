@@ -1,8 +1,10 @@
 import { React, useState, useEffect } from "react";
+import { Grid, Stack } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import classNames from "classname";
 import SearchIcon from "@mui/icons-material/Search";
 import SearchBar2 from "./SearchBar2";
+import defaultLanguages from "../../data/CountryList";
 import { getCountries, getGenres } from "../../axios/NavBarRequest";
 import { useHistory, useLocation } from "react-router";
 const SmallsmallCategoryStyle = makeStyles((theme) => ({
@@ -14,7 +16,7 @@ const SmallsmallCategoryStyle = makeStyles((theme) => ({
     zIndex: "51",
   },
   box: {
-    padding:"1rem 0",
+    padding: "1rem 0",
     background: "#1f2845",
   },
   overlay_outter: {
@@ -22,7 +24,7 @@ const SmallsmallCategoryStyle = makeStyles((theme) => ({
     display: "flex",
     alignItems: "flex-start",
     height: "100vh",
-    scrollbarWidth: "none"
+    scrollbarWidth: "none",
   },
   overlay_inner: {
     display: "grid",
@@ -30,20 +32,18 @@ const SmallsmallCategoryStyle = makeStyles((theme) => ({
 
     textAlign: "center",
   },
-  col: {
-    
-  },
+  col: {},
   navbar_button: {
     cursor: "pointer",
     padding: "0.5rem 0 ",
     "&:hover": {
-      color: "#29bdae"
+      color: "#29bdae",
     },
   },
-  navbar_button_hover:{
+  navbar_button_hover: {
     //background: "#29bdae",
-    color: "#29bdae"
-},
+    color: "#29bdae",
+  },
   panel: {
     display: "grid",
     background: "#0A192F",
@@ -60,6 +60,24 @@ const SmallsmallCategoryStyle = makeStyles((theme) => ({
     "&:hover": {
       background: "red",
     },
+  },
+  input_language: {
+    fontWeight: "500",
+    background: "transparent",
+    color: "#CCD2E3",
+    border: "none",
+    outline: "none",
+  },
+  search_language_box: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "transparent",
+    borderBottom: "1.5px solid #CCD2E3",
+    transition: "width 0.5s",
+    padding: "0.5rem",
+    color: "#CCD2E3",
   },
 }));
 function SmallCategoryBar({setIsSmallCategoryBarShown}) {
@@ -405,9 +423,9 @@ const removeQuery = (key) => {
                 </div>
               </div>
               {isCountryShown && (
-                <div>
-                  <div className={smallCategoryStyle.s}>
-                    <div direction="row" style={{ width: "80%" }}>
+                <div style={{padding: "0 2rem"}}>
+                  <div className={smallCategoryStyle.search_language_box}>
+                    <Stack direction="row" style={{ width: "80%" }}>
                       <SearchIcon></SearchIcon>
                       <input
                         style={{ width: "100%" }}
@@ -418,8 +436,47 @@ const removeQuery = (key) => {
                         type="text"
                         placeholder="Search..."
                       />
-                    </div>
+                    </Stack>
                   </div>
+                  {isSearchLanguageShown ? (
+                            <div className={smallCategoryStyle.panel_column}>
+                              {filteredLanguages.slice(0,5).map((country, key) => {
+                                return (
+                                  <div
+                                    className={smallCategoryStyle.panel_item}
+                                    key={key}
+                                    onClick={() => {
+                                      addQuery(
+                                        "language",
+                                        `${country.iso_639_1}-${country.english_name}`
+                                      );
+                                    }}
+                                  >
+                                    {country.english_name}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          ) : (
+                            <div className={smallCategoryStyle.panel_column}>
+                              {defaultLanguages.map((country, key) => {
+                                return (
+                                  <div
+                                    className={smallCategoryStyle.panel_item}
+                                    key={key}
+                                    onClick={() => {
+                                      addQuery(
+                                        "language",
+                                        `${country.iso_639_1}-${country.english_name}`
+                                      );
+                                    }}
+                                  >
+                                    <div>{country.english_name}</div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
                 </div>
               )}
             </div>
