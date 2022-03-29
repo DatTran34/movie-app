@@ -26,6 +26,7 @@ import MovieInfoPageStyle from "../styles/pages/MovieInfoPageStyle";
 import YouTube from "react-youtube";
 import Modal from "@mui/material/Modal";
 import Carousel from 'react-material-ui-carousel'
+import LoadingProcess from "../components/LoadingProcess";
 const Trailer = ({videoId}) => {
   const _onReady = (event) => {
     // access to player in all event handlers via event.target
@@ -119,7 +120,7 @@ function MovieInfoPage() {
       <NavBar></NavBar>
       <Stack padding="12rem 1.5rem " position="relative">
         {!loading ? (
-          <Stack>Loading..</Stack>
+          <Stack><LoadingProcess/></Stack>
         ) : (
           <>
             {/* <Stack className={style.backdrop_container}>

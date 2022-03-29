@@ -3,10 +3,11 @@ import { getFiltered, getMultiSearch } from "../axios/MovieResquest";
 import MovieListStyle from "../styles/components/MovieListStyle";
 import { useHistory, useLocation } from "react-router";
 import MovieCard from "./MovieCard";
-import { Stack } from "@mui/material";
+import { CircularProgress, Stack } from "@mui/material";
 import classNames from "classname";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import LoadingProcess from "./LoadingProcess";
 function MovieList() {
   const history = useHistory();
   const location = useLocation();
@@ -86,7 +87,7 @@ function MovieList() {
     <>
       {" "}
       {isLoading === true ? (
-        <>Loading</>
+        <LoadingProcess/>
       ) : (
         <>
           <div className={movieListStyle.grid}>

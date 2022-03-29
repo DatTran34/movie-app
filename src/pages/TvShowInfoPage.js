@@ -22,6 +22,7 @@ import SeasonSelector from "../components/SeasonSelector";
 import MovieInfoPageStyle from "../styles/pages/MovieInfoPageStyle";
 import VerticalScrollBox from "../components/VerticalScrollBox";
 import classNames from "classname";
+import LoadingProcess from "../components/LoadingProcess";
 function TvShowInfoPage() {
   const movieInfoPageStyle = MovieInfoPageStyle();
   const history = useHistory();
@@ -94,7 +95,7 @@ function TvShowInfoPage() {
       <NavBar></NavBar>
       <Stack paddingTop="200px" position="relative">
         {!loading ? (
-          <Stack>Loading..</Stack>
+          <Stack><LoadingProcess/></Stack>
         ) : (
           <>
             {/* <Stack className={style.backdrop_container} >
