@@ -31,6 +31,7 @@ const AwardStyle = makeStyles((theme) => ({
   },
   container: {
     display: "grid",
+    backgroundColor: "yellow",
     gridGap: "1rem",
     //gridTemplateColumns: "1fr 1fr 1fr",
     ["@media (min-width:550px)"]: {
@@ -42,6 +43,7 @@ const AwardStyle = makeStyles((theme) => ({
     overflow: "auto",
     whiteSpace: "nowrap",
     height: "21rem",
+
   },
   title: {
     color: "#ffffff",

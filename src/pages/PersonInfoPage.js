@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Stack } from "@mui/material";
+import { CircularProgress, Grid, Stack } from "@mui/material";
 import {
   getPersonInfo,
   getPersonMovieCredits,
@@ -17,6 +17,7 @@ import VerticalScrollBox from "../components/VerticalScrollBox";
 import cast_img from "../images/cast_img.jpg";
 
 import { makeStyles } from "@mui/styles";
+import LoadingProcess from "../components/LoadingProcess";
 
 const PersonInfoPageStyle = makeStyles((theme) => ({
   grid: {
@@ -133,7 +134,7 @@ function PersonInfoPage2() {
       <NavBar></NavBar>
       <div style={{ padding: "12rem 1.5rem", position: "relative" }}>
         {!loading ? (
-          <div>Loading..</div>
+          <div><LoadingProcess/></div>
         ) : (
           <>
             <div className={personInfoPageStyle.grid}>

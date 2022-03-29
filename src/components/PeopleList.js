@@ -1,4 +1,4 @@
-import { Grid, Stack } from "@mui/material";
+import { CircularProgress, Grid, Stack } from "@mui/material";
 import { React, useEffect, useState } from "react";
 import {
   getFiltered,getMultiSearch
@@ -10,6 +10,7 @@ import { makeStyles } from "@mui/styles";
 import classNames from "classname";
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import LoadingProcess from "./LoadingProcess";
 const PeopleListStyle = makeStyles((theme) => ({
   grid: {
     display: "grid",
@@ -126,7 +127,7 @@ function PeopleList({ searchParams }) {
     <>
       {" "}
       {isLoading === true ? (
-        <>Loading</>
+        <LoadingProcess/>
       ) : (
         <>
           <div className={peopleListStyle.grid}>
