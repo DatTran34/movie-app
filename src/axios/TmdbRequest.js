@@ -22,6 +22,17 @@ export const getPersonInfo = async (personId) => {
   }
 };
 
+export const getPersonImages = async (personId) => {
+  try {
+    const response = await axios.get(
+      `http://api.themoviedb.org/3/person/${personId}/images?api_key=${process.env.REACT_APP_API_KEY}&append_to_response=external_ids,images`
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getPersonMovieCredits = async (personId) => {
   try {
     const response = await axios.get(

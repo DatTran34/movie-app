@@ -3,6 +3,7 @@ import { Grid, Stack } from "@mui/material";
 import {
   getPersonInfo,
   getPersonMovieCredits,
+  getPersonImages,
   getPersonCombinedCredits,
 } from "../axios/TmdbRequest";
 import { getPersonDetails, getPersonBio } from "../axios/ImdbRequest";
@@ -63,6 +64,12 @@ const PersonInfoPageStyle = makeStyles((theme) => ({
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
   },
+  album: {
+    backgroundColor: "#172a46",
+    overflow: "auto",
+    display: "flex",
+  
+  }
 }));
 
 function PersonInfoPage2() {
@@ -71,6 +78,7 @@ function PersonInfoPage2() {
   const [age, setAge] = useState(null);
   const [imdbPersonInfo, setImdbPersonInfo] = useState([]);
   const [tmdbPersonInfo, setTmdbPersonInfo] = useState([]);
+  const [tmdbPersonImages, setTmdbPersonImages] = useState([]);
   const [movieCredits, setMovieCredits] = useState([]);
   const [imdb_id, setImdb_id] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -78,10 +86,11 @@ function PersonInfoPage2() {
   const personInfoPageStyle = PersonInfoPageStyle();
 
   useEffect(() => {
-    Promise.all([getPersonInfo(params.id), getPersonCombinedCredits(params.id)])
-      .then(([urlOneData, urlTwoData]) => {
+    Promise.all([getPersonInfo(params.id), getPersonCombinedCredits(params.id), getPersonImages(params.id)])
+      .then(([urlOneData, urlTwoData, urlThreeData]) => {
         setTmdbPersonInfo(urlOneData);
         setImdb_id(urlOneData.imdb_id);
+        setTmdbPersonImages(urlThreeData.profiles)
         setMovieCredits(
           urlTwoData.cast.map((movie) => {
             return { media_type: "movie", ...movie };
@@ -128,12 +137,10 @@ function PersonInfoPage2() {
         ) : (
           <>
             <div className={personInfoPageStyle.grid}>
-              <div className={personInfoPageStyle.col}>
                 <div className={personInfoPageStyle.img}>
                   <img  src={`http://image.tmdb.org/t/p/original/${tmdbPersonInfo.profile_path}`} />
                 </div>
-              </div>
-              <div className={personInfoPageStyle.col}>
+
                 <div className={personInfoPageStyle.info_grid}>
                   <div
                     className={`${personInfoPageStyle.info_col} ${style.name}`}
@@ -159,8 +166,8 @@ function PersonInfoPage2() {
                   <div className={`${personInfoPageStyle.info_col} ${personInfoPageStyle.info_text_box}`}>
                     <div className={style.title}>HEIGHT</div>
                     <div className={style.content}>
-                      {tmdbPersonInfo.height
-                        ? `${tmdbPersonInfo.height}`
+                      {imdbPersonInfo.height
+                        ? `${imdbPersonInfo.height}`
                         : "Unknown"}
                     </div>
                   </div>
@@ -190,20 +197,21 @@ function PersonInfoPage2() {
                   </div>
                  
                 </div>
-              
-              
-              
-              
-              </div>
-              <div className={personInfoPageStyle.col}>
                 <VerticalScrollBox
                   title={"Known For"}
                   data={movieCredits}
                 ></VerticalScrollBox>
-              </div>
-              <div className={personInfoPageStyle.col}>
-                <CreditMovieList params={params}></CreditMovieList>
-              </div>
+                <div>
+                  <CreditMovieList params={params}></CreditMovieList>
+                  <div style={{display: "grid", backgroundColor:"#172a46"}}>
+                    <div style={{color: "#bb86fc", fontSize: "1.5rem", padding: "1rem 2rem 0 1rem"}}>Images</div>
+                    <div className={personInfoPageStyle.album}>
+                      {tmdbPersonImages.map((image) => {
+                        return <img style={{width: "12rem", padding: "1rem"}} src={`http://image.tmdb.org/t/p/original/${image.file_path}`}/>
+                      })}                          
+                    </div>
+                  </div>
+                </div>
             </div>
           </>
         )}

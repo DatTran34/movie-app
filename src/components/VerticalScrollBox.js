@@ -6,19 +6,17 @@ import { useHistory, useLocation } from "react-router";
 const VerticalScrollBoxStyle = makeStyles((theme) => ({
     vertical_scroll_box_container : {
       background: "#172a46",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "flex-start",
-      justifyContent: "center",
+      display: "grid",
+      height: "40rem"
     },
     vertical_scroll_box: {
-        width: "100%"
+        width: "100%",
     },
     vertical_scroll_box_overlay_outter:{
         overflow: "auto",
         display: "flex",
+        flexDirection: "column",
         alignItems: "flex-start",
-        height: "35rem"
     },
     vertical_scroll_box_overlay_inner: {
       width: "100%"
@@ -39,14 +37,7 @@ function VerticalScrollBox({isMovie, title, data}) {
     return (
         <div className={verticalScrollBoxStyle.vertical_scroll_box_container}>
                   <div className={verticalScrollBoxStyle.vertical_scroll_box_title}>{title}</div>
-                  <div className={verticalScrollBoxStyle.vertical_scroll_box}>
                     <div className={verticalScrollBoxStyle.vertical_scroll_box_overlay_outter}>
-                      <Stack
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="flex-start"
-                        className={verticalScrollBoxStyle.vertical_scroll_box_overlay_inner}
-                      >
                         {data?.map((movie, key) => {
                           return (
                             <SmallMovieCard
@@ -57,9 +48,8 @@ function VerticalScrollBox({isMovie, title, data}) {
                             ></SmallMovieCard>
                           );
                         })}
-                      </Stack>
+                      
                     </div>
-                  </div>
                 </div>
     )
 }

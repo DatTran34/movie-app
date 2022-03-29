@@ -42,7 +42,6 @@ function MovieCard({ movie, isMovie }) {
   return (
       <div onClick={() => history.push(`/${movie.media_type}/${movie.id}`)}>
         <div className={movieCardStyle.box}>
-          
           {movie.poster_path === null ? (
             <img
             className={movieCardStyle.img}

@@ -85,6 +85,15 @@ const Style = makeStyles((theme) => ({
         maxWidth:"10rem",
         fontWeight: "700"
     },
+    rating_genre_grid:{
+        display: "grid",
+        marginTop: "1rem",
+        gridGap: "1rem",
+        gridTemplateColumns: "repeat(1,1fr)",
+        ["@media (min-width:550px)"]: {
+            gridTemplateColumns: "repeat(2,1fr)",
+          },
+    },
     category_button:{
         display: "flex",
         cursor: "pointer",

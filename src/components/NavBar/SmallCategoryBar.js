@@ -8,16 +8,33 @@ import defaultLanguages from "../../data/CountryList";
 import { getCountries, getGenres } from "../../axios/NavBarRequest";
 import { useHistory, useLocation } from "react-router";
 const SmallsmallCategoryStyle = makeStyles((theme) => ({
+  "@keyframes myEffect": {
+    "0%": {
+      height: "0",
+    },
+    "100%": {
+      height: "auto",
+    },
+  },
+  "@keyframes myNavbarEffect": {
+    "0%": {
+      width: "0vw",
+    },
+    "100%": {
+      width: "80vw",
+    },
+  },
   container: {
     position: " absolute",
     width: "100%",
-    top: "5.5rem",
-    left: "0",
+    top: "3.5rem",
+    right: "0",
     zIndex: "51",
+    animation: `$myNavbarEffect 0.4s ease-in-out`,
   },
   box: {
     padding: "1rem 0",
-    background: "#1f2845",
+    background: "#0a192f",
   },
   overlay_outter: {
     overflow: "auto",
@@ -46,19 +63,21 @@ const SmallsmallCategoryStyle = makeStyles((theme) => ({
   },
   panel: {
     display: "grid",
-    background: "#0A192F",
+    animation: `$myEffect 0.4s ease-out`,
+    background: "#112240",
   },
   panel_column: {
+    
     display: "grid",
     gridGap: "0.5rem",
     gridTemplateColumns: "repeat(3,1fr)",
-    background: "#0A192F",
+    background: "#112240",
   },
   panel_item: {
     cursor: "pointer",
     padding: "0.5rem 0",
     "&:hover": {
-      background: "red",
+      background: "#28baac",
     },
   },
   input_language: {
@@ -225,7 +244,7 @@ const removeQuery = (key) => {
 };
   return (
     <div className={smallCategoryStyle.container}>
-      <div style={{ padding: "0 1rem" }}>
+      <div>
         <div className={smallCategoryStyle.box}>
           <div className={smallCategoryStyle.overlay_outter}>
             <div className={smallCategoryStyle.overlay_inner}>

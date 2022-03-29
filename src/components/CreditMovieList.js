@@ -7,7 +7,8 @@ import { useHistory, useLocation } from "react-router";
 const YearSelectorStyle = makeStyles((theme) => ({
   root: {
     "& select": {
-      backgroundColor: "#172a46",
+      backgroundColor: "#112240",
+      margin: "0.5rem 0",
       padding: "10px",
       color: "#CCD2E3",
       border: "none",
@@ -18,7 +19,7 @@ const YearSelectorStyle = makeStyles((theme) => ({
     alignItems: "left",
   },
   selectItems: {
-    backgroundColor: "DodgerBlue",
+    backgroundColor: "#172a46",
   },
 }));
 
@@ -172,7 +173,7 @@ function CreditMovieList({ params }) {
           }
           return (
             <div key={key}>
-              <div className={personInfoPageStyle.credits_box_title}>{k}</div>
+              <div className={personInfoPageStyle.credits_box_position}>{k}</div>
               <div className={personInfoPageStyle.credits_box}>
                 {Object.entries(v).map(([k, v], key) => {
                   return (

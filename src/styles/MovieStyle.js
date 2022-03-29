@@ -2,7 +2,7 @@ import { makeStyles } from "@mui/styles";
 
 const MovieStyle = makeStyles((theme) => ({
   container: {
-    paddingTop: "12rem",
+    paddingTop: "7rem",
   },
   header: {
     color: "#ccd6f6",

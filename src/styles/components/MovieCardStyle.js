@@ -1,16 +1,6 @@
 import { makeStyles } from "@mui/styles";
 import { keyframes } from "@mui/styled-engine";
 
-const bounce = keyframes`
-  from {
-    transform: scale(1);
-  }
-
-  to {
-    transform: scale(1.2);
-  }
-`;
-
 const MovieCardStyle = makeStyles((theme) => ({
   // card: {
   //   display: "flex",
@@ -38,10 +28,19 @@ const MovieCardStyle = makeStyles((theme) => ({
   //   //   paddingTop: "1.25rem",
   //   // },
   // },
+  "@keyframes cardEffect": {
+    "0%": {
+      opacity: "0",
+    },
+    "100%": {
+      opacity: "100%",
+    },
+  },
+
   box: {
     cursor: "pointer",
     position: "relative",
-    
+
     "& img": {
         width: "100%",
         height: "100%"
@@ -79,6 +78,7 @@ const MovieCardStyle = makeStyles((theme) => ({
     boxShadow: "3px 3px 10px rgba(76, 205, 235, 0.5)"
   },
   img: {
+    animation: `$cardEffect 0.4s ease-in-out`,
     transition: "all 0.2s ease-out",
     boxShadow: "2px 2px 9px 5px rgba(0,0,0,0.75)",
     "&:hover" :{

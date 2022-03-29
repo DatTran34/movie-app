@@ -7,7 +7,8 @@ import {
 import { getRapidMovieInfo } from "../axios/RapidImdbRequest";
 import React, { useEffect, useState } from "react";
 import Style from "../styles/Style";
-import avatar from "../images/avatar.png";
+import female_ava from "../images/female_ava.png";
+import male_ava2 from "../images/male_ava2.png";
 import imdb from "../images/imdb.png";
 import metacritic from "../images/metacritic.png";
 import Rotten_Tomatoes1 from "../images/Rotten_Tomatoes1.png";
@@ -163,10 +164,8 @@ function MovieInfoPage() {
                     >
                       Watch Trailer
                     </div>
-                    <Stack
-                      direction="row"
-                      spacing={3}
-                      sx={{ marginTop: "1rem" }}
+                    <div
+                      className={`${style.rating_genre_grid}`}
                     >
                       <Stack
                         direction="row"
@@ -241,7 +240,7 @@ function MovieInfoPage() {
                           </div>
                         ))}
                       </Stack>
-                    </Stack>
+                    </div>
                   </div>
                   <div className={`${movieInfoPageStyle.info_col_grid}`}>
                     <div className={movieInfoPageStyle.info_text_box}>
@@ -305,16 +304,35 @@ function MovieInfoPage() {
                             style={{ cursor: "pointer" }}
                             onClick={() => history.push(`/person/${person.id}`)}
                           >
-                            <img
-                              className={movieInfoPageStyle.cast_image}
-                              src={`http://image.tmdb.org/t/p/original/${person.profile_path}`}
-                            />
+                            <>
+                            {(person.profile_path === null) ? (
+                              <>
+                              {(person.gender === 1) ? (
+                                <img
+                                className={movieInfoPageStyle.cast_image}
+                                src={female_ava}
+                              />
+                              ) : (
+                                <img
+                                className={movieInfoPageStyle.cast_image}
+                                src={male_ava2}
+                              />
+                              )}
+                              </>
+                            ) : (
+                              <img
+                                className={movieInfoPageStyle.cast_image}
+                                src={`http://image.tmdb.org/t/p/original/${person.profile_path}`}
+                              />
+                            )}
+                            </>
+
                             <Stack
                               direction="column"
-                              justifyContent="flex-start"
+                              justifyContent="center"
                               alignItems="flex-start"
                               style={{ textAlign: "left" }}
-                              spacing={1}
+                              spacing={0.025}
                             >
                               <div
                                 style={{
@@ -354,6 +372,9 @@ function MovieInfoPage() {
                 title={"Similar Movies"}
                 data={recommendedMovie}
               ></VerticalScrollBox>
+              <div>
+
+              </div>
             </div>
           </>
         )}
